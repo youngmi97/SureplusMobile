@@ -23,7 +23,7 @@ function Crew() {
           marginLeft: "24px",
         }}
       >
-        <Box
+        {/* <Box
           style={{
             margin: 0,
             padding: 0,
@@ -70,12 +70,12 @@ function Crew() {
                     fontWeight: 500,
                   }}
                 >
-                  크루 만들기
+                  Create Group
                 </Typography>
               </Box>
             </Box>
           </Button>
-        </Box>
+        </Box> */}
 
         <Box
           style={{
@@ -90,11 +90,11 @@ function Crew() {
             r2="12px"
             r3="12px"
             r4="12px"
-            month="3월"
+            month="Mar"
             day="4"
             src="/Img/Aaptiv/[32].svg"
             name="Aaptiv"
-            plan="5900원 / 매월"
+            plan="5900원 / Monthly"
             a={1}
             b={3}
             finish={1}
@@ -113,11 +113,11 @@ function Crew() {
             r2="12px"
             r3="12px"
             r4="12px"
-            month="3월"
+            month="Mar"
             day="4"
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
-            plan="5900원 / 매월"
+            plan="5900원 / Monthly"
             a={1}
             b={3}
             finish={0}
@@ -136,11 +136,11 @@ function Crew() {
             r2="12px"
             r3="0px"
             r4="0px"
-            month="12월"
+            month="Dec"
             day="4"
             src="/Img/BarkBox/[32].svg"
             name="BarkBox"
-            plan="5900원 / 매월"
+            plan="5900원 / Monthly"
             a={1}
             b={5}
             finish={0}
@@ -150,11 +150,11 @@ function Crew() {
             r2="0px"
             r3="0px"
             r4="0px"
-            month="12월"
+            month="Dec"
             day="6"
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
-            plan="5900원 / 매월"
+            plan="5900원 / Monthly"
             a={2}
             b={3}
             finish={0}
@@ -164,11 +164,11 @@ function Crew() {
             r2="0px"
             r3="12px"
             r4="12px"
-            month="12월"
+            month="Dec"
             day="12"
             src="/Img/Avast/[32].svg"
             name="Avast"
-            plan="5900원 / 매월"
+            plan="5900원 / Monthly"
             a={2}
             b={4}
             finish={0}

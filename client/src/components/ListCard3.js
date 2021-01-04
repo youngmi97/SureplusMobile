@@ -30,10 +30,23 @@ function ListCard2(props) {
             margin: 0,
             padding: 0,
             width: "100%",
-            height: "100%",
+            height: "7.88vh",
           }}
         >
-          <Box p={1} style={{ margin: 0, padding: 0, width: "7.88vh" }}>
+          <Box
+            p={1}
+            display="flex"
+            alignItems="center"
+            flexDirection="column"
+            justifyContent="center"
+            style={{
+              margin: 0,
+              padding: 0,
+              width: "7.88vh",
+              height: "7.88vh",
+              backgroundColor: "rgba(200, 199, 204, 0.1)",
+            }}
+          >
             <Typography
               style={{
                 fontSize: "1.23vh",
@@ -126,7 +139,7 @@ function ListCard2(props) {
                   }}
                 >
                   <Typography style={{ fontSize: "1.23vh", color: "#666666" }}>
-                    공유중
+                    Shared
                   </Typography>
                 </Box>
               );

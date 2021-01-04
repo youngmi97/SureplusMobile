@@ -26,7 +26,7 @@ function Appbar2(props) {
       backgroundColor: "transparent",
       bottom: 0,
       "& > span": {
-        width: "100%",
+        width: "90%",
         backgroundColor: "black",
       },
     },
@@ -52,15 +52,20 @@ function Appbar2(props) {
   return (
     <div style={{ width: "100%" }}>
       <div style={{ minHeight: "5.788vh" }}></div>
-      <div style={{ margin: 0, padding: 0, marginLeft: 16 }}>
-        <img
-          src="Left.svg"
-          style={{
-            width: "4.43vh",
-            height: "4.43vh",
-          }}
-        ></img>
-      </div>
+      <Box display="flex" p={1} style={{ margin: 0, padding: 0 }}>
+        <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}></Box>
+        <Box p={1} style={{ margin: 0, padding: 0 }}>
+          <div style={{ margin: 0, padding: 0, marginRight: 16 }}>
+            <img
+              src="Frame 318.svg"
+              style={{
+                width: "4.43vh",
+                height: "4.43vh",
+              }}
+            ></img>
+          </div>
+        </Box>
+      </Box>
 
       <Typography
         style={{
@@ -68,7 +73,7 @@ function Appbar2(props) {
           fontSize: "3vh",
           margin: 0,
           padding: 0,
-          marginLeft: 24,
+          marginLeft: 16,
         }}
       >
         {props.Text}
@@ -80,17 +85,11 @@ function Appbar2(props) {
         style={{
           margin: 0,
           padding: 0,
-          marginLeft: 24,
           marginTop: "1.47vh",
-          width: "18.719vh",
+          width: "100%",
         }}
       >
-        <StyledTab
-          label={props.Tab1}
-          style={{ marginRight: 8 }}
-          {...{ to: "/crew" }}
-          component={Link}
-        />
+        <StyledTab label={props.Tab1} {...{ to: "/crew" }} component={Link} />
         <StyledTab label={props.Tab2} {...{ to: "/crew2" }} component={Link} />
       </StyledTabs>
     </div>

@@ -1,15 +1,43 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Button, Typography, Box } from "@material-ui/core";
-import "react-circular-progressbar/dist/styles.css";
-import ListCard from "./ListCard5";
+import ListCard from "./ListCard3";
+import ListCard1 from "./ListCard";
+import ListCard2 from "./ListCard2";
+import Calendar from "./calendar";
 import "../App.css";
 
 const useStyles = makeStyles((theme) => ({}));
 
-function Crew2() {
+function Subscribe() {
+  const [selected, setSelected] = React.useState(null);
+
+  const cards = { 1: [2], 2: [5] };
   return (
-    <div style={{ width: "100%", alignContent: "center" }}>
+    <div
+      style={{
+        width: "100%",
+        alignContent: "center",
+        maxHeight: "77vh",
+        overflow: "auto",
+      }}
+    >
+      <div
+        style={{
+          width: "100vw",
+          height: "45vh",
+          backgroundColor: "#ffffff",
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Calendar
+          selected={selected}
+          cards={cards}
+          setSelected={(a) => setSelected(a)}
+        />
+      </div>
       <div
         style={{
           marginTop: "2.956vh",
@@ -20,6 +48,7 @@ function Crew2() {
         <Box
           style={{
             margin: 0,
+            marginTop: 16,
             padding: 0,
             filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))",
           }}
@@ -33,14 +62,14 @@ function Crew2() {
             day="4"
             src="/Img/Aaptiv/[32].svg"
             name="Aaptiv"
-            plan="5900원 / Monthly"
+            plan="$5.9 / Monthly"
             share={0}
           ></ListCard>
         </Box>
         <Box
           style={{
             margin: 0,
-            marginTop: 24,
+            marginTop: 16,
             padding: 0,
             filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))",
           }}
@@ -54,14 +83,14 @@ function Crew2() {
             day="4"
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
-            plan="5900원 / Monthly"
+            plan="$5.9 / Monthly"
             share={1}
           ></ListCard>
         </Box>
         <Box
           style={{
             margin: 0,
-            marginTop: 24,
+            marginTop: 16,
             padding: 0,
             filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))",
           }}
@@ -75,7 +104,7 @@ function Crew2() {
             day="4"
             src="/Img/BarkBox/[32].svg"
             name="BarkBox"
-            plan="5900원 / Monthly"
+            plan="$5.9 / Monthly"
             share={1}
           ></ListCard>
           <ListCard
@@ -87,7 +116,7 @@ function Crew2() {
             day="6"
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
-            plan="5900원 / Monthly"
+            plan="$5.9 / Monthly"
             share={1}
           ></ListCard>
           <ListCard
@@ -99,7 +128,7 @@ function Crew2() {
             day="12"
             src="/Img/Avast/[32].svg"
             name="Avast"
-            plan="5900원 / Monthly"
+            plan="$5.9 / Monthly"
             share={1}
           ></ListCard>
         </Box>
@@ -108,4 +137,4 @@ function Crew2() {
   );
 }
 
-export default Crew2;
+export default Subscribe;

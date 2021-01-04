@@ -121,12 +121,12 @@ function ListCard5(props) {
                     margin: 0,
                     padding: "4px 8px",
                     marginRight: 16,
-                    backgroundColor: "#F1F3F5",
+                    backgroundColor: "rgba(0, 122, 255, 1)",
                     borderRadius: "10.5px",
                   }}
                 >
-                  <Typography style={{ fontSize: "1.23vh", color: "#007AFF" }}>
-                    송금하기
+                  <Typography style={{ fontSize: "1.23vh", color: "white" }}>
+                    Pay
                   </Typography>
                 </Box>
               );
@@ -143,7 +143,7 @@ function ListCard5(props) {
                   }}
                 >
                   <Typography style={{ fontSize: "1.23vh", color: "#666666" }}>
-                    송금완료
+                    Done
                   </Typography>
                 </Box>
               );

@@ -7,7 +7,14 @@ const useStyles = makeStyles((theme) => ({}));
 
 function Wallet() {
   return (
-    <div style={{ width: "100%", alignContent: "center" }}>
+    <div
+      style={{
+        width: "100%",
+        alignContent: "center",
+        maxHeight: "78vh",
+        overflow: "auto",
+      }}
+    >
       <div
         style={{
           marginTop: "6.77vh",
@@ -16,66 +23,32 @@ function Wallet() {
           height: "63.67vh",
         }}
       >
-        <Typography
-          style={{ fontSize: "7.38vh", fontWeight: 600, textAlign: "center" }}
-        >
-          40만원
-        </Typography>
-
         <Box
           display="flex"
           p={1}
           alignItems="center"
-          style={{ margin: 0, padding: 0, marginTop: "7.88vh", height: "6vh" }}
+          alignContent="center"
+          justifyContent="center"
+          justifyItems="center"
+          style={{
+            margin: 0,
+            padding: 0,
+          }}
         >
-          <Box
-            p={1}
-            display="flex"
-            justifyContent="flex-start"
-            style={{ margin: 0, padding: 0, width: "50%" }}
+          <div
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              height: "25.12vh",
+              width: "100%",
+            }}
           >
-            <Button
-              style={{
-                width: "41.6vw",
-                height: "6vh",
-                borderRadius: "24px",
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
-                flexDirection: "row",
-                backgroundColor: "white",
-                border: "2px solid #ACB5BE",
-              }}
-            >
-              <Typography style={{ fontWeight: 500, fontSize: "2.1vh" }}>
-                충전하기
-              </Typography>
-            </Button>
-          </Box>
-          <Box
-            p={1}
-            display="flex"
-            justifyContent="flex-end"
-            style={{ margin: 0, padding: 0, width: "50%" }}
-          >
-            <Button
-              style={{
-                width: "41.6vw",
-                height: "6vh",
-                borderRadius: "24px",
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
-                flexDirection: "row",
-                backgroundColor: "white",
-                border: "2px solid #ACB5BE",
-              }}
-            >
-              <Typography style={{ fontWeight: 500, fontSize: "2.1vh" }}>
-                이체하기
-              </Typography>
-            </Button>
-          </Box>
+            <img
+              src="Card.png"
+              style={{ height: "25.12vh", width: "100%" }}
+            ></img>
+          </div>
         </Box>
         <Button
           style={{
@@ -85,6 +58,7 @@ function Wallet() {
             borderRadius: "12px",
             width: "100%",
             height: "7.88vh",
+            textTransform: "none",
           }}
         >
           <Box
@@ -113,7 +87,7 @@ function Wallet() {
               style={{ margin: 0, padding: 0, marginLeft: 16 }}
             >
               <Typography style={{ fontSize: "2.1vh", textAlign: "left" }}>
-                최근 거래내역
+                Transactions
               </Typography>
             </Box>
             <Box p={1} style={{ margin: 0, padding: 0, marginRight: 20 }}>
@@ -143,6 +117,7 @@ function Wallet() {
             borderBottomRightRadius: "0px",
             width: "100%",
             height: "7.88vh",
+            textTransform: "none",
           }}
         >
           <Box
@@ -173,7 +148,7 @@ function Wallet() {
             >
               <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Typography style={{ fontSize: "2.1vh", textAlign: "left" }}>
-                  카드
+                  Card
                 </Typography>
               </Box>
               <Box p={1} style={{ margin: 0, padding: 0, marginLeft: 4 }}>
@@ -215,6 +190,7 @@ function Wallet() {
             borderBottomRightRadius: "12px",
             width: "100%",
             height: "7.88vh",
+            textTransform: "none",
           }}
         >
           <Box
@@ -245,7 +221,7 @@ function Wallet() {
             >
               <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Typography style={{ fontSize: "2.1vh", textAlign: "left" }}>
-                  은행
+                  Bank
                 </Typography>
               </Box>
               <Box p={1} style={{ margin: 0, padding: 0, marginLeft: 4 }}>
@@ -276,7 +252,7 @@ function Wallet() {
             </Box>
           </Box>
         </Button>
-        <Button
+        {/* <Button
           style={{
             padding: 0,
             marginTop: "1.97vh",
@@ -330,7 +306,7 @@ function Wallet() {
               </div>
             </Box>
           </Box>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

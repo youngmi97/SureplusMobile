@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 import AppBar from "../components/Appbar3";
-import Main from "../components/MainSubscribe";
+import Main from "../components/MainSubscribe2";
 
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -27,13 +27,12 @@ function Subscription() {
           Tab1="List"
           Tab2="Calendar"
           Link="Subscription"
-          state={0}
+          state={1}
         />
       </div>
       <div
         style={{
           width: "100%",
-
           alignContent: "center",
         }}
       >
