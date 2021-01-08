@@ -10,24 +10,50 @@ const useStyles = makeStyles((theme) => ({}));
 function Appbar1(props) {
   return (
     <div style={{ width: "100%" }}>
-      <div style={{ minHeight: "5vh" }}></div>
       <Box
         display="flex"
         p={1}
         alignItems="center"
-        style={{ margin: 0, padding: 0, height: "7vh" }}
+        style={{ margin: 0, padding: 0, height: "5.72vh" }}
       >
+        <Box
+          p={1}
+          style={{
+            position: "absolute",
+            margin: 0,
+            padding: 0,
+            left: "2.13vw",
+          }}
+        >
+          <img
+            src="Back.svg"
+            style={{ width: "4.16vh", height: "4.16vh" }}
+          ></img>
+        </Box>
         <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
           <Typography
-            style={{ fontWeight: 600, fontSize: "3vh", marginLeft: 16 }}
+            style={{
+              width: "100vw",
+              fontWeight: 600,
+              fontSize: "2.21vh",
+              textAlign: "center",
+            }}
           >
-            {props.name}
+            Wallet
           </Typography>
         </Box>
-        <Box p={1} style={{ margin: 0, padding: 0, marginRight: 9 }}>
+        <Box
+          p={1}
+          style={{
+            position: "absolute",
+            margin: 0,
+            padding: 0,
+            right: "2.13vw",
+          }}
+        >
           <img
-            src="Frame 248.svg"
-            style={{ width: "4.43vh", height: "4.43vh" }}
+            src="Add Card.png"
+            style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
       </Box>

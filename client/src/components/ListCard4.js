@@ -138,7 +138,7 @@ function ListCard4(props) {
                   }}
                 >
                   <Typography style={{ fontSize: "2.09vh", color: "#AEB5BC" }}>
-                    완료
+                    Done
                   </Typography>
                 </Box>
               );

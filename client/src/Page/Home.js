@@ -16,7 +16,7 @@ function Home() {
           backgroundColor: "white",
         }}
       >
-        <AppBar name={"홈"} />
+        <AppBar name={"Wallet"} />
       </div>
       <div
         style={{

@@ -18,6 +18,7 @@ function ListCard(props) {
         borderBottomRightRadius: props.r4,
         width: "100%",
         height: "7.88vh",
+        textTransform: "none",
       }}
     >
       {(() => {
@@ -53,14 +54,32 @@ function ListCard(props) {
                   ></img>
                 </div>
               </Box>
+              <Box p={1} style={{ margin: 0, padding: 0, marginLeft: 8 }}>
+                <Typography style={{ fontSize: "2.1vh", textAlign: "left" }}>
+                  {props.text}
+                </Typography>
+              </Box>
               <Box
                 p={1}
                 flexGrow={1}
                 style={{ margin: 0, padding: 0, marginLeft: 8 }}
               >
-                <Typography style={{ fontSize: "2.1vh", textAlign: "left" }}>
-                  {props.text}
-                </Typography>
+                <div
+                  style={{
+                    alignItems: "center",
+                    display: "flex",
+                  }}
+                >
+                  <img
+                    src={"chevron.up -s.svg"}
+                    style={{
+                      width: "3vh",
+                      height: "3vh",
+                      margin: 0,
+                      padding: 0,
+                    }}
+                  ></img>
+                </div>
               </Box>
               <Box
                 p={1}
@@ -78,7 +97,7 @@ function ListCard(props) {
                     {props.second}
                   </Typography>
                 </Box>
-                <Box p={1} style={{ margin: 0, padding: 0 }}>
+                {/* <Box p={1} style={{ margin: 0, padding: 0 }}>
                   <div
                     style={{
                       justifyContent: "center",
@@ -96,7 +115,7 @@ function ListCard(props) {
                       }}
                     ></img>
                   </div>
-                </Box>
+                </Box> */}
               </Box>
             </Box>
           );
