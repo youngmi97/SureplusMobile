@@ -57,7 +57,7 @@ function Wallet() {
           icon={
             <img
               style={{ width: "3.92vh", height: "3.92vh" }}
-              src="Icon/Wallet.svg"
+              src="Property 1=Home.svg"
             ></img>
           }
         />
@@ -68,34 +68,18 @@ function Wallet() {
           icon={
             <img
               style={{ width: "3.92vh", height: "3.92vh" }}
-              src="Icon/Subscriptions.svg"
+              src="Property 1=Subscriptions.svg"
             ></img>
           }
         />
         <BottomNavigationAction
+          component={Link}
+          to="/Crew"
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img
               style={{ width: "3.92vh", height: "3.92vh" }}
-              src="Icon/Search.svg"
-            ></img>
-          }
-        />
-        <BottomNavigationAction
-          style={{ margin: 0, padding: 0, minWidth: "auto" }}
-          icon={
-            <img
-              style={{ width: "3.92vh", height: "3.92vh" }}
-              src="Icon/Activity.svg"
-            ></img>
-          }
-        />
-        <BottomNavigationAction
-          style={{ margin: 0, padding: 0, minWidth: "auto" }}
-          icon={
-            <img
-              style={{ width: "3.92vh", height: "3.92vh" }}
-              src="Icon/More.svg"
+              src="Property 1=Group.svg"
             ></img>
           }
         />

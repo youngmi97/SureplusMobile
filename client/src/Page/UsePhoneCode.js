@@ -460,6 +460,8 @@ function Onboarding() {
               fontWeight: 500,
               fontSize: "17px",
             }}
+            component={Link}
+            to="/"
           >
             Next
           </Typography>

@@ -16,7 +16,7 @@ function App() {
       <Router>
         <div>
           <Route exact path="/" component={Wallet} />
-          <Route exact path="/Home" component={Home} />
+          {/* <Route exact path="/Home" component={Home} /> */}
           <Route exact path="/Subscription" component={Subscription} />
           <Route exact path="/Subscription2" component={Subscription2} />
           <Route exact path="/Crew" component={Crew} />
