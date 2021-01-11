@@ -5,6 +5,7 @@ import "../App.css";
 import AppBar from "../components/Appbar1";
 import Main from "../components/MainWallet";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
+import Typography from "@material-ui/core/Typography";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import { Link } from "react-router-dom";
 
@@ -53,6 +54,7 @@ function Wallet() {
         <BottomNavigationAction
           component={Link}
           to="/"
+          label={<Typography style={{ color: "black" }}>Home</Typography>}
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img
@@ -64,6 +66,9 @@ function Wallet() {
         <BottomNavigationAction
           component={Link}
           to="/Subscription"
+          label={
+            <Typography style={{ color: "black" }}>Subscriptions</Typography>
+          }
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img
@@ -75,6 +80,7 @@ function Wallet() {
         <BottomNavigationAction
           component={Link}
           to="/Crew"
+          label={<Typography style={{ color: "black" }}>Groups</Typography>}
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img

@@ -17,10 +17,8 @@ import {
 } from "@material-ui/core/styles";
 // import AppBar from "@material-ui/core/AppBar";
 
-import FormHelperText from "@material-ui/core/FormHelperText";
-
 import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
+
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -32,7 +30,7 @@ import Dialog from "@material-ui/core/Dialog";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import React from "react";
-import { ButtonBase, Typography, Avatar, Box } from "@material-ui/core";
+import { ButtonBase, Typography, Avatar, Box, Drawer } from "@material-ui/core";
 //Sort
 import FormControl from "@material-ui/core/FormControl";
 
@@ -45,6 +43,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import "../App.css";
 
+const drawerWidth = "100vw";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -175,6 +174,13 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 8,
       boxShadow: "0 0 0 0.2rem rgba(118, 16, 235, 0.25)",
     },
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
   },
   inputInput1: {
     padding: "10.5px 26px 10.5px 12px",
@@ -427,7 +433,7 @@ export default function Subscription(props) {
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 left: "2.13vw",
@@ -445,7 +451,6 @@ export default function Subscription(props) {
             <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
               <Typography
                 style={{
-                  width: "100vw",
                   fontWeight: 600,
                   fontSize: "2.21vh",
                   textAlign: "center",
@@ -457,7 +462,7 @@ export default function Subscription(props) {
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 right: "2.13vw",
@@ -479,7 +484,7 @@ export default function Subscription(props) {
           </Box>
           <DialogContent className={classes.Avatar}>
             <div>
-              <List style={{ padding: 24 }}>
+              <List style={{ padding: 24, paddingBottom: "14.3vh" }}>
                 {lists.map((name) => {
                   return (
                     <ListItem
@@ -512,6 +517,50 @@ export default function Subscription(props) {
                 })}
               </List>
             </div>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              anchor="bottom"
+            >
+              <div
+                style={{
+                  paddingRight: 16,
+                  paddingLeft: 16,
+                  height: "14.3vh",
+                }}
+              >
+                <Button
+                  style={{
+                    margin: 0,
+                    marginTop: 16,
+                    padding: 0,
+                    height: "5.99vh",
+                    borderRadius: "24px",
+                    background:
+                      "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+                    color: "white",
+                    textTransform: "none",
+                    width: "100%",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      color: "white",
+
+                      fontWeight: 500,
+                      fontSize: "17px",
+                    }}
+                  >
+                    Create Custom Subscription
+                  </Typography>
+                </Button>
+              </div>
+            </Drawer>
           </DialogContent>
         </div>
       </Dialog>
@@ -543,7 +592,7 @@ export default function Subscription(props) {
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 left: "2.13vw",
@@ -568,7 +617,6 @@ export default function Subscription(props) {
             <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
               <Typography
                 style={{
-                  width: "100vw",
                   fontWeight: 600,
                   fontSize: "2.21vh",
                   textAlign: "center",
@@ -580,60 +628,71 @@ export default function Subscription(props) {
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 right: "2.13vw",
               }}
             >
-              <Button
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  minWidth: 0,
-                  minHeight: 0,
-                  textTransform: "none",
+              <IconButton
+                aria-label="close"
+                onClick={() => {
+                  props.handleClose();
+                  handleClose1();
                 }}
+                disableRipple={true}
+                disableFocusRipple={true}
+                style={{ padding: 0, margin: 0, minHeight: 0, minWidth: 0 }}
               >
-                <Typography
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "2.21vh",
-                    textAlign: "center",
-                  }}
-                >
-                  Add
-                </Typography>
-              </Button>
+                <img
+                  src="Exit.svg"
+                  style={{ width: "3.12vh", height: "3.12vh" }}
+                />
+              </IconButton>
             </Box>
           </Box>
-          <DialogContent className={classes.Avatar}>
+          <DialogContent
+            className={classes.Avatar}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingLeft: 24,
+              paddingRight: 24,
+            }}
+          >
             <div
               style={{
-                marginLeft: 24,
-                marginRight: 24,
+                position: "relative",
                 backgroundColor: "black",
                 marginTop: 24,
-                height: "25.44vh",
+                height: "158px",
+                width: "257px",
                 borderRadius: "12px",
+                overflow: "hidden",
+                boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.6)",
               }}
             >
               <img
-                src="/Img/Avast/[48].svg"
+                src="/g5747.svg"
                 style={{
-                  marginLeft: 16,
+                  position: "absolute",
+
+                  left: 150,
+                  top: -38,
                   marginTop: "2.03vh",
-                  width: "6.1vh",
-                  height: "6.1vh",
+                  width: "121px",
+                  height: "221px",
                 }}
               />
               <Typography
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginLeft: 16,
-                  marginTop: "8.14vh",
-                  fontSize: "3.05vh",
+                  marginLeft: 20,
+                  marginTop: "85px",
+                  fontSize: "24px",
                   color: "white",
                 }}
               >
@@ -643,16 +702,18 @@ export default function Subscription(props) {
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginLeft: 16,
-                  marginTop: "0.5vh",
-                  fontSize: "1.78vh",
+                  marginLeft: 20,
+                  marginTop: "1px",
+                  fontSize: "14px",
                   color: "white",
                 }}
               >
-                Standard Membership • $12.99
+                $12.99 • 2 weeks
               </Typography>
             </div>
-            <List style={{ padding: 24 }}>
+            <List
+              style={{ padding: 24, width: "100%", paddingBottom: "14.3vh" }}
+            >
               <ListItem
                 button
                 className={classes.List}
@@ -740,6 +801,50 @@ export default function Subscription(props) {
                 </ListItemSecondaryAction>
               </ListItem>
             </List>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              anchor="bottom"
+            >
+              <div
+                style={{
+                  paddingRight: 16,
+                  paddingLeft: 16,
+                  height: "14.3vh",
+                }}
+              >
+                <Button
+                  style={{
+                    margin: 0,
+                    marginTop: 16,
+                    padding: 0,
+                    height: "5.99vh",
+                    borderRadius: "24px",
+                    background:
+                      "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+                    color: "white",
+                    textTransform: "none",
+                    width: "100%",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      color: "white",
+
+                      fontWeight: 500,
+                      fontSize: "17px",
+                    }}
+                  >
+                    Create Custom Subscription
+                  </Typography>
+                </Button>
+              </div>
+            </Drawer>
           </DialogContent>
         </div>
       </Dialog>

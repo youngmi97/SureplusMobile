@@ -6,11 +6,12 @@ import Main from "../components/MainCrew";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import { Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({}));
 
 function Crew() {
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(2);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       <div
@@ -58,6 +59,7 @@ function Crew() {
         <BottomNavigationAction
           component={Link}
           to="/"
+          label={<Typography style={{ color: "black" }}>Home</Typography>}
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img
@@ -69,6 +71,9 @@ function Crew() {
         <BottomNavigationAction
           component={Link}
           to="/Subscription"
+          label={
+            <Typography style={{ color: "black" }}>Subscriptions</Typography>
+          }
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img
@@ -80,6 +85,7 @@ function Crew() {
         <BottomNavigationAction
           component={Link}
           to="/Crew"
+          label={<Typography style={{ color: "black" }}>Groups</Typography>}
           style={{ margin: 0, padding: 0, minWidth: "auto" }}
           icon={
             <img
