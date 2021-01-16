@@ -64,20 +64,6 @@ function Appbar2(props) {
         alignItems="center"
         style={{ margin: 0, padding: 0, height: "5.72vh" }}
       >
-        <Box
-          p={1}
-          style={{
-            position: "absolute",
-            margin: 0,
-            padding: 0,
-            left: "2.13vw",
-          }}
-        >
-          <img
-            src="MyProfile.png"
-            style={{ width: "5.34vh", height: "4.16vh" }}
-          ></img>
-        </Box>
         <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
           <Typography
             style={{

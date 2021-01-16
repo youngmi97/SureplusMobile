@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Button, Typography, Box } from "@material-ui/core";
 import "../App.css";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -17,7 +18,7 @@ function Wallet() {
     >
       <div
         style={{
-          marginTop: "6.77vh",
+          marginTop: "2.5vh",
           marginRight: "24px",
           marginLeft: "24px",
           height: "63.67vh",
@@ -37,20 +38,46 @@ function Wallet() {
         >
           <div
             style={{
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-              height: "25.12vh",
-              width: "100%",
+              position: "relative",
+              backgroundColor: "#7610EB",
+              marginTop: 24,
+              height: "158px",
+              width: "257px",
+              borderRadius: "12px",
+              overflow: "hidden",
+              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.6)",
             }}
           >
             <img
-              src="Card.png"
-              style={{ height: "25.12vh", width: "100%" }}
-            ></img>
+              src="/Mastercard.svg"
+              style={{
+                position: "absolute",
+
+                left: 189,
+                top: 109,
+
+                width: "47.5px",
+                height: "29.28px",
+              }}
+            />
+            <Typography
+              style={{
+                margin: 0,
+                padding: 0,
+                marginLeft: 16,
+                marginTop: "16px",
+                fontSize: "15px",
+                color: "white",
+                fontWeight: 400,
+              }}
+            >
+              Sureplus Pro
+            </Typography>
           </div>
         </Box>
         <Button
+          to="/Transaction"
+          component={Link}
           style={{
             padding: 0,
             marginTop: "3.94vh",
@@ -106,7 +133,7 @@ function Wallet() {
             </Box>
           </Box>
         </Button>
-        <Button
+        {/* <Button
           style={{
             padding: 0,
             marginTop: "1.97vh",
@@ -251,7 +278,7 @@ function Wallet() {
               </div>
             </Box>
           </Box>
-        </Button>
+        </Button> */}
         {/* <Button
           style={{
             padding: 0,

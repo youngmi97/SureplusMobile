@@ -9,17 +9,41 @@ import { Typography, Box, Grid } from "@material-ui/core";
 function renderDay(day, selected, cards) {
   const date = day.getDate();
   const today = isToday(day);
-  console.log(cards);
 
   const dateStyle = {
     position: "absolute",
     height: 37,
-    width: 32,
+    width: "13vw",
     fontSize: 12,
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    textAlign: "center",
+    color: "black",
+  };
+  const dateStyle2 = {
+    position: "absolute",
+    height: 37,
+    width: "13vw",
+    fontSize: 12,
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: "center",
+  };
+  const dateStyle3 = {
+    position: "absolute",
+    height: 37,
+    width: "13vw",
+    fontSize: 12,
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: "center",
+    color: "white",
   };
 
   return (
@@ -38,64 +62,65 @@ function renderDay(day, selected, cards) {
           borderWidth: 10,
           borderColor: "black",
           height: 32,
-          width: 32,
-          marginLeft: 7,
+          width: "13vw",
 
           padding: 0,
           position: "relative",
         }}
       >
-        {(() => {
-          switch (today) {
-            case false:
-              return (
-                <div>
-                  {day == selected.toString() ? (
-                    <div>
-                      <div style={dateStyle}>
-                        <div
+        <div>
+          {day == selected.toString() ? (
+            <div>
+              <div style={dateStyle3}>
+                <div
+                  style={{
+                    backgroundColor: "#7610EB",
+                    borderRadius: "100%",
+                    width: 27,
+                    height: 27,
+                    color: "white",
+                    fontWeight: 700,
+                    fontSize: 12,
+
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  {date}
+                </div>
+              </div>
+              <Box>
+                <Grid
+                  container
+                  alignItems="center"
+                  justify="center"
+                  style={{ margin: 0, padding: 0, paddingTop: 28 }}
+                >
+                  {cards[date] &&
+                    cards[date].map((name, i) => (
+                      <Grid item xs={3}>
+                        <Typography
                           style={{
-                            backgroundColor: "rgba(44, 44, 44, 0.1)",
-                            borderRadius: "100%",
-                            width: 28,
-                            height: 28,
-                            color: "black",
-                            fontWeight: 700,
-                            fontSize: 12,
-                            margin: 1.5,
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
+                            color: "#C8C7CC",
+                            margin: 0,
+                            padding: 0,
+
+                            fontSize: 9,
                           }}
                         >
-                          {date}
-                        </div>
-                      </div>
-                      <Box>
-                        <Grid
-                          container
-                          alignItems="center"
-                          justify="center"
-                          style={{ margin: 0, padding: 0, paddingTop: 28 }}
-                        >
-                          {cards[date] &&
-                            cards[date].map((name, i) => (
-                              <Grid item xs={3}>
-                                <Typography
-                                  style={{
-                                    color: "#C8C7CC",
-                                    margin: 0,
-                                    padding: 0,
-                                  }}
-                                >
-                                  •
-                                </Typography>
-                              </Grid>
-                            ))}
-                        </Grid>
-                      </Box>
-                    </div>
-                  ) : (
+                          {cards[date]}
+                        </Typography>
+                      </Grid>
+                    ))}
+                </Grid>
+              </Box>
+            </div>
+          ) : (
+            <div>
+              {(() => {
+                if (date in cards) {
+                  return (
                     <div>
                       <div style={dateStyle}>{date}</div>
                       <Box>
@@ -118,67 +143,57 @@ function renderDay(day, selected, cards) {
                                     color: "#black",
                                     margin: 0,
                                     padding: 0,
+                                    fontSize: 9,
                                   }}
                                 >
-                                  •
+                                  {cards[date]}
                                 </Typography>
                               </Grid>
                             ))}
                         </Grid>
                       </Box>
                     </div>
-                  )}
-                </div>
-              );
-
-            case true:
-              return (
-                <div>
-                  <div style={dateStyle}>
-                    <div
-                      style={{
-                        backgroundColor: "#7610EB",
-                        borderRadius: "100%",
-                        width: 28,
-                        height: 28,
-                        color: "white",
-                        fontSize: 12,
-                        margin: 1.5,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {date}
+                  );
+                } else {
+                  return (
+                    <div>
+                      <div style={dateStyle2}>{date}</div>
+                      <Box>
+                        <Grid
+                          container
+                          alignItems="center"
+                          justify="center"
+                          position="relative"
+                          style={{
+                            margin: 0,
+                            padding: 0,
+                            paddingTop: 28,
+                          }}
+                        >
+                          {cards[date] &&
+                            cards[date].map((name, i) => (
+                              <Grid item xs={3}>
+                                <Typography
+                                  style={{
+                                    color: "#black",
+                                    margin: 0,
+                                    padding: 0,
+                                    fontSize: 9,
+                                  }}
+                                >
+                                  {cards[date]}
+                                </Typography>
+                              </Grid>
+                            ))}
+                        </Grid>
+                      </Box>
                     </div>
-                  </div>
-                  <Box>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justify="center"
-                      style={{ margin: 0, padding: 0, paddingTop: 28 }}
-                    >
-                      {cards[date] &&
-                        cards[date].map((name, i) => (
-                          <Grid item xs={3}>
-                            <Typography
-                              style={{
-                                color: "#C8C7CC",
-                                margin: 0,
-                                padding: 0,
-                              }}
-                            >
-                              •
-                            </Typography>
-                          </Grid>
-                        ))}
-                    </Grid>
-                  </Box>
-                </div>
-              );
-          }
-        })()}
+                  );
+                }
+              })()}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -195,16 +210,34 @@ export default function Example(props) {
     <div>
       <Helmet>
         <style>{`
+        .DayPicker-wrapper {
+          outline: none;
+        }
           .DayPicker-Day {
             display: table-cell;
             padding: 0px;
+            outline: none;
             border-radius: 0px;
             margin:0px;
             border: 0px;
             vertical-align: top;
             background-color:#FFFFFF;
             text-align: center;
-            height: 45px;
+            color:#666666;
+            width: 40px;
+            margin: 0px;
+          }
+          .DayPicker-Day--today  {
+            display: table-cell;
+            padding: 0px;
+            border-radius: 0px;
+            margin:0px;
+            border: 0px;
+            font-weight:500;
+            vertical-align: top;
+            background-color:#FFFFFF;
+            text-align: center;
+            color:#666666;
             width: 40px;
             margin: 0px;
           }
@@ -215,7 +248,7 @@ export default function Example(props) {
             border-radius: 0px;
             margin:0px;
             background-color:#FFFFFF;
-            border: 1px solid #DFDFDF;
+            border: 0px;
             vertical-align: top;
             
             text-align: center;
@@ -231,7 +264,13 @@ export default function Example(props) {
           }
           .DayPicker:not(.DayPicker--interactionDisabled)
   .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+}
+.DayPicker:not(.DayPicker--interactionDisabled)
+  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+  background-color: #ffffff;
+}
+  
 }
           
           `}</style>

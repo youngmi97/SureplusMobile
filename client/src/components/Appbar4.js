@@ -43,7 +43,7 @@ function Appbar1(props) {
               textAlign: "center",
             }}
           >
-            Cards
+            Linked Accounts
           </Typography>
         </Box>
         <Box

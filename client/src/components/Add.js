@@ -4,47 +4,42 @@ import IconButton from "@material-ui/core/IconButton";
 import Switch from "@material-ui/core/Switch";
 import InputLabel from "@material-ui/core/InputLabel";
 
-import EventRoundedIcon from "@material-ui/icons/EventRounded";
-import TextField from "@material-ui/core/TextField";
-import AttachMoneyRoundedIcon from "@material-ui/icons/AttachMoneyRounded";
-import UpdateRoundedIcon from "@material-ui/icons/UpdateRounded";
 import Button from "@material-ui/core/Button";
 import {
   fade,
   makeStyles,
   withStyles,
   useTheme,
+  MuiThemeProvider,
+  createMuiTheme,
 } from "@material-ui/core/styles";
 // import AppBar from "@material-ui/core/AppBar";
-
-import FormHelperText from "@material-ui/core/FormHelperText";
-
+import DateFnsUtils from "@date-io/date-fns"; // choose your lib
 import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
+
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DialogContent from "@material-ui/core/DialogContent";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fade from "@material-ui/core/Fade";
-
 import Dialog from "@material-ui/core/Dialog";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import React from "react";
-import { ButtonBase, Typography, Avatar, Box } from "@material-ui/core";
+import { ButtonBase, Typography, Avatar, Box, Drawer } from "@material-ui/core";
 //Sort
 import FormControl from "@material-ui/core/FormControl";
 
 import InputBase from "@material-ui/core/InputBase";
 import { Select } from "@material-ui/core";
-
+import EventRoundedIcon from "@material-ui/icons/EventRounded";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import "../App.css";
 
+const drawerWidth = "100vw";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -98,11 +93,12 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: 8,
-    border: "1px solid #EFEFF4",
+    paddingLeft: 16,
+    paddingRight: 16,
     backgroundColor: "white",
     marginRight: 2,
-    height: "40px",
-    width: "auto",
+    height: "4.69vh",
+    width: "100%",
   },
 
   formControl: {
@@ -140,8 +136,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 4,
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "40px",
+    padding: theme.spacing(0, 1),
+    height: "4.69vh",
     position: "absolute",
     pointerEvents: "none",
     display: "flex",
@@ -149,32 +145,45 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     color: theme.palette.grey.main,
   },
+  input: {
+    color: "#7610EB",
+    textAlign: "right",
+  },
   inputRoot: {
-    color: "inherit",
-    height: "100%",
     alignItems: "center",
     justifyItems: "center",
-    borderRadius: 8,
+    height: "100%",
+    width: "100%",
+    borderRadius: 18,
   },
   inputInput: {
-    padding: "10.5px 26px 10.5px 12px",
+    padding: 0,
     fontSize: 16,
+    backgroundColor: "#C8C7CC",
+    color: "black",
+    height: "4.69vh",
+    opacity: 0.5,
+    borderRadius: 18,
+    fontWeight: 300,
 
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "12ch",
+
+    width: "100%",
     "&:hover": {
-      borderRadius: 8,
       // backgroundColor: fade(theme.palette.common.white, 0.25),
       // border: `1px solid ${theme.palette.primary.main}`,
-      boxShadow: "0 0 0 0.2rem rgba(118, 16, 235, 0.25)",
     },
     "&:focus": {
       width: "20ch",
-      borderRadius: 8,
-      boxShadow: "0 0 0 0.2rem rgba(118, 16, 235, 0.25)",
     },
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
   },
   inputInput1: {
     padding: "10.5px 26px 10.5px 12px",
@@ -296,6 +305,9 @@ const useStyles = makeStyles((theme) => ({
   List: {
     backgroundColor: "white",
     height: "8.3vh",
+    "&:hover, &:focus": {
+      backgroundColor: "white",
+    },
   },
 }));
 const IOSSwitch = withStyles((theme) => ({
@@ -311,7 +323,7 @@ const IOSSwitch = withStyles((theme) => ({
       transform: "translateX(16px)",
       color: theme.palette.common.white,
       "& + $track": {
-        backgroundColor: "#7610EB",
+        backgroundColor: "#4CD964",
         opacity: 1,
         border: "none",
       },
@@ -416,24 +428,25 @@ export default function Subscription(props) {
           <Box
             display="flex"
             p={1}
-            alignItems="center"
             style={{
               margin: 0,
               padding: 0,
-              height: "6.51vh",
+              height: "2.6vh",
+              paddingTop: "2.35vh",
+              paddingBottom: "2.35vh",
               backgroundColor: "white",
             }}
           >
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 left: "2.13vw",
               }}
             >
-              <SearchRoundedIcon
+              <div
                 style={{
                   width: "3.12vh",
                   height: "3.12vh",
@@ -445,7 +458,6 @@ export default function Subscription(props) {
             <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
               <Typography
                 style={{
-                  width: "100vw",
                   fontWeight: 600,
                   fontSize: "2.21vh",
                   textAlign: "center",
@@ -457,7 +469,7 @@ export default function Subscription(props) {
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 right: "2.13vw",
@@ -477,9 +489,33 @@ export default function Subscription(props) {
               </IconButton>
             </Box>
           </Box>
+          <Box
+            display="flex"
+            p={1}
+            style={{
+              margin: 0,
+              padding: 0,
+              height: "6.25vh",
+              backgroundColor: "white",
+            }}
+          >
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchRoundedIcon />
+              </div>
+              <InputBase
+                placeholder="Search subscriptions"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+          </Box>
           <DialogContent className={classes.Avatar}>
             <div>
-              <List style={{ padding: 24 }}>
+              <List style={{ padding: 24, paddingBottom: "14.3vh" }}>
                 {lists.map((name) => {
                   return (
                     <ListItem
@@ -512,6 +548,50 @@ export default function Subscription(props) {
                 })}
               </List>
             </div>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              anchor="bottom"
+            >
+              <div
+                style={{
+                  paddingRight: 16,
+                  paddingLeft: 16,
+                  height: "14.3vh",
+                }}
+              >
+                <Button
+                  style={{
+                    margin: 0,
+                    marginTop: 16,
+                    padding: 0,
+                    height: "5.99vh",
+                    borderRadius: "24px",
+                    background:
+                      "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+                    color: "white",
+                    textTransform: "none",
+                    width: "100%",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      color: "white",
+
+                      fontWeight: 500,
+                      fontSize: "17px",
+                    }}
+                  >
+                    Create Custom Subscription
+                  </Typography>
+                </Button>
+              </div>
+            </Drawer>
           </DialogContent>
         </div>
       </Dialog>
@@ -532,18 +612,19 @@ export default function Subscription(props) {
           <Box
             display="flex"
             p={1}
-            alignItems="center"
             style={{
               margin: 0,
               padding: 0,
-              height: "6.51vh",
+              height: "2.6vh",
+              paddingTop: "2.35vh",
+              paddingBottom: "2.35vh",
               backgroundColor: "white",
             }}
           >
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 left: "2.13vw",
@@ -568,7 +649,6 @@ export default function Subscription(props) {
             <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
               <Typography
                 style={{
-                  width: "100vw",
                   fontWeight: 600,
                   fontSize: "2.21vh",
                   textAlign: "center",
@@ -580,60 +660,71 @@ export default function Subscription(props) {
             <Box
               p={1}
               style={{
-                position: "absolute",
+                position: "relative",
                 margin: 0,
                 padding: 0,
                 right: "2.13vw",
               }}
             >
-              <Button
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  minWidth: 0,
-                  minHeight: 0,
-                  textTransform: "none",
+              <IconButton
+                aria-label="close"
+                onClick={() => {
+                  props.handleClose();
+                  handleClose1();
                 }}
+                disableRipple={true}
+                disableFocusRipple={true}
+                style={{ padding: 0, margin: 0, minHeight: 0, minWidth: 0 }}
               >
-                <Typography
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "2.21vh",
-                    textAlign: "center",
-                  }}
-                >
-                  Add
-                </Typography>
-              </Button>
+                <img
+                  src="Exit.svg"
+                  style={{ width: "3.12vh", height: "3.12vh" }}
+                />
+              </IconButton>
             </Box>
           </Box>
-          <DialogContent className={classes.Avatar}>
+          <DialogContent
+            className={classes.Avatar}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingLeft: 24,
+              paddingRight: 24,
+            }}
+          >
             <div
               style={{
-                marginLeft: 24,
-                marginRight: 24,
+                position: "relative",
                 backgroundColor: "black",
                 marginTop: 24,
-                height: "25.44vh",
+                height: "158px",
+                width: "257px",
                 borderRadius: "12px",
+                overflow: "hidden",
+                boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.6)",
               }}
             >
               <img
-                src="/Img/Avast/[48].svg"
+                src="/g5747.svg"
                 style={{
-                  marginLeft: 16,
+                  position: "absolute",
+
+                  left: 150,
+                  top: -38,
                   marginTop: "2.03vh",
-                  width: "6.1vh",
-                  height: "6.1vh",
+                  width: "121px",
+                  height: "221px",
                 }}
               />
               <Typography
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginLeft: 16,
-                  marginTop: "8.14vh",
-                  fontSize: "3.05vh",
+                  marginLeft: 20,
+                  marginTop: "85px",
+                  fontSize: "24px",
                   color: "white",
                 }}
               >
@@ -643,92 +734,140 @@ export default function Subscription(props) {
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginLeft: 16,
-                  marginTop: "0.5vh",
-                  fontSize: "1.78vh",
+                  marginLeft: 20,
+                  marginTop: "1px",
+                  fontSize: "14px",
                   color: "white",
                 }}
               >
-                Standard Membership • $12.99
+                $12.99 • 2 weeks
               </Typography>
             </div>
-            <List style={{ padding: 24 }}>
+            <List
+              style={{ padding: 24, width: "100%", paddingBottom: "14.3vh" }}
+            >
               <ListItem
-                button
+                button={false}
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Name
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{ fontWeight: 400, color: "#000000" }}
                 >
-                  Netflix
+                  <InputBase
+                    placeholder="Netflix"
+                    inputProps={{
+                      style: { textAlign: "right" },
+                    }}
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      Width: 0,
+                    }}
+                  />
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
-                button
+                button={false}
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Price
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{
+                    fontWeight: 400,
+                    color: "#000000",
+                  }}
                 >
-                  $ 12.99
+                  <InputBase
+                    placeholder="$12.99"
+                    inputProps={{
+                      style: { textAlign: "right" },
+                    }}
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      Width: 0,
+                    }}
+                  />
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
-                button
+                button={false}
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Cycle
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{ fontWeight: 400, color: "#000000" }}
                 >
-                  Monthly
+                  <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                      <div style={{ color: "#7610EB" }}>
+                        <EventRoundedIcon />
+                      </div>
+                    </Grid>
+                    <Grid item>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                          fullWidth
+                          InputProps={{
+                            className: classes.input,
+                            disableUnderline: "true",
+                          }}
+                          style={{ width: 105 }}
+                        />
+                      </MuiPickersUtilsProvider>
+                    </Grid>
+                  </Grid>
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
-                button
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
-                >
-                  First Bill
-                </Typography>
-                <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
-                >
-                  December 23, 2020
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem
-                button
-                className={classes.List}
-                style={{ marginBottom: "1vh", borderRadius: "12px" }}
-              >
-                <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Remind me
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{ fontWeight: 400, color: "#000000" }}
                 >
                   <IOSSwitch
                     className={classes.Switchstyle}
@@ -740,6 +879,50 @@ export default function Subscription(props) {
                 </ListItemSecondaryAction>
               </ListItem>
             </List>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              anchor="bottom"
+            >
+              <div
+                style={{
+                  paddingRight: 16,
+                  paddingLeft: 16,
+                  height: "14.3vh",
+                }}
+              >
+                <Button
+                  style={{
+                    margin: 0,
+                    marginTop: 16,
+                    padding: 0,
+                    height: "5.99vh",
+                    borderRadius: "24px",
+                    background:
+                      "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+                    color: "white",
+                    textTransform: "none",
+                    width: "100%",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      color: "white",
+
+                      fontWeight: 500,
+                      fontSize: "17px",
+                    }}
+                  >
+                    Add Subscription
+                  </Typography>
+                </Button>
+              </div>
+            </Drawer>
           </DialogContent>
         </div>
       </Dialog>

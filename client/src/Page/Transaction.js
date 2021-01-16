@@ -1,40 +1,33 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
-import AppBar from "../components/Appbar3";
-import Main from "../components/MainSubscribe";
 
+import AppBar from "../components/AppbarTran";
+import Main from "../components/MainTransactions";
 import BottomNavigation from "../components/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import Typography from "@material-ui/core/Typography";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({}));
 
-function Subscription() {
+function Wallet() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(0);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       <div
         style={{
           width: "100%",
-          height: "11.4vh",
+          height: "5.72vh",
           backgroundColor: "white",
         }}
       >
-        <AppBar
-          Text={"Subscriptions"}
-          Tab1="List"
-          Tab2="Calendar"
-          Link="Subscription"
-          state={0}
-        />
+        <AppBar />
       </div>
       <div
         style={{
           width: "100%",
-
           alignContent: "center",
         }}
       >
@@ -45,4 +38,4 @@ function Subscription() {
   );
 }
 
-export default Subscription;
+export default Wallet;
