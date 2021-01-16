@@ -641,7 +641,7 @@ export default function Subscription(props) {
                 style={{ padding: 0, margin: 0, minHeight: 0, minWidth: 0 }}
               >
                 <img
-                  src="Back.svg"
+                  src="Icons[32]/Type=Back.svg"
                   style={{ width: "3.12vh", height: "3.12vh" }}
                 />
               </IconButton>

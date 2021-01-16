@@ -30,7 +30,7 @@ function Appbar1(props) {
           to="/Wallet"
         >
           <img
-            src="Back.svg"
+            src="Icons[32]/Type=Back.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
