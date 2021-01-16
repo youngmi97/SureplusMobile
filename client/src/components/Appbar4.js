@@ -1,3 +1,5 @@
+//Home > Wallet > Linked Accounts
+
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Box, Typography } from "@material-ui/core";
@@ -43,7 +45,7 @@ function Appbar1(props) {
               textAlign: "center",
             }}
           >
-            Cards
+            Linked Accounts
           </Typography>
         </Box>
         <Box

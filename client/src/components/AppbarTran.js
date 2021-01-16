@@ -27,7 +27,7 @@ function Appbar1(props) {
             left: "2.13vw",
           }}
           component={Link}
-          to="/"
+          to="/Wallet"
         >
           <img
             src="Back.svg"
@@ -43,36 +43,8 @@ function Appbar1(props) {
               textAlign: "center",
             }}
           >
-            Cards
+            Transactions
           </Typography>
-        </Box>
-        <Box
-          p={1}
-          style={{
-            position: "absolute",
-            margin: 0,
-            padding: 0,
-            right: "10vw",
-          }}
-        >
-          <img
-            src="Icons[32]/Type=Sort.svg"
-            style={{ width: "4.16vh", height: "4.16vh" }}
-          ></img>
-        </Box>
-        <Box
-          p={1}
-          style={{
-            position: "absolute",
-            margin: 0,
-            padding: 0,
-            right: "2.13vw",
-          }}
-        >
-          <img
-            src="Icons[32]/Type=Add.svg"
-            style={{ width: "4.16vh", height: "4.16vh" }}
-          ></img>
         </Box>
       </Box>
     </div>
