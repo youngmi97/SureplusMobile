@@ -14,15 +14,17 @@ import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
 
-const drawerWidth = "84vw";
+const drawerWidth = "75vw";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
+    
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
@@ -59,11 +61,11 @@ export function Report() {
   return (
     <div
       onClick={handleDrawerClose}
-      style={{ width: "100%", alignContent: "center", height: "100vh" }}
+      style={{ width: "100%", alignContent: "center", height: "100vh"}}
     >
       <div>
         <div
-          position="fixed"
+          position="absolute"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
@@ -75,9 +77,9 @@ export function Report() {
           <div style={{ width: "100%" }}>
             <Box
               display="flex"
-              p={1}
+              // p={1}
               alignItems="center"
-              style={{ margin: 0, padding: 0, height: "5.72vh" }}
+              style={{ margin: 0, padding: "4px 16px 4px 16px", height: "5.72vh" }}
             >
               <Box
                 p={1}
@@ -160,7 +162,7 @@ export function Report() {
             marginTop: "1.56vh",
           }}
         >
-          <ToolBar value={ind} setValue={setIndex} />
+          <ToolBar  value={ind} setValue={setIndex} />
         </div>
         <div
           position="fixed"
@@ -272,23 +274,28 @@ export function Report() {
             Followers
           </Typography>
         </div>
-        <div
-          style={{ backgroundColor: "grey", height: "0.6px", marginTop: 16 }}
-        ></div>
-        <Box
-          Button
+
+        <Button
+          component={Link}
+          to="/Profile"
           style={{
-            marginTop: 16,
+            margin: 0,
+            padding: 0,
+
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 32,
             height: 48,
+            textTransform: "none",
           }}
         >
           <img
             src="MyProfile.png"
             style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
           ></img>
+
           <Typography
             style={{
               margin: 0,
@@ -299,15 +306,21 @@ export function Report() {
           >
             Profile
           </Typography>
-        </Box>
-        <Box
-          Button
+        </Button>
+        <Button
+          component={Link}
+          to="/Profile"
           style={{
-            marginTop: 16,
+            margin: 0,
+            padding: 0,
+
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 32,
             height: 48,
+            textTransform: "none",
           }}
         >
           <img
@@ -324,7 +337,7 @@ export function Report() {
           >
             Saved
           </Typography>
-        </Box>
+        </Button>
         <div
           style={{ backgroundColor: "grey", height: "0.6px", marginTop: 16 }}
         ></div>
