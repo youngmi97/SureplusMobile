@@ -4,28 +4,23 @@ import IconButton from "@material-ui/core/IconButton";
 import Switch from "@material-ui/core/Switch";
 import InputLabel from "@material-ui/core/InputLabel";
 
-import EventRoundedIcon from "@material-ui/icons/EventRounded";
-import TextField from "@material-ui/core/TextField";
-import AttachMoneyRoundedIcon from "@material-ui/icons/AttachMoneyRounded";
-import UpdateRoundedIcon from "@material-ui/icons/UpdateRounded";
 import Button from "@material-ui/core/Button";
 import {
   fade,
   makeStyles,
   withStyles,
   useTheme,
+  MuiThemeProvider,
+  createMuiTheme,
 } from "@material-ui/core/styles";
 // import AppBar from "@material-ui/core/AppBar";
-
+import DateFnsUtils from "@date-io/date-fns"; // choose your lib
 import List from "@material-ui/core/List";
 
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DialogContent from "@material-ui/core/DialogContent";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fade from "@material-ui/core/Fade";
-
 import Dialog from "@material-ui/core/Dialog";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
@@ -36,7 +31,8 @@ import FormControl from "@material-ui/core/FormControl";
 
 import InputBase from "@material-ui/core/InputBase";
 import { Select } from "@material-ui/core";
-
+import EventRoundedIcon from "@material-ui/icons/EventRounded";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Grid from "@material-ui/core/Grid";
@@ -97,11 +93,12 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: 8,
-    border: "1px solid #EFEFF4",
+    paddingLeft: 16,
+    paddingRight: 16,
     backgroundColor: "white",
     marginRight: 2,
-    height: "40px",
-    width: "auto",
+    height: "4.69vh",
+    width: "100%",
   },
 
   formControl: {
@@ -139,8 +136,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 4,
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "40px",
+    padding: theme.spacing(0, 1),
+    height: "4.69vh",
     position: "absolute",
     pointerEvents: "none",
     display: "flex",
@@ -148,31 +145,37 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     color: theme.palette.grey.main,
   },
+  input: {
+    color: "#7610EB",
+    textAlign: "right",
+  },
   inputRoot: {
-    color: "inherit",
-    height: "100%",
     alignItems: "center",
     justifyItems: "center",
-    borderRadius: 8,
+    height: "100%",
+    width: "100%",
+    borderRadius: 18,
   },
   inputInput: {
-    padding: "10.5px 26px 10.5px 12px",
+    padding: 0,
     fontSize: 16,
+    backgroundColor: "#C8C7CC",
+    color: "black",
+    height: "4.69vh",
+    opacity: 0.5,
+    borderRadius: 18,
+    fontWeight: 300,
 
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "12ch",
+
+    width: "100%",
     "&:hover": {
-      borderRadius: 8,
       // backgroundColor: fade(theme.palette.common.white, 0.25),
       // border: `1px solid ${theme.palette.primary.main}`,
-      boxShadow: "0 0 0 0.2rem rgba(118, 16, 235, 0.25)",
     },
     "&:focus": {
       width: "20ch",
-      borderRadius: 8,
-      boxShadow: "0 0 0 0.2rem rgba(118, 16, 235, 0.25)",
     },
   },
   drawer: {
@@ -302,6 +305,9 @@ const useStyles = makeStyles((theme) => ({
   List: {
     backgroundColor: "white",
     height: "8.3vh",
+    "&:hover, &:focus": {
+      backgroundColor: "white",
+    },
   },
 }));
 const IOSSwitch = withStyles((theme) => ({
@@ -317,7 +323,7 @@ const IOSSwitch = withStyles((theme) => ({
       transform: "translateX(16px)",
       color: theme.palette.common.white,
       "& + $track": {
-        backgroundColor: "#7610EB",
+        backgroundColor: "#4CD964",
         opacity: 1,
         border: "none",
       },
@@ -422,11 +428,12 @@ export default function Subscription(props) {
           <Box
             display="flex"
             p={1}
-            alignItems="center"
             style={{
               margin: 0,
               padding: 0,
-              height: "6.51vh",
+              height: "2.6vh",
+              paddingTop: "2.35vh",
+              paddingBottom: "2.35vh",
               backgroundColor: "white",
             }}
           >
@@ -439,7 +446,7 @@ export default function Subscription(props) {
                 left: "2.13vw",
               }}
             >
-              <SearchRoundedIcon
+              <div
                 style={{
                   width: "3.12vh",
                   height: "3.12vh",
@@ -481,6 +488,30 @@ export default function Subscription(props) {
                 />
               </IconButton>
             </Box>
+          </Box>
+          <Box
+            display="flex"
+            p={1}
+            style={{
+              margin: 0,
+              padding: 0,
+              height: "6.25vh",
+              backgroundColor: "white",
+            }}
+          >
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchRoundedIcon />
+              </div>
+              <InputBase
+                placeholder="Search subscriptions"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
           </Box>
           <DialogContent className={classes.Avatar}>
             <div>
@@ -581,11 +612,12 @@ export default function Subscription(props) {
           <Box
             display="flex"
             p={1}
-            alignItems="center"
             style={{
               margin: 0,
               padding: 0,
-              height: "6.51vh",
+              height: "2.6vh",
+              paddingTop: "2.35vh",
+              paddingBottom: "2.35vh",
               backgroundColor: "white",
             }}
           >
@@ -715,81 +747,127 @@ export default function Subscription(props) {
               style={{ padding: 24, width: "100%", paddingBottom: "14.3vh" }}
             >
               <ListItem
-                button
+                button={false}
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Name
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{ fontWeight: 400, color: "#000000" }}
                 >
-                  Netflix
+                  <InputBase
+                    placeholder="Netflix"
+                    inputProps={{
+                      style: { textAlign: "right" },
+                    }}
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      Width: 0,
+                    }}
+                  />
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
-                button
+                button={false}
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Price
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{
+                    fontWeight: 400,
+                    color: "#000000",
+                  }}
                 >
-                  $ 12.99
+                  <InputBase
+                    placeholder="$12.99"
+                    inputProps={{
+                      style: { textAlign: "right" },
+                    }}
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      Width: 0,
+                    }}
+                  />
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
-                button
+                button={false}
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Cycle
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{ fontWeight: 400, color: "#000000" }}
                 >
-                  Monthly
+                  <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                      <div style={{ color: "#7610EB" }}>
+                        <EventRoundedIcon />
+                      </div>
+                    </Grid>
+                    <Grid item>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                          fullWidth
+                          InputProps={{
+                            className: classes.input,
+                            disableUnderline: "true",
+                          }}
+                          style={{ width: 105 }}
+                        />
+                      </MuiPickersUtilsProvider>
+                    </Grid>
+                  </Grid>
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
-                button
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
               >
                 <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
-                >
-                  First Bill
-                </Typography>
-                <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
-                >
-                  December 23, 2020
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem
-                button
-                className={classes.List}
-                style={{ marginBottom: "1vh", borderRadius: "12px" }}
-              >
-                <Typography
-                  style={{ margin: 0, padding: 0, fontSize: "2.21vh" }}
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: "2.21vh",
+                    color: "#8A8A8F",
+                  }}
                 >
                   Remind me
                 </Typography>
                 <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#666666" }}
+                  style={{ fontWeight: 400, color: "#000000" }}
                 >
                   <IOSSwitch
                     className={classes.Switchstyle}
@@ -840,7 +918,7 @@ export default function Subscription(props) {
                       fontSize: "17px",
                     }}
                   >
-                    Create Custom Subscription
+                    Add Subscription
                   </Typography>
                 </Button>
               </div>
