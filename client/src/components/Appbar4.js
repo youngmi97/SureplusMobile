@@ -1,3 +1,5 @@
+//Home > Wallet > Linked Accounts
+
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Box, Typography } from "@material-ui/core";
@@ -56,7 +58,7 @@ function Appbar1(props) {
           }}
         >
           <img
-            src="Icons2.svg"
+            src="Icons[32]/Type=Sort.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
@@ -70,7 +72,7 @@ function Appbar1(props) {
           }}
         >
           <img
-            src="Icons.png"
+            src="Icons[32]/Type=Add.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>

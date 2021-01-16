@@ -1,3 +1,5 @@
+//Subscriptions Tab
+
 import React, { useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
