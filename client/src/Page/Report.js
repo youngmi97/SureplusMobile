@@ -272,23 +272,28 @@ export function Report() {
             Followers
           </Typography>
         </div>
-        <div
-          style={{ backgroundColor: "grey", height: "0.6px", marginTop: 16 }}
-        ></div>
-        <Box
-          Button
+
+        <Button
+          component={Link}
+          to="/Profile"
           style={{
-            marginTop: 16,
+            margin: 0,
+            padding: 0,
+
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 32,
             height: 48,
+            textTransform: "none",
           }}
         >
           <img
             src="MyProfile.png"
             style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
           ></img>
+
           <Typography
             style={{
               margin: 0,
@@ -299,15 +304,21 @@ export function Report() {
           >
             Profile
           </Typography>
-        </Box>
-        <Box
-          Button
+        </Button>
+        <Button
+          component={Link}
+          to="/Profile"
           style={{
-            marginTop: 16,
+            margin: 0,
+            padding: 0,
+
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 32,
             height: 48,
+            textTransform: "none",
           }}
         >
           <img
@@ -324,7 +335,7 @@ export function Report() {
           >
             Saved
           </Typography>
-        </Box>
+        </Button>
         <div
           style={{ backgroundColor: "grey", height: "0.6px", marginTop: 16 }}
         ></div>
