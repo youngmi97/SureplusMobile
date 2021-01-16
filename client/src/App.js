@@ -47,6 +47,7 @@ const AuthStateApp = () => {
 					<Route exact path="/Onboarding" component={Onboarding} />
 					<Route exact path="/UsePhone" component={UsePhone} />
 					<Route exact path="/UsePhoneCode" component={UsePhoneCode} />
+					{/* Component with no routes are sent to signout prompt */}
 					<AmplifySignOut />
 				</div>
 			</Router>
