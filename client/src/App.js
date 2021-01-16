@@ -31,13 +31,8 @@ const AuthStateApp = () => {
 		onAuthUIStateChange((nextAuthState, authData) => {
 			setAuthState(nextAuthState);
 			setUser(authData);
-
-			console.log("user", authData);
 		});
 	}, []);
-
-	console.log("authState", authState);
-	console.log("authState2", AuthState);
 
 	return authState === AuthState.SignedIn && user ? (
 		<div className="App">
