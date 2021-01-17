@@ -92,8 +92,9 @@ export default function Appbar2(props) {
             }}
           >
             <img
+              src="/Icons[32]/Type=Search.svg"
               alt="name"
-              src="search.svg"
+
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
           </Button>
@@ -116,8 +117,9 @@ export default function Appbar2(props) {
             }}
           >
             <img
+              src="/Icons[32]/Type=Notifications.svg"
               alt="name"
-              src="Icons.svg"
+              
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
           </Button>

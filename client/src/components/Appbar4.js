@@ -29,7 +29,8 @@ function Appbar1(props) {
           to="/"
         >
           <img
-            src="Icons[32]/Type=Back.svg"
+            alt="Back"
+            src="/Icons[32]/Type=Back.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>

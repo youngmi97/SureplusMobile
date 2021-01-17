@@ -86,7 +86,7 @@ export function Report() {
               <Box
                 p={1}
                 flexGrow={1}
-                style={{ margin: 0, padding: 0, marginLeft: "2.13vw" }}
+                style={{ margin: 0, padding: 0 }}
               >
                 <Button
                   onClick={handleDrawerOpen}
@@ -110,7 +110,7 @@ export function Report() {
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginRight: "2.13vw",
+
                 }}
               >
                 <Button
@@ -123,8 +123,8 @@ export function Report() {
                   }}
                 >
                   <img
+                    src="/Icons[32]/Type=Search.svg"
                     alt="name"
-                    src="search.svg"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
@@ -134,7 +134,7 @@ export function Report() {
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginRight: "2.13vw",
+
                 }}
               >
                 <Button
@@ -149,8 +149,8 @@ export function Report() {
                   }}
                 >
                   <img
+                    src="/Icons[32]/Type=Notifications.svg"
                     alt="name"
-                    src="Icons.svg"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
