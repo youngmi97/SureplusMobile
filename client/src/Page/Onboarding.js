@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+
 import "../App.css";
 import { Link } from "react-router-dom";
 import { Button, Typography, InputBase, Grid } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({}));
-
 function Onboarding() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(1);
   return (
     <div
       style={{
@@ -38,7 +34,8 @@ function Onboarding() {
               margin: 0,
               padding: 0,
             }}
-          ></img>
+            alt="question"
+          />
         </Button>
       </div>
       <div

@@ -1,16 +1,13 @@
-//For reports, the app bar does not exist as a component, rather it sits as div
-
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
-import AppBar2 from "../components/Appbar2";
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
 import Main2 from "../components/MainReport2";
 import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
@@ -54,7 +51,7 @@ export function Report() {
   };
 
   const handleDrawerClose = () => {
-    if (open == true) {
+    if (open === true) {
       setOpen(false);
     }
   };
@@ -102,6 +99,7 @@ export function Report() {
                   }}
                 >
                   <img
+                    alt="name"
                     src="MyProfile.png"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
@@ -126,6 +124,7 @@ export function Report() {
                 >
                   <img
                     src="/Icons[32]/Type=Search.svg"
+                    alt="name"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
@@ -151,6 +150,7 @@ export function Report() {
                 >
                   <img
                     src="/Icons[32]/Type=Notifications.svg"
+                    alt="name"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
@@ -182,7 +182,7 @@ export function Report() {
           }}
         >
           {(() => {
-            if (ind == 0) {
+            if (ind === 0) {
               return <Main />;
             } else {
               return <Main2 />;
@@ -216,6 +216,7 @@ export function Report() {
           }}
         >
           <img
+            alt="name"
             src="MyProfile.png"
             style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
           ></img>
@@ -299,6 +300,7 @@ export function Report() {
           }}
         >
           <img
+            alt="name"
             src="MyProfile.png"
             style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
           ></img>
@@ -331,6 +333,7 @@ export function Report() {
           }}
         >
           <img
+            alt="name"
             src="MyProfile.png"
             style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
           ></img>

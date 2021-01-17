@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import Helmet from "react-helmet";
-import { isToday } from "date-fns";
 
 import { Typography, Box, Grid } from "@material-ui/core";
 
 function renderDay(day, selected, cards) {
   const date = day.getDate();
-  const today = isToday(day);
 
   const dateStyle = {
     position: "absolute",
@@ -69,7 +67,7 @@ function renderDay(day, selected, cards) {
         }}
       >
         <div>
-          {day == selected.toString() ? (
+          {day === selected.toString() ? (
             <div>
               <div style={dateStyle3}>
                 <div

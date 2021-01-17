@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import "../App.css";
+import React from "react";
 
-const useStyles = makeStyles((theme) => ({}));
+import { Button, Typography, Box } from "@material-ui/core";
+import "../App.css";
 
 function ListCard2(props) {
   return (
@@ -59,6 +57,7 @@ function ListCard2(props) {
                   }}
                 >
                   <img
+                    alt="name"
                     src={props.src}
                     style={{
                       width: "3.94vh",
@@ -95,7 +94,7 @@ function ListCard2(props) {
           </Box>
 
           {(() => {
-            if (props.day != 0) {
+            if (props.day !== 0) {
               return (
                 <Box
                   p={1}

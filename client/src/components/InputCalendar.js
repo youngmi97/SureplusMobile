@@ -1,16 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "../App.css";
-import {
-  fade,
-  makeStyles,
-  withStyles,
-  useTheme,
-  MuiThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
-import { Grid, Box, Typography, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, Typography, Button } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+
 import ToolBar2 from "./ToolBar2";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
@@ -67,9 +60,9 @@ export default function InputCalendar(props) {
 
   const changeM = (i) => {
     var v = month + i;
-    if (v == -1) {
+    if (v === -1) {
       v = 11;
-    } else if (v == 12) {
+    } else if (v === 12) {
       v = 0;
     }
     setMonth(v);
@@ -91,7 +84,7 @@ export default function InputCalendar(props) {
             }}
           >
             {entry.map((entry1, index1) => {
-              if (entry1 != state) {
+              if (entry1 !== state) {
                 return (
                   <Box
                     display="flex"
@@ -179,7 +172,7 @@ export default function InputCalendar(props) {
         </ListItemSecondaryAction>
       </ListItem>
       {(() => {
-        if (ind == 0) {
+        if (ind === 0) {
           return (
             <div
               style={{

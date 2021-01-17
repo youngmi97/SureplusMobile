@@ -1,12 +1,7 @@
-// Home / Report
-// This is the first screen the user sees upon login or first sign in
-
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { Button, Box, Tabs, Tab } from "@material-ui/core";
 import "../App.css";
-
-const useStyles = makeStyles((theme) => ({}));
 
 const StyledTabs = withStyles({
   root: {
@@ -73,6 +68,7 @@ export default function Appbar2(props) {
             }}
           >
             <img
+              alt="name"
               src="MyProfile.png"
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
@@ -96,7 +92,9 @@ export default function Appbar2(props) {
             }}
           >
             <img
-              src="Type=Search.svg"
+              src="/Icons[32]/Type=Search.svg"
+              alt="name"
+
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
           </Button>
@@ -119,7 +117,9 @@ export default function Appbar2(props) {
             }}
           >
             <img
-              src="Type=Notifications.svg"
+              src="/Icons[32]/Type=Notifications.svg"
+              alt="name"
+              
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
           </Button>

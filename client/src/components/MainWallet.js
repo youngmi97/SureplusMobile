@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
+import React from "react";
+
+import { Button, Typography, Box } from "@material-ui/core";
 import "../App.css";
 import "../index.css";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Wallet() {
   return (
@@ -36,19 +34,19 @@ function Wallet() {
             padding: 0,
           }}
         >
-        <div
+          <div
             // Shadow
-              style={{
-                position: "absolute",
-                backgroundColor: "rgba(118, 16, 235, 0.4)",
-                marginTop: "4.17vh",
-                
-                height: "145.7px",
-                width: "237px",
-                filter: "blur(10px)",
-                borderRadius: "9.22px",
-              }}
-            ></div>
+            style={{
+              position: "absolute",
+              backgroundColor: "rgba(118, 16, 235, 0.4)",
+              marginTop: "4.17vh",
+
+              height: "145.7px",
+              width: "237px",
+              filter: "blur(10px)",
+              borderRadius: "9.22px",
+            }}
+          ></div>
           <div
             style={{
               position: "relative",
@@ -60,8 +58,8 @@ function Wallet() {
               overflow: "hidden",
             }}
           >
-            
             <img
+              alt="name"
               src="/Mastercard.svg"
               style={{
                 position: "absolute",
@@ -81,7 +79,6 @@ function Wallet() {
                 marginTop: "16px",
                 color: "white",
                 fontWeight: 400,
-                
               }}
             >
               Sureplus Pro
@@ -89,7 +86,7 @@ function Wallet() {
           </div>
         </Box>
         <Button
-        // Transaction Button
+          // Transaction Button
           to="/Transaction"
           component={Link}
           style={{
@@ -97,12 +94,12 @@ function Wallet() {
             marginTop: "4.17vh",
             backgroundColor: "white",
             borderRadius: "12px",
-            
+
             width: "100%",
             height: "8.33vh",
             textTransform: "none",
             // Drop Shadow / Default
-            filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))"
+            filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))",
           }}
         >
           <Box
@@ -120,6 +117,7 @@ function Wallet() {
                 }}
               >
                 <img
+                  alt="name"
                   src="Transfer.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -130,7 +128,13 @@ function Wallet() {
               flexGrow={1}
               style={{ margin: 0, padding: 0, marginLeft: 16 }}
             >
-              <Typography style={{ fontSize: "2.1vh", fontWeight: "500", textAlign: "left" }}>
+              <Typography
+                style={{
+                  fontSize: "2.1vh",
+                  fontWeight: "500",
+                  textAlign: "left",
+                }}
+              >
                 Transactions
               </Typography>
             </Box>
@@ -143,6 +147,7 @@ function Wallet() {
                 }}
               >
                 <img
+                  alt="name"
                   src="chevron.right -s.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>

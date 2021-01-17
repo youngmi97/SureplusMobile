@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import ListCard from "./ListCard3";
+import { Button, Typography, Box } from "@material-ui/core";
+
 import ListCard2 from "./ListCard7";
 import ListCard3 from "./ListCard8";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Subscribe() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+
   return (
     <div
       style={{
@@ -115,6 +115,7 @@ function Subscribe() {
 
               <Box p={1} style={{ margin: 0, padding: 0, marginRight: 16 }}>
                 <img
+                  alt="name"
                   src="chevron.right -s.svg"
                   style={{
                     width: "3vh",
@@ -222,6 +223,7 @@ function Subscribe() {
 
               <Box p={1} style={{ margin: 0, padding: 0, marginRight: 16 }}>
                 <img
+                  alt="name"
                   src="chevron.right -s.svg"
                   style={{
                     width: "3vh",

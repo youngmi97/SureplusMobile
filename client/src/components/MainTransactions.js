@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box, Divider } from "@material-ui/core";
-import ListCard from "./ListCard3";
+import { Typography } from "@material-ui/core";
+
 import ListCard2 from "./ListCard7";
-import ListCard3 from "./ListCard6";
+
 import "../App.css";
 
 const useStyles = makeStyles((theme) => ({

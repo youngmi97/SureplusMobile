@@ -1,16 +1,13 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
+import React from "react";
+
+import { Button, Typography, Box } from "@material-ui/core";
 import {
-  CircularProgressbar,
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import RadialSeparators from "./RadialSeparators";
 import "../App.css";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function ListCard4(props) {
   return (
@@ -85,6 +82,7 @@ function ListCard4(props) {
                   }}
                 >
                   <img
+                    alt="name"
                     src={props.src}
                     style={{
                       width: "3.94vh",
@@ -120,7 +118,7 @@ function ListCard4(props) {
             </Box>
           </Box>
           {(() => {
-            if (props.finish == 1) {
+            if (props.finish === 1) {
               return (
                 <Box
                   p={1}

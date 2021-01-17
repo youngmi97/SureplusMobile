@@ -1,28 +1,11 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import ListCard from "./ListCard3";
-import ListCard2 from "./ListCard7";
+import React from "react";
+import {} from "@material-ui/core/styles";
+
 import ListCard3 from "./ListCard8";
-import { Link } from "react-router-dom";
+
 import "../App.css";
 
-const useStyles = makeStyles((theme) => ({
-  ListItemSize2: {
-    color: "#666666",
-    padding: 0,
-    backgroundColor: "white",
-    fontSize: "11px",
-    margin: 0,
-    borderRadius: "12px 12px 0px 0px",
-    paddingLeft: 20,
-    paddingTop: 20,
-  },
-}));
-
 function Subscribe() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
   return (
     <div
       style={{

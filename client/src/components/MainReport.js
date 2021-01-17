@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import ListCard from "./ListCard3";
+import { Button, Typography, Box } from "@material-ui/core";
+
 import ListCard2 from "./ListCard7";
 import ListCard3 from "./ListCard6";
 import "../App.css";
@@ -125,6 +125,7 @@ function Subscribe() {
 
               <Box p={1} style={{ margin: 0, padding: 0, marginRight: 16 }}>
                 <img
+                  alt="name"
                   src="chevron.right -s.svg"
                   style={{
                     width: "3vh",
@@ -172,7 +173,6 @@ function Subscribe() {
             r3="0px"
             r4="0px"
             month="Mar"
-            day="4"
             src="/Img/Aaptiv/[32].svg"
             name="Aaptiv"
             plan="$5.9 / Monthly"
@@ -184,7 +184,6 @@ function Subscribe() {
             r3="0px"
             r4="0px"
             month="Mar"
-            day="4"
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
             plan="$5.9 / Monthly"
@@ -233,6 +232,7 @@ function Subscribe() {
 
               <Box p={1} style={{ margin: 0, padding: 0, marginRight: 16 }}>
                 <img
+                  alt="name"
                   src="chevron.right -s.svg"
                   style={{
                     width: "3vh",

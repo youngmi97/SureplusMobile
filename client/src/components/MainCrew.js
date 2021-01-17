@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import {
-  CircularProgressbar,
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
+import React from "react";
+
+import { Box } from "@material-ui/core";
+
 import "react-circular-progressbar/dist/styles.css";
 import ListCard from "./ListCard4";
-import RadialSeparators from "./RadialSeparators";
-import "../App.css";
 
-const useStyles = makeStyles((theme) => ({}));
+import "../App.css";
 
 function Crew() {
   return (
@@ -50,7 +44,7 @@ function Crew() {
                     display: "flex",
                   }}
                 >
-                  <img
+                  <img alt="name"
                     src={"Group 316.svg"}
                     style={{
                       width: "2.956vh",
