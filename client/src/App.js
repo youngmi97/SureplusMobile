@@ -39,7 +39,7 @@ const AuthStateApp = () => {
     });
   }, []);
 
-  return authState === AuthState.SignedIn && user ? (
+  return authState == AuthState.SignedIn && user ? (
     <div className="App">
       <Router>
         <div>

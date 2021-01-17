@@ -51,7 +51,7 @@ export function Report() {
   };
 
   const handleDrawerClose = () => {
-    if (open === true) {
+    if (open == true) {
       setOpen(false);
     }
   };
@@ -182,7 +182,7 @@ export function Report() {
           }}
         >
           {(() => {
-            if (ind === 0) {
+            if (ind == 0) {
               return <Main />;
             } else {
               return <Main2 />;

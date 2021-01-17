@@ -43,7 +43,7 @@ function Subscribe() {
         }}
       >
         {(() => {
-          if (selected === null) {
+          if (selected == null) {
             return (
               <div>
                 <Box
@@ -135,7 +135,7 @@ function Subscribe() {
                 </Box>
               </div>
             );
-          } else if (selected.getDate() === 12) {
+          } else if (selected.getDate() == 12) {
             return (
               <Box
                 style={{

@@ -118,7 +118,7 @@ function ListCard4(props) {
             </Box>
           </Box>
           {(() => {
-            if (props.finish === 1) {
+            if (props.finish == 1) {
               return (
                 <Box
                   p={1}

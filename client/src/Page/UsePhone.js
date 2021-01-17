@@ -8,7 +8,7 @@ function Onboarding() {
   const [number, setNumber] = React.useState("");
 
   const makeText = (a) => {
-    if (a === "-") {
+    if (a == "-") {
       setNumber(number.substring(0, number.length - 1));
     } else {
       setNumber(number + a);
@@ -66,7 +66,7 @@ function Onboarding() {
           Enter your Phone
         </Typography>
         {(() => {
-          if (number === "") {
+          if (number == "") {
             return (
               <Typography
                 style={{

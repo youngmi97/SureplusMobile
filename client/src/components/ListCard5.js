@@ -112,7 +112,7 @@ function ListCard5(props) {
             </Box>
           </Box>
           {(() => {
-            if (props.share === 1) {
+            if (props.share == 1) {
               return (
                 <Box
                   p={1}

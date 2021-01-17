@@ -60,9 +60,9 @@ export default function InputCalendar(props) {
 
   const changeM = (i) => {
     var v = month + i;
-    if (v === -1) {
+    if (v == -1) {
       v = 11;
-    } else if (v === 12) {
+    } else if (v == 12) {
       v = 0;
     }
     setMonth(v);
@@ -84,7 +84,7 @@ export default function InputCalendar(props) {
             }}
           >
             {entry.map((entry1, index1) => {
-              if (entry1 !== state) {
+              if (entry1 != state) {
                 return (
                   <Box
                     display="flex"
@@ -172,7 +172,7 @@ export default function InputCalendar(props) {
         </ListItemSecondaryAction>
       </ListItem>
       {(() => {
-        if (ind === 0) {
+        if (ind == 0) {
           return (
             <div
               style={{

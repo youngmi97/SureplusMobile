@@ -94,7 +94,7 @@ function ListCard2(props) {
           </Box>
 
           {(() => {
-            if (props.day !== 0) {
+            if (props.day != 0) {
               return (
                 <Box
                   p={1}

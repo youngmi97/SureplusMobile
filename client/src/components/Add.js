@@ -747,7 +747,7 @@ export default function Subscription(props) {
                   />
                 </ListItemSecondaryAction>
               </ListItem>
-              {open === true ? (
+              {open == true ? (
                 <ListItem
                   button={false}
                   className={classes.List}
@@ -789,7 +789,7 @@ export default function Subscription(props) {
                       </Box>
 
                       <Box style={{ marginLeft: 5 }}>
-                        {ind1 === 0 ? (
+                        {ind1 == 0 ? (
                           <Typography
                             style={{
                               fontSize: "17px",
@@ -859,7 +859,7 @@ export default function Subscription(props) {
                       </Box>
 
                       <Box style={{ marginLeft: 5 }}>
-                        {ind1 === 0 ? (
+                        {ind1 == 0 ? (
                           <Typography
                             style={{
                               fontSize: "17px",
@@ -886,9 +886,9 @@ export default function Subscription(props) {
                 </ListItem>
               )}
 
-              {open === true ? (
+              {open == true ? (
                 <div>
-                  {ind1 === 0 ? (
+                  {ind1 == 0 ? (
                     <div
                       style={{
                         width: "100%",
