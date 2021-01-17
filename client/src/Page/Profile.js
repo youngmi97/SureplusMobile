@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
 import AppBar from "../components/AppbarProfile";
-import Main from "../components/MainTransactions";
+import Main from "../components/MainProfile";
 import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";

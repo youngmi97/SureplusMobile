@@ -32,11 +32,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputBase from "@material-ui/core/InputBase";
 import { Select } from "@material-ui/core";
 import EventRoundedIcon from "@material-ui/icons/EventRounded";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import MenuItem from "@material-ui/core/MenuItem";
-
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
+import InputCalendar from "./InputCalendar";
 import "../App.css";
 
 const drawerWidth = "100vw";
@@ -118,23 +114,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
     backgroundColor: "rgba(0, 0, 0, 0.04)",
   },
-  left1: {
-    marginLeft: 32,
-    marginRight: 32,
-    marginTop: 20,
-  },
-  forgrid: {
-    backgroundColor: "rgba(0, 0, 0, 0.04)",
-    width: 188,
-    height: 56,
-    marginRight: 4,
-  },
-  forgrid1: {
-    backgroundColor: "rgba(0, 0, 0, 0.04)",
-    width: 188,
-    height: 56,
-    marginLeft: 4,
-  },
+
   searchIcon: {
     padding: theme.spacing(0, 1),
     height: "4.69vh",
@@ -212,26 +192,6 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: "0 0 0 0.2rem rgba(239, 239, 244, 0.25)",
     },
   },
-  highlightButton: {
-    padding: "9.5px",
-    height: "40px",
-    borderRadius: 8,
-    backgroundColor: theme.palette.primary.light,
-    color: "white",
-    border: "1px solid #7610EB",
-    margin: theme.spacing(1),
-    "&:hover, &:focus": {
-      backgroundColor: "#7C45BA",
-      borderColor: "#5C0CB8",
-    },
-  },
-  sortButton: {
-    padding: "9.5px",
-    borderRadius: "8px 8px 8px 8px",
-    margin: theme.spacing(1),
-    color: theme.palette.grey.main,
-    backgroundColor: "white",
-  },
   formControl: {
     minWidth: 120,
   },
@@ -268,25 +228,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   closeButton: {
-    position: "absolute",
-    right: 16,
-    top: 16,
-    fontSize: 32,
     "&:hover, &:focus": {
       backgroundColor: "#ffffff",
       borderColor: "#ffffff",
     },
   },
-  closeButton1: {
-    position: "absolute",
-    left: theme.spacing(1),
-    top: theme.spacing(1),
-    fontSize: 32,
-    "&:hover, &:focus": {
-      backgroundColor: "#fafafa",
-      borderColor: "#fafafa",
-    },
-  },
+
   ListItemSize4: {
     fontSize: 11,
     height: 32,
@@ -304,7 +251,7 @@ const useStyles = makeStyles((theme) => ({
   },
   List: {
     backgroundColor: "white",
-    height: "8.3vh",
+    height: "7.29vh",
     "&:hover, &:focus": {
       backgroundColor: "white",
     },
@@ -362,7 +309,20 @@ const IOSSwitch = withStyles((theme) => ({
     />
   );
 });
-
+const shortmonth = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 export default function Subscription(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -377,7 +337,12 @@ export default function Subscription(props) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const [selectedDate, handleDateChange] = React.useState(new Date());
+  const [ind1, setIndex1] = React.useState(0);
+  const [day, setDay] = React.useState(1);
+  const cards = { 1: [2], 2: [5] };
+
+  const [open, setOpen] = React.useState(false);
+  const [month, setMonth] = React.useState(0);
 
   const [open1, setOpen1] = React.useState(false);
 
@@ -811,47 +776,197 @@ export default function Subscription(props) {
                   />
                 </ListItemSecondaryAction>
               </ListItem>
-              <ListItem
-                button={false}
-                className={classes.List}
-                style={{ marginBottom: "1vh", borderRadius: "12px" }}
-              >
-                <Typography
+              {open == true ? (
+                <ListItem
+                  button={false}
+                  className={classes.List}
+                  style={{ borderRadius: "12px 12px 0px 0px" }}
+                >
+                  <Typography
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      fontSize: "2.21vh",
+                      color: "#8A8A8F",
+                    }}
+                  >
+                    Cycle
+                  </Typography>
+                  <ListItemSecondaryAction
+                    style={{ fontWeight: 400, color: "#000000" }}
+                  >
+                    <Button
+                      onClick={() => setOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "row",
+                        textTransform: "none",
+                      }}
+                    >
+                      <Box>
+                        <div
+                          style={{
+                            color: "#7610EB",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <EventRoundedIcon />
+                        </div>
+                      </Box>
+
+                      <Box style={{ marginLeft: 5 }}>
+                        {ind1 == 0 ? (
+                          <Typography
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: 500,
+                              color: "#7610EB",
+                            }}
+                          >
+                            Monthly on {day}
+                          </Typography>
+                        ) : (
+                          <Typography
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: 500,
+                              color: "#7610EB",
+                            }}
+                          >
+                            Yearly on {shortmonth[month]} {day}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ) : (
+                <ListItem
+                  button={false}
+                  className={classes.List}
                   style={{
-                    margin: 0,
-                    padding: 0,
-                    fontSize: "2.21vh",
-                    color: "#8A8A8F",
+                    borderRadius: "12px 12px 12px 12px",
+                    marginBottom: "1vh",
                   }}
                 >
-                  Cycle
-                </Typography>
-                <ListItemSecondaryAction
-                  style={{ fontWeight: 400, color: "#000000" }}
-                >
-                  <Grid container spacing={1} alignItems="center">
-                    <Grid item>
-                      <div style={{ color: "#7610EB" }}>
-                        <EventRoundedIcon />
-                      </div>
-                    </Grid>
-                    <Grid item>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DatePicker
-                          value={selectedDate}
-                          onChange={handleDateChange}
-                          fullWidth
-                          InputProps={{
-                            className: classes.input,
-                            disableUnderline: "true",
+                  <Typography
+                    style={{
+                      margin: 0,
+                      padding: 0,
+                      fontSize: "2.21vh",
+                      color: "#8A8A8F",
+                    }}
+                  >
+                    Cycle
+                  </Typography>
+                  <ListItemSecondaryAction
+                    style={{ fontWeight: 400, color: "#000000" }}
+                  >
+                    <Button
+                      onClick={() => setOpen(true)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "row",
+                        textTransform: "none",
+                      }}
+                    >
+                      <Box>
+                        <div
+                          style={{
+                            color: "#7610EB",
+                            display: "flex",
+                            alignItems: "center",
                           }}
-                          style={{ width: 105 }}
-                        />
-                      </MuiPickersUtilsProvider>
-                    </Grid>
-                  </Grid>
-                </ListItemSecondaryAction>
-              </ListItem>
+                        >
+                          <EventRoundedIcon />
+                        </div>
+                      </Box>
+
+                      <Box style={{ marginLeft: 5 }}>
+                        {ind1 == 0 ? (
+                          <Typography
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: 500,
+                              color: "#7610EB",
+                            }}
+                          >
+                            Monthly on {day}
+                          </Typography>
+                        ) : (
+                          <Typography
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: 500,
+                              color: "#7610EB",
+                            }}
+                          >
+                            Yearly on {shortmonth[month]} {day}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )}
+
+              {open == true ? (
+                <div>
+                  {ind1 == 0 ? (
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "45vh",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        alignContent: "center",
+                        justifyContent: "center",
+                        borderRadius: "0px 0px 12px 12px",
+                        marginBottom: "1vh",
+                      }}
+                    >
+                      <InputCalendar
+                        ind={ind1}
+                        setIndex={setIndex1}
+                        state={day}
+                        setState={setDay}
+                        month={month}
+                        setMonth={setMonth}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "50.2vh",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        alignContent: "center",
+                        justifyContent: "center",
+                        borderRadius: "0px 0px 12px 12px",
+                        marginBottom: "1vh",
+                      }}
+                    >
+                      <InputCalendar
+                        ind={ind1}
+                        setIndex={setIndex1}
+                        state={day}
+                        setState={setDay}
+                        month={month}
+                        setMonth={setMonth}
+                      />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div></div>
+              )}
+
               <ListItem
                 className={classes.List}
                 style={{ marginBottom: "1vh", borderRadius: "12px" }}
