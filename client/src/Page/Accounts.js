@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
+import "../index.css";
 
 import AppBar from "../components/Appbar4";
 import Main from "../components/MainAccounts";

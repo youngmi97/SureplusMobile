@@ -38,11 +38,26 @@ try {
 	console.log("query error", e);
 }
 
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+typography: {
+  fontFamily: '"Avenir Next", serif',
+},
+});
+
+
 ReactDOM.render(
+<<<<<<< HEAD
+  <MuiThemeProvider theme={theme}><App /></MuiThemeProvider>,
+  document.getElementById('root')
+=======
 	<ApolloProvider client={client}>
 		<App />
 	</ApolloProvider>,
 	document.getElementById("root")
+>>>>>>> 55d169b13f5f0dfdb2a54dcd7144843dfdc49e08
 );
 
 // If you want to start measuring performance in your app, pass a function

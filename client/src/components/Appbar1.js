@@ -1,3 +1,5 @@
+// Home > Wallet > Cards
+
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Box, Typography } from "@material-ui/core";
@@ -15,22 +17,26 @@ function Appbar1(props) {
         display="flex"
         p={1}
         alignItems="center"
-        style={{ margin: 0, padding: 0, height: "5.72vh" }}
+        style={{ margin: 0, 
+        padding:0,
+        height: "5.73vh" }}
       >
         <Box
           Button
           p={1}
+          display="flex"
+          alignItems="center"
           style={{
             position: "absolute",
             margin: 0,
             padding: 0,
-            left: "2.13vw",
+            left: "16px",
           }}
           component={Link}
           to="/"
         >
           <img
-            src="Back.svg"
+            src="Icons[32]/Type=Back.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
@@ -48,11 +54,13 @@ function Appbar1(props) {
         </Box>
         <Box
           p={1}
+          display="flex"
+          alignItems="center"
           style={{
             position: "absolute",
             margin: 0,
             padding: 0,
-            right: "10vw",
+            right: `calc(32px + 4.16vh)`,
           }}
         >
           <img
@@ -62,11 +70,13 @@ function Appbar1(props) {
         </Box>
         <Box
           p={1}
+          display="flex"
+          alignItems="center"
           style={{
             position: "absolute",
             margin: 0,
             padding: 0,
-            right: "2.13vw",
+            right: "16px",
           }}
         >
           <img

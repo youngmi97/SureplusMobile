@@ -1,3 +1,6 @@
+// Home / Report
+// This is the first screen the user sees upon login or first sign in
+
 import React, { useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
