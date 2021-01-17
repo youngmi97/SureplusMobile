@@ -27,6 +27,8 @@ const AuthStateApp = () => {
 	const [authState, setAuthState] = useState();
 	const [user, setUser] = useState();
 
+	//prompt users to download pwa
+
 	useEffect(() => {
 		onAuthUIStateChange((nextAuthState, authData) => {
 			setAuthState(nextAuthState);
