@@ -13,6 +13,8 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 import { ApolloProvider } from "react-apollo";
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 //import { withAuthenticator } from 'aws-amplify-react';
 Amplify.configure(AppSyncConfig);
 
@@ -39,7 +41,7 @@ try {
 }
 
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 const theme = createMuiTheme({
 typography: {

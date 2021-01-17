@@ -1,3 +1,5 @@
+//For reports, the app bar does not exist as a component, rather it sits as div
+
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
@@ -87,7 +89,7 @@ export function Report() {
               <Box
                 p={1}
                 flexGrow={1}
-                style={{ margin: 0, padding: 0, marginLeft: "2.13vw" }}
+                style={{ margin: 0, padding: 0 }}
               >
                 <Button
                   onClick={handleDrawerOpen}
@@ -110,7 +112,7 @@ export function Report() {
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginRight: "2.13vw",
+
                 }}
               >
                 <Button
@@ -123,7 +125,7 @@ export function Report() {
                   }}
                 >
                   <img
-                    src="search.svg"
+                    src="/Icons[32]/Type=Search.svg"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
@@ -133,7 +135,7 @@ export function Report() {
                 style={{
                   margin: 0,
                   padding: 0,
-                  marginRight: "2.13vw",
+
                 }}
               >
                 <Button
@@ -148,7 +150,7 @@ export function Report() {
                   }}
                 >
                   <img
-                    src="Icons.svg"
+                    src="/Icons[32]/Type=Notifications.svg"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
