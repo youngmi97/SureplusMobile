@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 import Home from "./Page/Home";
@@ -17,12 +18,32 @@ import UsePhoneCode from "./Page/UsePhoneCode";
 import Following from "./Page/Following";
 import Followers from "./Page/Followers";
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <div>
-          <Route exact path="/" component={Report} />
+import {
+	AmplifyAuthenticator,
+	AmplifySignOut,
+	AmplifySignUp,
+	AmplifySignIn,
+} from "@aws-amplify/ui-react";
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+
+const AuthStateApp = () => {
+	const [authState, setAuthState] = useState();
+	const [user, setUser] = useState();
+
+	//prompt users to download pwa
+
+	useEffect(() => {
+		onAuthUIStateChange((nextAuthState, authData) => {
+			setAuthState(nextAuthState);
+			setUser(authData);
+		});
+	}, []);
+
+	return authState === AuthState.SignedIn && user ? (
+		<div className="App">
+			<Router>
+				<div>
+				<Route exact path="/" component={Report} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Wallet" component={Wallet} />
           <Route exact path="/Accounts" component={Accounts} />
@@ -38,10 +59,42 @@ function App() {
           <Route exact path="/UsePhoneCode" component={UsePhoneCode} />
           <Route exact path="/Following" component={Following} />
           <Route exact path="/Followers" component={Followers} />
-        </div>
-      </Router>
-    </div>
-  );
-}
+					{/* Component with no routes are sent to signout prompt */}
+					<AmplifySignOut />
+				</div>
+			</Router>
+		</div>
+	) : (
+		<AmplifyAuthenticator>
+			<AmplifySignUp
+				slot="sign-up"
+				usernameAlias="phone_number"
+				formFields={[
+					{
+						type: "name",
+						label: "Name",
+						placeholder: "Name",
+						required: true,
+					},
 
-export default App;
+					{
+						type: "password",
+						label: "Custom Password Label",
+						placeholder: "custom password placeholder",
+						required: true,
+					},
+
+					{
+						type: "phone_number",
+						label: "Custom Phone Label",
+						placeholder: "custom Phone placeholder",
+						required: false,
+					},
+				]}
+			/>
+			<AmplifySignIn slot="sign-in" usernameAlias="phone_number" />
+		</AmplifyAuthenticator>
+	);
+};
+
+export default AuthStateApp;
