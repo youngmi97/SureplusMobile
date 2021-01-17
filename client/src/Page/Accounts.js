@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import "../index.css";
 
 import AppBar from "../components/Appbar4";
 import Main from "../components/MainAccounts";

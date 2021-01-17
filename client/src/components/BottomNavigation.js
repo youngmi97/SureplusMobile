@@ -23,13 +23,17 @@ export default function BottomNav(props) {
           position: "absolute",
           bottom: 0,
           width: "100vw",
-          height: "10vh",
+          height: "9.11vh",
+          borderTopLeftRadius: "12px",
+          borderTopRightRadius: "12px",
+          paddingBottom: "24px",
           "& .MuiBottomNavigationAction-root": {
             "@media (max-width: 768px)": {
               minWidth: "auto",
               padding: "0px",
             },
           },
+          boxShadow: "0px -4px 15px rgba(0, 0, 0, 0.08)",
         }}
       >
         {(() => {
