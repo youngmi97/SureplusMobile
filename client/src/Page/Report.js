@@ -50,17 +50,19 @@ export function Report() {
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
-    if (open == true) {
-      setOpen(false);
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
     }
+
+    setOpen(open);
   };
 
   return (
-    <div
-      onClick={handleDrawerClose}
-      style={{ width: "100%", alignContent: "center", height: "100vh" }}
-    >
+    <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       <div>
         <div
           position="absolute"
@@ -83,11 +85,7 @@ export function Report() {
                 height: "5.72vh",
               }}
             >
-              <Box
-                p={1}
-                flexGrow={1}
-                style={{ margin: 0, padding: 0 }}
-              >
+              <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
                 <Button
                   onClick={handleDrawerOpen}
                   style={{
@@ -110,7 +108,6 @@ export function Report() {
                 style={{
                   margin: 0,
                   padding: 0,
-
                 }}
               >
                 <Button
@@ -134,7 +131,6 @@ export function Report() {
                 style={{
                   margin: 0,
                   padding: 0,
-
                 }}
               >
                 <Button
@@ -206,6 +202,7 @@ export function Report() {
         classes={{
           paper: classes.drawerPaper,
         }}
+        onClick={toggleDrawer("left", false)}
       >
         <div
           style={{
