@@ -33,7 +33,7 @@ function Appbar1(props) {
             left: "2.13vw",
           }}
           component={Link}
-          to="/Wallet"
+          to="/"
         >
           <img
             src="Back.svg"

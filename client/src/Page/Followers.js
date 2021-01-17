@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
-import AppBar from "../components/AppbarProfile";
-import Main from "../components/MainProfile";
+import AppBar from "../components/AppbarFollow";
+import Main from "../components/MainFollowers";
 import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -30,7 +30,7 @@ function Wallet() {
           backgroundColor: "white",
         }}
       >
-        <AppBar />
+        <AppBar name={"Jinjae Kim"} Follower={17} Following={11} state={0} />
       </div>
       <div
         style={{

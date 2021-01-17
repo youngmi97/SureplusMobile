@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
-import AppBar from "../components/AppbarProfile";
-import Main from "../components/MainProfile";
+import AppBar from "../components/AppbarTran";
+import Main from "../components/MainFollowers";
 import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -22,26 +22,7 @@ function Wallet() {
         height: "100vh",
         backgroundColor: "white",
       }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "25vh",
-          backgroundColor: "white",
-        }}
-      >
-        <AppBar />
-      </div>
-      <div
-        style={{
-          width: "100%",
-          alignContent: "center",
-        }}
-      >
-        <Main />
-      </div>
-      <BottomNavigation value={value} setValue={setValue} />
-    </div>
+    ></div>
   );
 }
 

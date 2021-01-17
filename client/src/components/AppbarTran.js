@@ -27,7 +27,7 @@ function Appbar1(props) {
             left: "2.13vw",
           }}
           component={Link}
-          to="/Wallet"
+          to={props.link}
         >
           <img
             src="Back.svg"
@@ -43,7 +43,7 @@ function Appbar1(props) {
               textAlign: "center",
             }}
           >
-            Transactions
+            {props.name}
           </Typography>
         </Box>
       </Box>

@@ -23,7 +23,7 @@ function Wallet() {
           backgroundColor: "white",
         }}
       >
-        <AppBar />
+        <AppBar name={"Transactions"} link={"/Wallet"} />
       </div>
       <div
         style={{
