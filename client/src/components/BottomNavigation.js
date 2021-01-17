@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import React from "react";
+
 import BottomNavigation from "@material-ui/core/BottomNavigation";
-import Box from "@material-ui/core/Box";
+
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ export default function BottomNav(props) {
         }}
       >
         {(() => {
-          if (value == 0) {
+          if (value === 0) {
             return (
               <BottomNavigationAction
                 component={Link}
@@ -47,6 +47,7 @@ export default function BottomNav(props) {
                 style={{ margin: 0, padding: 0, minWidth: "auto" }}
                 icon={
                   <img
+                    alt="name"
                     style={{ width: "3.92vh", height: "3.92vh" }}
                     src="Property 1=Home.svg"
                   ></img>
@@ -72,6 +73,7 @@ export default function BottomNav(props) {
                 }}
                 icon={
                   <img
+                    alt="name"
                     style={{ width: "3.92vh", height: "3.92vh" }}
                     src="Property 1=Home.svg"
                   ></img>
@@ -81,7 +83,7 @@ export default function BottomNav(props) {
           }
         })()}
         {(() => {
-          if (value == 1) {
+          if (value === 1) {
             return (
               <BottomNavigationAction
                 component={Link}
@@ -95,6 +97,7 @@ export default function BottomNav(props) {
                 style={{ margin: 0, padding: 0, minWidth: "auto" }}
                 icon={
                   <img
+                    alt="name"
                     style={{ width: "3.92vh", height: "3.92vh" }}
                     src="Property 1=Subscriptions.svg"
                   ></img>
@@ -120,6 +123,7 @@ export default function BottomNav(props) {
                 }}
                 icon={
                   <img
+                    alt="name"
                     style={{ width: "3.92vh", height: "3.92vh" }}
                     src="Property 1=Subscriptions.svg"
                   ></img>
@@ -129,7 +133,7 @@ export default function BottomNav(props) {
           }
         })()}
         {(() => {
-          if (value == 2) {
+          if (value === 2) {
             return (
               <BottomNavigationAction
                 component={Link}
@@ -143,6 +147,7 @@ export default function BottomNav(props) {
                 style={{ margin: 0, padding: 0, minWidth: "auto" }}
                 icon={
                   <img
+                    alt="name"
                     style={{ width: "3.92vh", height: "3.92vh" }}
                     src="Property 1=Group.svg"
                   ></img>
@@ -168,6 +173,7 @@ export default function BottomNav(props) {
                 }}
                 icon={
                   <img
+                    alt="name"
                     style={{ width: "3.92vh", height: "3.92vh" }}
                     src="Property 1=Group.svg"
                   ></img>

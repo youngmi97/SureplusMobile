@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
+import React from "react";
+
+import { Button, Typography, Box } from "@material-ui/core";
 import "../App.css";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Wallet() {
   return (
@@ -49,6 +47,7 @@ function Wallet() {
             }}
           >
             <img
+              alt="name"
               src="/Mastercard.svg"
               style={{
                 position: "absolute",
@@ -103,6 +102,7 @@ function Wallet() {
                 }}
               >
                 <img
+                  alt="name"
                   src="Transfer.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -126,6 +126,7 @@ function Wallet() {
                 }}
               >
                 <img
+                  alt="name"
                   src="chevron.right -s.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -161,7 +162,7 @@ function Wallet() {
                   display: "flex",
                 }}
               >
-                <img
+                <img alt="name"
                   src="Card.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -198,7 +199,7 @@ function Wallet() {
                   display: "flex",
                 }}
               >
-                <img
+                <img alt="name"
                   src="chevron.right -s.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -234,7 +235,7 @@ function Wallet() {
                   display: "flex",
                 }}
               >
-                <img
+                <img alt="name"
                   src="Bank.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -271,7 +272,7 @@ function Wallet() {
                   display: "flex",
                 }}
               >
-                <img
+                <img alt="name"
                   src="chevron.right -s.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -303,7 +304,7 @@ function Wallet() {
                   display: "flex",
                 }}
               >
-                <img
+                <img alt="name"
                   src="LinkBank.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>
@@ -326,7 +327,7 @@ function Wallet() {
                   display: "flex",
                 }}
               >
-                <img
+                <img alt="name"
                   src="chevron.right -s.svg"
                   style={{ width: "3vh", height: "3vh", margin: 0, padding: 0 }}
                 ></img>

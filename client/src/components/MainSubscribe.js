@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import ListCard from "./ListCard3";
-import ListCard1 from "./ListCard";
-import ListCard2 from "./ListCard2";
-import "../App.css";
+import React from "react";
 
-const useStyles = makeStyles((theme) => ({}));
+import { Box } from "@material-ui/core";
+import ListCard from "./ListCard3";
+import "../App.css";
 
 function Subscribe() {
   return (

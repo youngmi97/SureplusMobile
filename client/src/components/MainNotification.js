@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box, Divider } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import ListCard from "./ListCard9";
 
 import "../App.css";

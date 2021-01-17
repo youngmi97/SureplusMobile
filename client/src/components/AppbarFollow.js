@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import AddSubscription from "./Add";
-import { Grid } from "@material-ui/core";
+import { Box, Typography, Tabs, Tab } from "@material-ui/core";
+
 import InputBase from "@material-ui/core/InputBase";
 import { Link } from "react-router-dom";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
@@ -62,12 +60,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Appbar2(props) {
-  const [value, setValue] = React.useState(0);
   const classes = useStyles();
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const StyledTabs = withStyles({
     root: {
       minHeight: "auto",
@@ -103,13 +97,7 @@ function Appbar2(props) {
       },
     },
   }))((props) => <Tab disableRipple {...props} />);
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -131,6 +119,7 @@ function Appbar2(props) {
           to="/Profile"
         >
           <img
+            alt="name"
             src="Back.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>

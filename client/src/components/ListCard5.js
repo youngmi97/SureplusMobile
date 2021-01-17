@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import "../App.css";
+import React from "react";
 
-const useStyles = makeStyles((theme) => ({}));
+import { Button, Typography, Box } from "@material-ui/core";
+import "../App.css";
 
 function ListCard5(props) {
   return (
@@ -78,6 +76,7 @@ function ListCard5(props) {
                   }}
                 >
                   <img
+                    alt="name"
                     src={props.src}
                     style={{
                       width: "3.94vh",
@@ -113,7 +112,7 @@ function ListCard5(props) {
             </Box>
           </Box>
           {(() => {
-            if (props.share == 1) {
+            if (props.share === 1) {
               return (
                 <Box
                   p={1}

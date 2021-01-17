@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+
 import "../App.css";
 import AppBar from "../components/Appbar3";
 import Main from "../components/MainCrew2";
 import BottomNavigation from "../components/BottomNavigation";
-
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Crew2() {
   const [value, setValue] = React.useState(2);

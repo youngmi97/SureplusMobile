@@ -1,14 +1,11 @@
 //Home > Wallet > Linked Accounts
 
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import { Grid } from "@material-ui/core";
+import React from "react";
+
+import { Box, Typography } from "@material-ui/core";
+
 import "../App.css";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Appbar1(props) {
   return (
@@ -32,6 +29,7 @@ function Appbar1(props) {
           to="/"
         >
           <img
+            alt="name"
             src="Back.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
@@ -58,6 +56,7 @@ function Appbar1(props) {
           }}
         >
           <img
+            alt="name"
             src="Icons[32]/Type=Sort.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
@@ -72,6 +71,7 @@ function Appbar1(props) {
           }}
         >
           <img
+            alt="name"
             src="Icons[32]/Type=Add.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>

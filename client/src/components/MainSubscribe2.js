@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
+import React from "react";
+
+import { Box } from "@material-ui/core";
 import ListCard from "./ListCard3";
-import ListCard1 from "./ListCard";
-import ListCard2 from "./ListCard2";
+
 import Calendar from "./calendar";
 import "../App.css";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Subscribe() {
   const [selected, setSelected] = React.useState(null);
@@ -46,7 +43,7 @@ function Subscribe() {
         }}
       >
         {(() => {
-          if (selected == null) {
+          if (selected === null) {
             return (
               <div>
                 <Box
@@ -138,7 +135,7 @@ function Subscribe() {
                 </Box>
               </div>
             );
-          } else if (selected.getDate() == 12) {
+          } else if (selected.getDate() === 12) {
             return (
               <Box
                 style={{

@@ -1,26 +1,12 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box, Divider } from "@material-ui/core";
-import ListCard from "./ListCard3";
-import ListCard2 from "./ListCard7";
+import React from "react";
+
+import { Grid, Typography, Box } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
-import ListCard3 from "./ListCard6";
+
 import "../App.css";
 
-const useStyles = makeStyles((theme) => ({
-  ListItemSize2: {
-    color: "#666666",
-    padding: 0,
-    backgroundColor: "white",
-    fontSize: "11px",
-    margin: 0,
-    borderRadius: "12px 12px 0px 0px",
-  },
-}));
-
 function Subscribe() {
-  const classes = useStyles();
-
   return (
     <div
       style={{
@@ -160,6 +146,7 @@ function Subscribe() {
           }}
         >
           <img
+            alt="name"
             src={"/Img/Aaptiv/[48].svg"}
             style={{
               width: "7.8125vh",
@@ -186,6 +173,7 @@ function Subscribe() {
           }}
         >
           <img
+            alt="name"
             src={"/Img/Aaptiv/[48].svg"}
             style={{
               width: "7.8125vh",
@@ -212,6 +200,7 @@ function Subscribe() {
           }}
         >
           <img
+            alt="name"
             src={"/Img/Aaptiv/[48].svg"}
             style={{
               width: "7.8125vh",
@@ -238,6 +227,7 @@ function Subscribe() {
           }}
         >
           <img
+            alt="name"
             src={"/Img/Aaptiv/[48].svg"}
             style={{
               width: "7.8125vh",
@@ -263,6 +253,7 @@ function Subscribe() {
           }}
         >
           <img
+            alt="name"
             src={"/Img/Aaptiv/[48].svg"}
             style={{
               width: "7.8125vh",

@@ -1,22 +1,19 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+
 import "../App.css";
 import { Link } from "react-router-dom";
-import { Button, Typography, InputBase, Grid } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({}));
+import { Button, Typography, Grid } from "@material-ui/core";
 
 function Onboarding() {
   const [number, setNumber] = React.useState("");
 
   const makeText = (a) => {
-    if (a == "-") {
+    if (a === "-") {
       setNumber(number.substring(0, number.length - 1));
     } else {
       setNumber(number + a);
     }
   };
-  const classes = useStyles();
 
   return (
     <div
@@ -40,6 +37,7 @@ function Onboarding() {
       >
         <Button style={{ margin: 0, padding: 0, minWidth: 0, minHeight: 0 }}>
           <img
+            alt="name"
             src="Question.svg"
             style={{
               width: "3.94vh",
@@ -68,7 +66,7 @@ function Onboarding() {
           Enter your Phone
         </Typography>
         {(() => {
-          if (number == "") {
+          if (number === "") {
             return (
               <Typography
                 style={{

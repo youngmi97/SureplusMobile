@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { Button, Box, Tabs, Tab } from "@material-ui/core";
 import "../App.css";
-
-const useStyles = makeStyles((theme) => ({}));
 
 const StyledTabs = withStyles({
   root: {
@@ -70,6 +68,7 @@ export default function Appbar2(props) {
             }}
           >
             <img
+              alt="name"
               src="MyProfile.png"
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
@@ -93,6 +92,7 @@ export default function Appbar2(props) {
             }}
           >
             <img
+              alt="name"
               src="search.svg"
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
@@ -116,6 +116,7 @@ export default function Appbar2(props) {
             }}
           >
             <img
+              alt="name"
               src="Icons.svg"
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
