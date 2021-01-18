@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
+//import { AuthContext } from "../context/auth";
 
 const drawerWidth = "75vw";
 
@@ -40,11 +41,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Report() {
+export function Report(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+
+  //const context = useContext(AuthContext);
+
+  //context.login(props.userData);
+  console.log("Report", props.userData);
 
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
@@ -26,9 +26,13 @@ import {
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
+import { AuthProvider } from "./context/auth";
+
 const AuthStateApp = () => {
   const [authState, setAuthState] = useState();
   const [user, setUser] = useState();
+
+  //const context = useContext(AuthContext);
 
   //prompt users to download pwa
 
@@ -37,33 +41,95 @@ const AuthStateApp = () => {
       setAuthState(nextAuthState);
       setUser(authData);
     });
-  }, []);
+  }, [user, authState]);
 
   return authState == AuthState.SignedIn && user ? (
-    <div className="App">
-      <Router>
-        <div>
-          <Route exact path="/" component={Report} />
-          <Route exact path="/Profile" component={Profile} />
-          <Route exact path="/Wallet" component={Wallet} />
-          <Route exact path="/Accounts" component={Accounts} />
-          {/* <Route exact path="/Home" component={Home} /> */}
-          <Route exact path="/Transaction" component={Transaction} />
-          <Route exact path="/Notification" component={Notification} />
-          <Route exact path="/Subscription" component={Subscription} />
-          <Route exact path="/Subscription2" component={Subscription2} />
-          <Route exact path="/Crew" component={Crew} />
-          <Route exact path="/Crew2" component={Crew2} />
-          <Route exact path="/Onboarding" component={Onboarding} />
-          <Route exact path="/UsePhone" component={UsePhone} />
-          <Route exact path="/UsePhoneCode" component={UsePhoneCode} />
-          <Route exact path="/Following" component={Following} />
-          <Route exact path="/Followers" component={Followers} />
-          {/* Component with no routes are sent to signout prompt */}
-          <AmplifySignOut />
-        </div>
-      </Router>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Router>
+          <div>
+            <Route
+              exact
+              path="/"
+              component={() => <Report userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Profile"
+              component={() => <Profile userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Wallet"
+              component={() => <Wallet userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Accounts"
+              component={() => <Accounts userData={user.attributes} />}
+            />
+            {/* <Route exact path="/Home" component={Home} /> */}
+            <Route
+              exact
+              path="/Transaction"
+              component={() => <Transaction userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Notification"
+              component={() => <Notification userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Subscription"
+              component={() => <Subscription userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Subscription2"
+              component={() => <Subscription2 userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Crew"
+              component={() => <Crew userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Crew2"
+              component={() => <Crew2 userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Onboarding"
+              ccomponent={() => <Onboarding userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/UsePhone"
+              component={() => <UsePhone userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/UsePhoneCode"
+              component={() => <UsePhoneCode userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Following"
+              component={() => <Following userData={user.attributes} />}
+            />
+            <Route
+              exact
+              path="/Followers"
+              component={() => <Followers userData={user.attributes} />}
+            />
+            {/* Component with no routes are sent to signout prompt */}
+            <AmplifySignOut />
+          </div>
+        </Router>
+      </div>
+    </AuthProvider>
   ) : (
     <AmplifyAuthenticator>
       <AmplifySignUp
