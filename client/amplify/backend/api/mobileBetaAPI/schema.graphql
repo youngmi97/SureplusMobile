@@ -1,23 +1,43 @@
 #@model is a  model directive that tells amplify cli to store the following types in the dynamodb table
 #consider usage of the @auth directive
 
-type Blog @model {
-	id: ID!
-	name: String!
-	posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+# type User @model {
+#   id: ID!
+#   name: String!
+#   phone_number: String!
+#   createdAt: String!
+# }
+
+# Blog -> Account
+# Post -> Transaction
+# Comment -> Service
+
+type AccountPlaid @model @key(fields: ["userID"]) {
+  id: String!
+  name: String!
+  userID: String!
+  transactions: [TransactionPlaid]
+    @connection(keyName: "byAccount", fields: ["id"])
+  services: [ServicePlaid] @connection(keyName: "byUser", fields: ["userID"])
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
-	id: ID!
-	title: String!
-	blogID: ID!
-	blog: Blog @connection(fields: ["blogID"])
-	comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+type TransactionPlaid @model @key(name: "byAccount", fields: ["accountID"]) {
+  id: String!
+  title: String!
+  accountID: String!
+  cost: String!
+  account: AccountPlaid @connection(fields: ["accountID"])
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
-	id: ID!
-	postID: ID!
-	post: Post @connection(fields: ["postID"])
-	content: String!
+type ServicePlaid @model @key(name: "byUser", fields: ["userID"]) {
+  id: String!
+  userID: String!
+  transactionID: String
+  accountID: String
+  name: String!
+  cost: String!
+  period: String!
+  firstAddedDate: String!
+  lastDate: String!
+  category: [String]!
 }

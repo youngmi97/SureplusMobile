@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
+import gql from "graphql-tag";
+import getServicePlaid from "../graphql/queries";
+
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
 import Main2 from "../components/MainReport2";
@@ -48,6 +51,18 @@ export function Report(props) {
   const [open, setOpen] = React.useState(false);
 
   //const context = useContext(AuthContext);
+
+  // try {
+  //   props.client
+  //     .query({
+  //       query: gql(getServicePlaid),
+  //     })
+  //     .then(({ data }) => {
+  //       console.log("demoData", data);
+  //     });
+  // } catch (e) {
+  //   console.log("query error", e);
+  // }
 
   //context.login(props.userData);
   console.log("Report", props.userData);

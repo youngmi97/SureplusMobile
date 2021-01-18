@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
@@ -28,13 +28,13 @@ import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 import { AuthProvider } from "./context/auth";
 
-const AuthStateApp = () => {
+const AuthStateApp = (props) => {
   const [authState, setAuthState] = useState();
   const [user, setUser] = useState();
 
-  //const context = useContext(AuthContext);
-
+  //const context = useContext(AuthContext)
   //prompt users to download pwa
+  //console.log("App", props.client);
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
@@ -51,78 +51,120 @@ const AuthStateApp = () => {
             <Route
               exact
               path="/"
-              component={() => <Report userData={user.attributes} />}
+              component={() => (
+                <Report userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Profile"
-              component={() => <Profile userData={user.attributes} />}
+              component={() => (
+                <Profile userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Wallet"
-              component={() => <Wallet userData={user.attributes} />}
+              component={() => (
+                <Wallet userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Accounts"
-              component={() => <Accounts userData={user.attributes} />}
+              component={() => (
+                <Accounts userData={user.attributes} client={props.client} />
+              )}
             />
             {/* <Route exact path="/Home" component={Home} /> */}
             <Route
               exact
               path="/Transaction"
-              component={() => <Transaction userData={user.attributes} />}
+              component={() => (
+                <Transaction userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Notification"
-              component={() => <Notification userData={user.attributes} />}
+              component={() => (
+                <Notification
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
             />
             <Route
               exact
               path="/Subscription"
-              component={() => <Subscription userData={user.attributes} />}
+              component={() => (
+                <Subscription
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
             />
             <Route
               exact
               path="/Subscription2"
-              component={() => <Subscription2 userData={user.attributes} />}
+              component={() => (
+                <Subscription2
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
             />
             <Route
               exact
               path="/Crew"
-              component={() => <Crew userData={user.attributes} />}
+              component={() => (
+                <Crew userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Crew2"
-              component={() => <Crew2 userData={user.attributes} />}
+              component={() => (
+                <Crew2 userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Onboarding"
-              ccomponent={() => <Onboarding userData={user.attributes} />}
+              ccomponent={() => (
+                <Onboarding userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/UsePhone"
-              component={() => <UsePhone userData={user.attributes} />}
+              component={() => (
+                <UsePhone userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/UsePhoneCode"
-              component={() => <UsePhoneCode userData={user.attributes} />}
+              component={() => (
+                <UsePhoneCode
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
             />
             <Route
               exact
               path="/Following"
-              component={() => <Following userData={user.attributes} />}
+              component={() => (
+                <Following userData={user.attributes} client={props.client} />
+              )}
             />
             <Route
               exact
               path="/Followers"
-              component={() => <Followers userData={user.attributes} />}
+              component={() => (
+                <Followers userData={user.attributes} client={props.client} />
+              )}
             />
             {/* Component with no routes are sent to signout prompt */}
             <AmplifySignOut />

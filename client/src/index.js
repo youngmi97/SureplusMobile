@@ -4,10 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import gql from "graphql-tag";
+//import gql from "graphql-tag";
 import AWSAppSyncClient, { AUTH_TYPE } from "aws-appsync";
 import AppSyncConfig from "./aws-exports";
-import { listPosts } from "./graphql/queries";
+//import { GetServicePlaid } from "./graphql/queries";
 import Amplify, { Auth } from "aws-amplify";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
@@ -28,19 +28,6 @@ const client = new AWSAppSyncClient({
   },
 });
 
-//Example Query
-// try {
-//   client
-//     .query({
-//       query: gql(listPosts),
-//     })
-//     .then(({ data }) => {
-//       console.log("demoData", data);
-//     });
-// } catch (e) {
-//   console.log("query error", e);
-// }
-
 const theme = createMuiTheme({
   typography: {
     fontFamily: '"Avenir Next", serif',
@@ -50,7 +37,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <MuiThemeProvider theme={theme}>
-      <App />
+      <App client={client} />
     </MuiThemeProvider>
   </ApolloProvider>,
   document.getElementById("root")
