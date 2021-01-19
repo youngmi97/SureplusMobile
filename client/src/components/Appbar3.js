@@ -72,7 +72,7 @@ function Appbar2(props) {
             {props.Text}
           </Typography>
         </Box>
-        <Box
+        {/* <Box
           p={1}
           style={{
             position: "absolute",
@@ -97,7 +97,7 @@ function Appbar2(props) {
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
           </Button>
-        </Box>
+        </Box> */}
       </Box>
       <StyledTabs
         value={props.state}
@@ -121,11 +121,11 @@ function Appbar2(props) {
           component={Link}
         />
       </StyledTabs>
-      <AddSubscription
+      {/* <AddSubscription
         open={open}
         handleClose={() => handleClose()}
         handleClickOpen={() => handleClickOpen()}
-      />
+      /> */}
     </div>
   );
 }

@@ -40,10 +40,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Report() {
+export function Report(props) {
+  var num = 0;
+
+  if (props.location.param1 != null) {
+    num = 1;
+  }
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [ind, setIndex] = React.useState(0);
+  const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -103,7 +108,7 @@ export function Report() {
                   ></img>
                 </Button>
               </Box>
-              <Box
+              {/* <Box
                 p={1}
                 style={{
                   margin: 0,
@@ -125,7 +130,7 @@ export function Report() {
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
-              </Box>
+              </Box> */}
               <Box
                 p={1}
                 style={{
@@ -228,58 +233,6 @@ export function Report() {
             Jinjae Kim
           </Typography>
         </div>
-        <div
-          style={{
-            marginTop: 20,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            style={{
-              margin: 0,
-              padding: 0,
-              marginLeft: 20,
-              alignItems: "center",
-            }}
-          >
-            17
-          </Typography>
-          <Typography
-            style={{
-              margin: 0,
-              padding: 0,
-              marginLeft: 4,
-              alignItems: "center",
-              color: "#666666",
-            }}
-          >
-            Following
-          </Typography>
-          <Typography
-            style={{
-              margin: 0,
-              padding: 0,
-              marginLeft: 16,
-              alignItems: "center",
-            }}
-          >
-            8
-          </Typography>
-          <Typography
-            style={{
-              margin: 0,
-              padding: 0,
-              marginLeft: 4,
-              alignItems: "center",
-              color: "#666666",
-            }}
-          >
-            Followers
-          </Typography>
-        </div>
-
         <Button
           component={Link}
           to="/Profile"

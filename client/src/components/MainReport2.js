@@ -57,20 +57,46 @@ function Subscribe() {
             second="$11.8"
             src="Recurring.svg"
           ></ListCard1> */}
-          <Typography className={classes.ListItemSize2}>Cards 1</Typography>
-          <ListCard2
-            r1="0px"
-            r2="0px"
-            r3="0px"
-            r4="0px"
-            month="Mar"
-            day="4"
-            src="/Img/AppleMusic/[32].svg"
-            name="Sureplus Pro"
-            plan="Virtual Card ･･34"
-            price={""}
-          ></ListCard2>
+          <Typography className={classes.ListItemSize2}>
+            Physical Cards 1
+          </Typography>
           <Button
+            component={Link}
+            to={{ pathname: "/Wallet", param1: "hihi" }}
+            style={{ margin: 0, padding: 0, width: "100%" }}
+          >
+            <ListCard2
+              r1="0px"
+              r2="0px"
+              r3="0px"
+              r4="0px"
+              month="Mar"
+              day="4"
+              src="/Img/AppleMusic/[32].svg"
+              name="Wells Fargo"
+              plan="Master Card ･･34"
+              price={""}
+            ></ListCard2>
+          </Button>
+          <Button
+            component={Link}
+            to={{ pathname: "/Wallet", param1: "hihi" }}
+            style={{ margin: 0, padding: 0, width: "100%" }}
+          >
+            <ListCard2
+              r1="0px"
+              r2="0px"
+              r3="12px"
+              r4="12px"
+              month="Mar"
+              day="4"
+              src="/Img/BarkBox/[32].svg"
+              name="Amex"
+              plan="Visa Card ･･34"
+              price={""}
+            ></ListCard2>
+          </Button>
+          {/* <Button
             component={Link}
             to="/Wallet"
             style={{
@@ -126,7 +152,7 @@ function Subscribe() {
                 ></img>
               </Box>
             </Box>
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div

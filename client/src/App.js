@@ -15,8 +15,8 @@ import Onboarding from "./Page/Onboarding";
 import UsePhone from "./Page/UsePhone";
 import Wallet from "./Page/Wallet";
 import UsePhoneCode from "./Page/UsePhoneCode";
-import Following from "./Page/Following";
-import Followers from "./Page/Followers";
+import WalletActivity from "./Page/WalletActivity";
+import OneSub from "./Page/OneSub";
 
 import {
   AmplifyAuthenticator,
@@ -45,7 +45,7 @@ const AuthStateApp = () => {
         <div>
           <Route exact path="/" component={Report} />
           <Route exact path="/Profile" component={Profile} />
-          <Route exact path="/Wallet" component={Wallet} />
+          <Route path="/Wallet" component={Wallet} />
           <Route exact path="/Accounts" component={Accounts} />
           {/* <Route exact path="/Home" component={Home} /> */}
           <Route exact path="/Transaction" component={Transaction} />
@@ -57,8 +57,9 @@ const AuthStateApp = () => {
           <Route exact path="/Onboarding" component={Onboarding} />
           <Route exact path="/UsePhone" component={UsePhone} />
           <Route exact path="/UsePhoneCode" component={UsePhoneCode} />
-          <Route exact path="/Following" component={Following} />
-          <Route exact path="/Followers" component={Followers} />
+          <Route exact path="/OneSub" component={OneSub} />
+          <Route exact path="/WalletActivity" component={WalletActivity} />
+
           {/* Component with no routes are sent to signout prompt */}
           <AmplifySignOut />
         </div>

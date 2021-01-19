@@ -23,7 +23,7 @@ function Subscribe() {
         p={1}
         justifyContent="center"
         alignItems="center"
-        style={{ padding: 0, margin: 0, backgroundColor: "#F8F9FB" }}
+        style={{ padding: 0, margin: 0 }}
       >
         <Box
           p={1}
@@ -33,6 +33,7 @@ function Subscribe() {
           alignItems="center"
           style={{
             margin: 0,
+            backgroundColor: "#F8F9FB",
             padding: 0,
             width: "26.7vw",
             height: "8.33vh",
@@ -47,66 +48,6 @@ function Subscribe() {
             style={{ margin: 0, padding: 0, fontSize: 12, fontWeight: 400 }}
           >
             Subscriptions
-          </Typography>
-        </Box>
-        <Box
-          p={1}
-          Button
-          component={Link}
-          to="/Followers"
-          display="flex"
-          justifyContent="center"
-          flexDirection="column"
-          alignItems="center"
-          style={{
-            margin: 0,
-            padding: 0,
-            width: "26.7vw",
-            textDecoration: "none",
-            color: "black",
-            height: "8.33vh",
-            marginLeft: "3.6vw",
-            marginRight: "3.6vw",
-          }}
-        >
-          <Typography
-            style={{ margin: 0, padding: 0, fontSize: 17, fontWeight: 600 }}
-          >
-            10
-          </Typography>
-          <Typography
-            style={{ margin: 0, padding: 0, fontSize: 12, fontWeight: 400 }}
-          >
-            Followers
-          </Typography>
-        </Box>
-        <Box
-          p={1}
-          Button
-          component={Link}
-          to="/Following"
-          display="flex"
-          justifyContent="center"
-          flexDirection="column"
-          alignItems="center"
-          style={{
-            margin: 0,
-            padding: 0,
-            width: "26.7vw",
-            textDecoration: "none",
-            color: "black",
-            height: "8.33vh",
-          }}
-        >
-          <Typography
-            style={{ margin: 0, padding: 0, fontSize: 17, fontWeight: 600 }}
-          >
-            10
-          </Typography>
-          <Typography
-            style={{ margin: 0, padding: 0, fontSize: 12, fontWeight: 400 }}
-          >
-            Following
           </Typography>
         </Box>
       </Box>
