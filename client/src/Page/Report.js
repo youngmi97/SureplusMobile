@@ -35,12 +35,10 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
-
   drawerPaper: {
     width: drawerWidth,
   },
@@ -131,34 +129,12 @@ export function Report(props) {
                 >
                   <img
                     alt="name"
-                    src="MyProfile.png"
+                    src="ProfileIcon.png"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
               </Box>
-              {/* <Box
-                p={1}
-                style={{
-                  margin: 0,
-                  padding: 0,
-                }}
-              >
-                <Button
-                  style={{
-                    padding: 0,
-                    margin: 0,
-                    minHeight: 0,
-                    minWidth: 0,
-                    borderRadius: "100%",
-                  }}
-                >
-                  <img
-                    src="/Icons[32]/Type=Search.svg"
-                    alt="name"
-                    style={{ width: "4.16vh", height: "4.16vh" }}
-                  ></img>
-                </Button>
-              </Box> */}
+
               <Box
                 p={1}
                 style={{
@@ -239,7 +215,8 @@ export function Report(props) {
       >
         <div
           style={{
-            marginTop: 28,
+            marginTop: 16,
+            padding: "12px 20px 12px 20px",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -247,20 +224,23 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="MyProfile.png"
-            style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
+            src="ProfileIcon.png"
+            style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
           <Typography
             style={{
               margin: 0,
               padding: 0,
               marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
             Jinjae Kim
           </Typography>
         </div>
+        {/* Notice List */}
         <Button
           component={Link}
           to="/Profile"
@@ -272,15 +252,19 @@ export function Report(props) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            marginTop: 32,
+            marginTop: 16,
             height: 48,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
             textTransform: "none",
           }}
         >
           <img
-            alt="name"
-            src="MyProfile.png"
-            style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
+            alt="Notice"
+            src="/Icons[24]/Type=Notice.svg"
+            style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
 
           <Typography
@@ -288,6 +272,8 @@ export function Report(props) {
               margin: 0,
               padding: 0,
               marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
@@ -305,30 +291,38 @@ export function Report(props) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            marginTop: 32,
+            marginTop: 16,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
             height: 48,
             textTransform: "none",
           }}
         >
           <img
             alt="name"
-            src="MyProfile.png"
-            style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
+            src="/Icons[24]/Type=Profile.svg"
+            style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
             style={{
               margin: 0,
               padding: 0,
               marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
             Saved
           </Typography>
         </Button>
+
         <div
-          style={{ backgroundColor: "grey", height: "0.6px", marginTop: 16 }}
+          style={{ backgroundColor: "grey", height: "0.5px", marginTop: 16 }}
         ></div>
+        {/* Privacy and Settings */}
         <Box
           Button
           style={{
@@ -343,13 +337,18 @@ export function Report(props) {
             style={{
               margin: 0,
               padding: 0,
-              marginLeft: 16,
+              paddingTop: 12,
+              paddingLeft: 20,
+              paddingBottom: 12,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
             Privacy and Settings
           </Typography>
         </Box>
+        {/* Customer Support */}
         <Box
           Button
           style={{
@@ -364,7 +363,11 @@ export function Report(props) {
             style={{
               margin: 0,
               padding: 0,
-              marginLeft: 16,
+              paddingTop: 12,
+              paddingLeft: 20,
+              paddingBottom: 12,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
