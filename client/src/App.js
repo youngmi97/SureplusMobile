@@ -139,7 +139,7 @@ const AuthStateApp = (props) => {
               exact
               path="/WalletActivity"
               component={() => (
-                <WalletActivicty
+                <WalletActivity
                   userData={user.attributes}
                   client={props.client}
                 />
@@ -169,7 +169,7 @@ const AuthStateApp = (props) => {
                 />
               )}
             />
-            <Route
+            {/* <Route
               exact
               path="/Following"
               component={() => (
@@ -182,7 +182,7 @@ const AuthStateApp = (props) => {
               component={() => (
                 <Followers userData={user.attributes} client={props.client} />
               )}
-            />
+            /> */}
             {/* Component with no routes are sent to signout prompt */}
             <AmplifySignOut />
           </div>

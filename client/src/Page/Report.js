@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
 export function Report(props) {
   var num = 0;
 
-  if (props.location.param1 != null) {
-    num = 1;
-  }
+  // if (props.location.param1 != null) {
+  //   num = 1;
+  // }
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
