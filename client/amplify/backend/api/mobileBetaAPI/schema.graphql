@@ -12,32 +12,24 @@
 # Post -> Transaction
 # Comment -> Service
 
-type AccountPlaid @model @key(fields: ["userID"]) {
-  id: String!
-  name: String!
-  userID: String!
-  transactions: [TransactionPlaid]
-    @connection(keyName: "byAccount", fields: ["id"])
-  services: [ServicePlaid] @connection(keyName: "byUser", fields: ["userID"])
-}
-
-type TransactionPlaid @model @key(name: "byAccount", fields: ["accountID"]) {
-  id: String!
-  title: String!
-  accountID: String!
-  cost: String!
-  account: AccountPlaid @connection(fields: ["accountID"])
-}
-
-type ServicePlaid @model @key(name: "byUser", fields: ["userID"]) {
-  id: String!
+type SubscriptionServices
+  @model
+  @key(name: "uld", fields: ["userID", "lastDate"], queryField: "serviceByUser")
+  @key(
+    name: "uca"
+    fields: ["userID", "createdAt"]
+    queryField: "serviceByUserAdded"
+  ) {
+  id: ID!
   userID: String!
   transactionID: String
   accountID: String
-  name: String!
-  cost: String!
-  period: String!
-  firstAddedDate: String!
-  lastDate: String!
-  category: [String]!
+  name: String
+  cost: String
+  period: String
+  firstAddedDate: String
+  lastDate: String
+  category: [String]
+  source: String #virtualcard, usercard
+  createdAt: String
 }

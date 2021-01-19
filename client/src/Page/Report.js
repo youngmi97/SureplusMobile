@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
 import gql from "graphql-tag";
-import getServicePlaid from "../graphql/queries";
+import { serviceByUser } from "../graphql/queries";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -35,10 +35,12 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
+
   drawerPaper: {
     width: drawerWidth,
   },
@@ -50,24 +52,29 @@ export function Report(props) {
   // if (props.location.param1 != null) {
   //   num = 1;
   // }
+
+  console.log("Report Client", props.client);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(false);
 
   //const context = useContext(AuthContext);
+  //props.userData.sub --> userID used for query
 
-  // try {
-  //   props.client
-  //     .query({
-  //       query: gql(getServicePlaid),
-  //     })
-  //     .then(({ data }) => {
-  //       console.log("demoData", data);
-  //     });
-  // } catch (e) {
-  //   console.log("query error", e);
-  // }
+  try {
+    props.client
+      .query({
+        query: gql(serviceByUser),
+        variables: { userID: props.userData.sub },
+      })
+      .then(({ data }) => {
+        console.log("demoData", data);
+      });
+  } catch (e) {
+    console.log("query error", e);
+  }
 
   //context.login(props.userData);
   console.log("Report", props.userData);
