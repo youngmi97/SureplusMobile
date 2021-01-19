@@ -26,12 +26,11 @@ function Appbar1(props) {
             left: "16px",
           }}
           component={Link}
-          to="/"
+          to={{ pathname: "/", param1: 1 }}
         >
           <img
             src="/Icons[32]/Type=Back.svg"
             alt="name"
-
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
@@ -44,7 +43,7 @@ function Appbar1(props) {
               textAlign: "center",
             }}
           >
-            Cards
+            {props.name}
           </Typography>
         </Box>
         <Box

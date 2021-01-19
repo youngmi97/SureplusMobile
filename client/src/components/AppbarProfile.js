@@ -63,7 +63,7 @@ function AppbarProfile() {
             Name
           </Typography>
         </Box>
-        <Box
+        {/* <Box
           p={1}
           style={{
             position: "absolute",
@@ -94,7 +94,7 @@ function AppbarProfile() {
               Edit Profile
             </Typography>
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </div>
   );

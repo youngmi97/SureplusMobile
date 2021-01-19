@@ -16,7 +16,7 @@ function ToolBar(props) {
         style={{ margin: 0, padding: "4px 16px 4px 16px", height: "5.72vh" }}
       >
         {(() => {
-          if (value === 0) {
+          if (value == 0) {
             return (
               <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Button
@@ -86,7 +86,7 @@ function ToolBar(props) {
           }
         })()}
         {(() => {
-          if (value === 1) {
+          if (value == 1) {
             return (
               <Box p={1} style={{ margin: 0, padding: 0, marginLeft: "5px" }}>
                 <Button

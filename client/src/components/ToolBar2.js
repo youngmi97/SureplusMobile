@@ -22,7 +22,7 @@ function ToolBar(props) {
         }}
       >
         {(() => {
-          if (value === 0) {
+          if (value == 0) {
             return (
               <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Button
@@ -92,7 +92,7 @@ function ToolBar(props) {
           }
         })()}
         {(() => {
-          if (value === 1) {
+          if (value == 1) {
             return (
               <Box p={1} style={{ margin: 0, padding: 0, marginLeft: "5px" }}>
                 <Button

@@ -37,7 +37,7 @@ export default function BottomNav(props) {
         }}
       >
         {(() => {
-          if (value === 0) {
+          if (value == 0) {
             return (
               <BottomNavigationAction
                 component={Link}
@@ -87,7 +87,7 @@ export default function BottomNav(props) {
           }
         })()}
         {(() => {
-          if (value === 1) {
+          if (value == 1) {
             return (
               <BottomNavigationAction
                 component={Link}
@@ -137,7 +137,7 @@ export default function BottomNav(props) {
           }
         })()}
         {(() => {
-          if (value === 2) {
+          if (value == 2) {
             return (
               <BottomNavigationAction
                 component={Link}

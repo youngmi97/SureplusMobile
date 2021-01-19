@@ -1,19 +1,38 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createBlog = /* GraphQL */ `
-  mutation CreateBlog(
-    $input: CreateBlogInput!
-    $condition: ModelBlogConditionInput
+export const createAccountPlaid = /* GraphQL */ `
+  mutation CreateAccountPlaid(
+    $input: CreateAccountPlaidInput!
+    $condition: ModelAccountPlaidConditionInput
   ) {
-    createBlog(input: $input, condition: $condition) {
+    createAccountPlaid(input: $input, condition: $condition) {
       id
       name
-      posts {
+      userID
+      transactions {
         items {
           id
           title
-          blogID
+          accountID
+          cost
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      services {
+        items {
+          id
+          userID
+          transactionID
+          accountID
+          name
+          cost
+          period
+          firstAddedDate
+          lastDate
+          category
           createdAt
           updatedAt
         }
@@ -24,19 +43,38 @@ export const createBlog = /* GraphQL */ `
     }
   }
 `;
-export const updateBlog = /* GraphQL */ `
-  mutation UpdateBlog(
-    $input: UpdateBlogInput!
-    $condition: ModelBlogConditionInput
+export const updateAccountPlaid = /* GraphQL */ `
+  mutation UpdateAccountPlaid(
+    $input: UpdateAccountPlaidInput!
+    $condition: ModelAccountPlaidConditionInput
   ) {
-    updateBlog(input: $input, condition: $condition) {
+    updateAccountPlaid(input: $input, condition: $condition) {
       id
       name
-      posts {
+      userID
+      transactions {
         items {
           id
           title
-          blogID
+          accountID
+          cost
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      services {
+        items {
+          id
+          userID
+          transactionID
+          accountID
+          name
+          cost
+          period
+          firstAddedDate
+          lastDate
+          category
           createdAt
           updatedAt
         }
@@ -47,52 +85,38 @@ export const updateBlog = /* GraphQL */ `
     }
   }
 `;
-export const deleteBlog = /* GraphQL */ `
-  mutation DeleteBlog(
-    $input: DeleteBlogInput!
-    $condition: ModelBlogConditionInput
+export const deleteAccountPlaid = /* GraphQL */ `
+  mutation DeleteAccountPlaid(
+    $input: DeleteAccountPlaidInput!
+    $condition: ModelAccountPlaidConditionInput
   ) {
-    deleteBlog(input: $input, condition: $condition) {
+    deleteAccountPlaid(input: $input, condition: $condition) {
       id
       name
-      posts {
+      userID
+      transactions {
         items {
           id
           title
-          blogID
+          accountID
+          cost
           createdAt
           updatedAt
         }
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    createPost(input: $input, condition: $condition) {
-      id
-      title
-      blogID
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
+      services {
         items {
           id
-          postID
-          content
+          userID
+          transactionID
+          accountID
+          name
+          cost
+          period
+          firstAddedDate
+          lastDate
+          category
           createdAt
           updatedAt
         }
@@ -103,157 +127,148 @@ export const createPost = /* GraphQL */ `
     }
   }
 `;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
+export const createTransactionPlaid = /* GraphQL */ `
+  mutation CreateTransactionPlaid(
+    $input: CreateTransactionPlaidInput!
+    $condition: ModelTransactionPlaidConditionInput
   ) {
-    updatePost(input: $input, condition: $condition) {
+    createTransactionPlaid(input: $input, condition: $condition) {
       id
       title
-      blogID
-      blog {
+      accountID
+      cost
+      account {
         id
         name
-        posts {
+        userID
+        transactions {
+          nextToken
+        }
+        services {
           nextToken
         }
         createdAt
         updatedAt
-      }
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
       }
       createdAt
       updatedAt
     }
   }
 `;
-export const deletePost = /* GraphQL */ `
-  mutation DeletePost(
-    $input: DeletePostInput!
-    $condition: ModelPostConditionInput
+export const updateTransactionPlaid = /* GraphQL */ `
+  mutation UpdateTransactionPlaid(
+    $input: UpdateTransactionPlaidInput!
+    $condition: ModelTransactionPlaidConditionInput
   ) {
-    deletePost(input: $input, condition: $condition) {
+    updateTransactionPlaid(input: $input, condition: $condition) {
       id
       title
-      blogID
-      blog {
+      accountID
+      cost
+      account {
         id
         name
-        posts {
+        userID
+        transactions {
+          nextToken
+        }
+        services {
           nextToken
         }
         createdAt
         updatedAt
-      }
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
       }
       createdAt
       updatedAt
     }
   }
 `;
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
+export const deleteTransactionPlaid = /* GraphQL */ `
+  mutation DeleteTransactionPlaid(
+    $input: DeleteTransactionPlaidInput!
+    $condition: ModelTransactionPlaidConditionInput
   ) {
-    createComment(input: $input, condition: $condition) {
+    deleteTransactionPlaid(input: $input, condition: $condition) {
       id
-      postID
-      post {
+      title
+      accountID
+      cost
+      account {
         id
-        title
-        blogID
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
+        name
+        userID
+        transactions {
+          nextToken
         }
-        comments {
+        services {
           nextToken
         }
         createdAt
         updatedAt
       }
-      content
       createdAt
       updatedAt
     }
   }
 `;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
+export const createServicePlaid = /* GraphQL */ `
+  mutation CreateServicePlaid(
+    $input: CreateServicePlaidInput!
+    $condition: ModelServicePlaidConditionInput
   ) {
-    updateComment(input: $input, condition: $condition) {
+    createServicePlaid(input: $input, condition: $condition) {
       id
-      postID
-      post {
-        id
-        title
-        blogID
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
+      userID
+      transactionID
+      accountID
+      name
+      cost
+      period
+      firstAddedDate
+      lastDate
+      category
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
+export const updateServicePlaid = /* GraphQL */ `
+  mutation UpdateServicePlaid(
+    $input: UpdateServicePlaidInput!
+    $condition: ModelServicePlaidConditionInput
   ) {
-    deleteComment(input: $input, condition: $condition) {
+    updateServicePlaid(input: $input, condition: $condition) {
       id
-      postID
-      post {
-        id
-        title
-        blogID
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
+      userID
+      transactionID
+      accountID
+      name
+      cost
+      period
+      firstAddedDate
+      lastDate
+      category
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteServicePlaid = /* GraphQL */ `
+  mutation DeleteServicePlaid(
+    $input: DeleteServicePlaidInput!
+    $condition: ModelServicePlaidConditionInput
+  ) {
+    deleteServicePlaid(input: $input, condition: $condition) {
+      id
+      userID
+      transactionID
+      accountID
+      name
+      cost
+      period
+      firstAddedDate
+      lastDate
+      category
       createdAt
       updatedAt
     }

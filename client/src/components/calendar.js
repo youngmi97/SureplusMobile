@@ -67,7 +67,7 @@ function renderDay(day, selected, cards) {
         }}
       >
         <div>
-          {day === selected.toString() ? (
+          {day == selected.toString() ? (
             <div>
               <div style={dateStyle3}>
                 <div
@@ -138,7 +138,7 @@ function renderDay(day, selected, cards) {
                               <Grid item xs={3}>
                                 <Typography
                                   style={{
-                                    color: "#black",
+                                    color: "black",
                                     margin: 0,
                                     padding: 0,
                                     fontSize: 9,
@@ -173,7 +173,7 @@ function renderDay(day, selected, cards) {
                               <Grid item xs={3}>
                                 <Typography
                                   style={{
-                                    color: "#black",
+                                    color: "black",
                                     margin: 0,
                                     padding: 0,
                                     fontSize: 9,

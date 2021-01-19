@@ -4,6 +4,7 @@ import { Button, Typography, Box } from "@material-ui/core";
 
 import ListCard2 from "./ListCard7";
 import ListCard3 from "./ListCard6";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,33 +58,45 @@ function Subscribe() {
             src="Recurring.svg"
           ></ListCard1> */}
           <Typography className={classes.ListItemSize2}>
-            Recent Transactions
+            Upcoming Subscriptions
           </Typography>
-          <ListCard2
-            r1="0px"
-            r2="0px"
-            r3="0px"
-            r4="0px"
-            month="Mar"
-            day="4"
-            src="/Img/Aaptiv/[32].svg"
-            name="Aaptiv"
-            plan="$5.9 / Monthly"
-            price="$ 5.9"
-          ></ListCard2>
-          <ListCard2
-            r1="0px"
-            r2="0px"
-            r3="0px"
-            r4="0px"
-            month="Mar"
-            day="4"
-            src="/Img/AppleMusic/[32].svg"
-            name="AppleMusic"
-            plan="$5.9 / Monthly"
-            price="$ 5.9"
-          ></ListCard2>
           <Button
+            component={Link}
+            to={{ pathname: "/OneSub", param1: "hihi" }}
+            style={{ margin: 0, padding: 0, width: "100%" }}
+          >
+            <ListCard3
+              r1="0px"
+              r2="0px"
+              r3="0px"
+              r4="0px"
+              month="Mar"
+              src="/Img/Aaptiv/[32].svg"
+              name="Aaptiv"
+              plan="$5.9 / Monthly"
+              day={1}
+            ></ListCard3>
+          </Button>
+          <Button
+            component={Link}
+            to={{ pathname: "/OneSub", param1: "hihi" }}
+            style={{ margin: 0, padding: 0, width: "100%" }}
+          >
+            <ListCard3
+              r1="0px"
+              r2="0px"
+              r3="0px"
+              r4="0px"
+              month="Mar"
+              src="/Img/AppleMusic/[32].svg"
+              name="AppleMusic"
+              plan="$5.9 / Monthly"
+              day={7}
+            ></ListCard3>
+          </Button>
+          <Button
+            component={Link}
+            to="/Subscription"
             style={{
               padding: 0,
               borderTopLeftRadius: "0px",
@@ -91,10 +104,11 @@ function Subscribe() {
               borderBottomLeftRadius: "12px",
               borderBottomRightRadius: "12px",
               width: "100%",
+
               marginTop: 1,
+              backgroundColor: "white",
               height: "5.08vh",
               textTransform: "none",
-              backgroundColor: "white",
               paddingLeft: 20,
             }}
           >
@@ -165,31 +179,35 @@ function Subscribe() {
             src="Recurring.svg"
           ></ListCard1> */}
           <Typography className={classes.ListItemSize2}>
-            Upcoming Subscriptions
+            Wallet Activity
           </Typography>
-          <ListCard3
+          <ListCard2
             r1="0px"
             r2="0px"
             r3="0px"
             r4="0px"
             month="Mar"
+            day="4"
             src="/Img/Aaptiv/[32].svg"
             name="Aaptiv"
-            plan="$5.9 / Monthly"
-            day={1}
-          ></ListCard3>
-          <ListCard3
+            plan="1/12 12:30"
+            price="- $ 5.9"
+          ></ListCard2>
+          <ListCard2
             r1="0px"
             r2="0px"
             r3="0px"
             r4="0px"
             month="Mar"
+            day="4"
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
-            plan="$5.9 / Monthly"
-            day={7}
-          ></ListCard3>
+            plan="1/12 12:30"
+            price="- $ 5.9"
+          ></ListCard2>
           <Button
+            component={Link}
+            to="/WalletActivity"
             style={{
               padding: 0,
               borderTopLeftRadius: "0px",
@@ -197,11 +215,10 @@ function Subscribe() {
               borderBottomLeftRadius: "12px",
               borderBottomRightRadius: "12px",
               width: "100%",
-
               marginTop: 1,
-              backgroundColor: "white",
               height: "5.08vh",
               textTransform: "none",
+              backgroundColor: "white",
               paddingLeft: 20,
             }}
           >

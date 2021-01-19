@@ -92,7 +92,7 @@ function Subscribe() {
             src="/Img/Aaptiv/[32].svg"
             name="Aaptiv"
             plan="12:30"
-            price="$ 5.9"
+            price="- $ 5.9"
           ></ListCard2>
           <ListCard2
             r1="0px"
@@ -104,7 +104,7 @@ function Subscribe() {
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
             plan="12:30"
-            price="$ 5.9"
+            price="- $ 5.9"
           ></ListCard2>
         </div>
       </div>
@@ -170,7 +170,7 @@ function Subscribe() {
             src="/Img/Aaptiv/[32].svg"
             name="Aaptiv"
             plan="12:30"
-            price="$ 5.9"
+            price="- $ 5.9"
           ></ListCard2>
           <ListCard2
             r1="0px"
@@ -182,7 +182,7 @@ function Subscribe() {
             src="/Img/AppleMusic/[32].svg"
             name="AppleMusic"
             plan="12:30"
-            price="$ 5.9"
+            price="- $ 5.9"
           ></ListCard2>
         </div>
       </div>

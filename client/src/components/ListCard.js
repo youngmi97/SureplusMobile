@@ -20,7 +20,7 @@ function ListCard(props) {
       }}
     >
       {(() => {
-        if (props.src !== "") {
+        if (props.src != "") {
           return (
             <Box
               display="flex"
