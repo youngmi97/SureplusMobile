@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
+
+import gql from "graphql-tag";
+import getServicePlaid from "../graphql/queries";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -12,6 +15,7 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
+//import { AuthContext } from "../context/auth";
 
 const drawerWidth = "75vw";
 
@@ -50,6 +54,23 @@ export function Report(props) {
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(false);
+
+  //const context = useContext(AuthContext);
+
+  // try {
+  //   props.client
+  //     .query({
+  //       query: gql(getServicePlaid),
+  //     })
+  //     .then(({ data }) => {
+  //       console.log("demoData", data);
+  //     });
+  // } catch (e) {
+  //   console.log("query error", e);
+  // }
+
+  //context.login(props.userData);
+  console.log("Report", props.userData);
 
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -1,16 +1,35 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getAccountPlaid = /* GraphQL */ `
+  query GetAccountPlaid($userID: String!) {
+    getAccountPlaid(userID: $userID) {
       id
       name
-      posts {
+      userID
+      transactions {
         items {
           id
           title
-          blogID
+          accountID
+          cost
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      services {
+        items {
+          id
+          userID
+          transactionID
+          accountID
+          name
+          cost
+          period
+          firstAddedDate
+          lastDate
+          category
           createdAt
           updatedAt
         }
@@ -21,17 +40,29 @@ export const getBlog = /* GraphQL */ `
     }
   }
 `;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
+export const listAccountPlaids = /* GraphQL */ `
+  query ListAccountPlaids(
+    $userID: String
+    $filter: ModelAccountPlaidFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listAccountPlaids(
+      userID: $userID
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         name
-        posts {
+        userID
+        transactions {
+          nextToken
+        }
+        services {
           nextToken
         }
         createdAt
@@ -41,55 +72,53 @@ export const listBlogs = /* GraphQL */ `
     }
   }
 `;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
+export const getTransactionPlaid = /* GraphQL */ `
+  query GetTransactionPlaid($id: ID!) {
+    getTransactionPlaid(id: $id) {
       id
       title
-      blogID
-      blog {
+      accountID
+      cost
+      account {
         id
         name
-        posts {
+        userID
+        transactions {
+          nextToken
+        }
+        services {
           nextToken
         }
         createdAt
         updatedAt
-      }
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
       }
       createdAt
       updatedAt
     }
   }
 `;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
+export const listTransactionPlaids = /* GraphQL */ `
+  query ListTransactionPlaids(
+    $filter: ModelTransactionPlaidFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listTransactionPlaids(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         title
-        blogID
-        blog {
+        accountID
+        cost
+        account {
           id
           name
+          userID
           createdAt
           updatedAt
-        }
-        comments {
-          nextToken
         }
         createdAt
         updatedAt
@@ -98,51 +127,42 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
+export const getServicePlaid = /* GraphQL */ `
+  query GetServicePlaid($id: ID!) {
+    getServicePlaid(id: $id) {
       id
-      postID
-      post {
-        id
-        title
-        blogID
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
+      userID
+      transactionID
+      accountID
+      name
+      cost
+      period
+      firstAddedDate
+      lastDate
+      category
       createdAt
       updatedAt
     }
   }
 `;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const listServicePlaids = /* GraphQL */ `
+  query ListServicePlaids(
+    $filter: ModelServicePlaidFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listServicePlaids(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        postID
-        post {
-          id
-          title
-          blogID
-          createdAt
-          updatedAt
-        }
-        content
+        userID
+        transactionID
+        accountID
+        name
+        cost
+        period
+        firstAddedDate
+        lastDate
+        category
         createdAt
         updatedAt
       }

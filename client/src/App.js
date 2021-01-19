@@ -26,45 +26,169 @@ import {
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
-const AuthStateApp = () => {
+import { AuthProvider } from "./context/auth";
+
+const AuthStateApp = (props) => {
   const [authState, setAuthState] = useState();
   const [user, setUser] = useState();
 
+  //const context = useContext(AuthContext)
   //prompt users to download pwa
+  //console.log("App", props.client);
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
       setUser(authData);
     });
-  }, []);
+  }, [user, authState]);
 
   return authState == AuthState.SignedIn && user ? (
-    <div className="App">
-      <Router>
-        <div>
-          <Route exact path="/" component={Report} />
-          <Route exact path="/Profile" component={Profile} />
-          <Route path="/Wallet" component={Wallet} />
-          <Route exact path="/Accounts" component={Accounts} />
-          {/* <Route exact path="/Home" component={Home} /> */}
-          <Route exact path="/Transaction" component={Transaction} />
-          <Route exact path="/Notification" component={Notification} />
-          <Route exact path="/Subscription" component={Subscription} />
-          <Route exact path="/Subscription2" component={Subscription2} />
-          <Route exact path="/Crew" component={Crew} />
-          <Route exact path="/Crew2" component={Crew2} />
-          <Route exact path="/Onboarding" component={Onboarding} />
-          <Route exact path="/UsePhone" component={UsePhone} />
-          <Route exact path="/UsePhoneCode" component={UsePhoneCode} />
-          <Route exact path="/OneSub" component={OneSub} />
-          <Route exact path="/WalletActivity" component={WalletActivity} />
-
-          {/* Component with no routes are sent to signout prompt */}
-          <AmplifySignOut />
-        </div>
-      </Router>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Router>
+          <div>
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <Report userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Profile"
+              component={() => (
+                <Profile userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Wallet"
+              component={() => (
+                <Wallet userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Accounts"
+              component={() => (
+                <Accounts userData={user.attributes} client={props.client} />
+              )}
+            />
+            {/* <Route exact path="/Home" component={Home} /> */}
+            <Route
+              exact
+              path="/Transaction"
+              component={() => (
+                <Transaction userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Notification"
+              component={() => (
+                <Notification
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Subscription"
+              component={() => (
+                <Subscription
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Subscription2"
+              component={() => (
+                <Subscription2
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Crew"
+              component={() => (
+                <Crew userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Crew2"
+              component={() => (
+                <Crew2 userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/OneSub"
+              component={() => (
+                <OneSub userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/WalletActivity"
+              component={() => (
+                <WalletActivicty
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Onboarding"
+              ccomponent={() => (
+                <Onboarding userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/UsePhone"
+              component={() => (
+                <UsePhone userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/UsePhoneCode"
+              component={() => (
+                <UsePhoneCode
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Following"
+              component={() => (
+                <Following userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Followers"
+              component={() => (
+                <Followers userData={user.attributes} client={props.client} />
+              )}
+            />
+            {/* Component with no routes are sent to signout prompt */}
+            <AmplifySignOut />
+          </div>
+        </Router>
+      </div>
+    </AuthProvider>
   ) : (
     <AmplifyAuthenticator>
       <AmplifySignUp
