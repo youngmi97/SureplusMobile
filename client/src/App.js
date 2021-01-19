@@ -170,19 +170,19 @@ const AuthStateApp = (props) => {
               )}
             />
             {/* <Route
-              exact
-              path="/Following"
-              component={() => (
-                <Following userData={user.attributes} client={props.client} />
-              )}
-            />
-            <Route
-              exact
-              path="/Followers"
-              component={() => (
-                <Followers userData={user.attributes} client={props.client} />
-              )}
-            /> */}
+							exact
+							path="/Following"
+							component={() => (
+								<Following userData={user.attributes} client={props.client} />
+							)}
+						/>
+						<Route
+							exact
+							path="/Followers"
+							component={() => (
+								<Followers userData={user.attributes} client={props.client} />
+							)}
+						/> */}
             {/* Component with no routes are sent to signout prompt */}
             <AmplifySignOut />
           </div>
