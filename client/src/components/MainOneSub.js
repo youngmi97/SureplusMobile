@@ -360,33 +360,30 @@ export default function Subscription(props) {
 					<div
 						style={{
 							position: "relative",
-							backgroundColor: "black",
+							
 							marginTop: 24,
-							height: "158px",
-							width: "257px",
-							borderRadius: "12px",
-							overflow: "hidden",
-							boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.6)",
+							height: "226px",
+							width: "317px",
+ 
 						}}
 					>
 						<img
 							alt="name"
-							src="/g5747.svg"
+							src="/Spotify.svg"
 							style={{
+								margin:0,padding:0,
 								position: "absolute",
+								height: "226px",
+							width: "317px",
 
-								left: 150,
-								top: -38,
-								marginTop: "2.03vh",
-								width: "121px",
-								height: "221px",
 							}}
 						/>
 						<Typography
 							style={{
 								margin: 0,
 								padding: 0,
-								marginLeft: 20,
+								marginLeft: 50,
+								position:"absolute",
 								marginTop: "85px",
 								fontSize: "24px",
 								color: "white",
@@ -398,8 +395,9 @@ export default function Subscription(props) {
 							style={{
 								margin: 0,
 								padding: 0,
-								marginLeft: 20,
-								marginTop: "1px",
+								marginLeft: 50,
+								position:"absolute",
+								marginTop: "119px",
 								fontSize: "14px",
 								color: "white",
 							}}
@@ -407,7 +405,7 @@ export default function Subscription(props) {
 							{"$" + li.cost + " • " + li.period}
 						</Typography>
 					</div>
-					<List style={{ padding: 24, width: "100%", paddingBottom: "14.3vh" }}>
+					<List style={{ padding: 24, paddingTop:0, width: "100%", paddingBottom: "14.3vh" }}>
 						<ListItem
 							button={false}
 							className={classes.List}
