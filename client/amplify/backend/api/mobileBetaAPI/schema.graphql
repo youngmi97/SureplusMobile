@@ -1,0 +1,35 @@
+#@model is a  model directive that tells amplify cli to store the following types in the dynamodb table
+#consider usage of the @auth directive
+
+# type User @model {
+#   id: ID!
+#   name: String!
+#   phone_number: String!
+#   createdAt: String!
+# }
+
+# Blog -> Account
+# Post -> Transaction
+# Comment -> Service
+
+type SubscriptionServices
+  @model
+  @key(name: "uld", fields: ["userID", "lastDate"], queryField: "serviceByUser")
+  @key(
+    name: "uca"
+    fields: ["userID", "createdAt"]
+    queryField: "serviceByUserAdded"
+  ) {
+  id: ID!
+  userID: String!
+  transactionID: String
+  accountID: String
+  name: String
+  cost: String
+  period: String
+  firstAddedDate: String
+  lastDate: String
+  category: [String]
+  source: String #virtualcard, usercard
+  createdAt: String
+}
