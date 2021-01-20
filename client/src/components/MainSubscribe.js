@@ -6,6 +6,20 @@ import { Link } from "react-router-dom";
 import "../App.css";
 
 function Subscribe(props) {
+	const shortmonth = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
 	const data = props.list;
 
 	const dayindex = {};
@@ -62,7 +76,7 @@ function Subscribe(props) {
 											r2="12px"
 											r3="12px"
 											r4="12px"
-											month={new Date(key).getMonth() + 1}
+											month={shortmonth[new Date(key).getMonth()]}
 											day={new Date(key).getDate()}
 											src={"/Img/" + array1.name + "/[32].svg"}
 											name={array1.name}

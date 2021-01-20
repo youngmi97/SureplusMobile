@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Typography, Box } from "@material-ui/core";
+import { Grid, Typography, Button, Box } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
 
@@ -89,16 +89,22 @@ function Subscribe(props) {
 								height: "14.5vh",
 							}}
 						>
-							<img
-								alt="name"
-								src={"/Img/" + array.name + "/[48].svg"}
-								style={{
-									width: "7.8125vh",
-									height: "7.8125vh",
-									margin: 0,
-									padding: 0,
-								}}
-							></img>
+							<Button
+								component={Link}
+								style={{ margin: 0, padding: 0 }}
+								to={{ pathname: "/OneSub", list: array, link: "/Profile" }}
+							>
+								<img
+									alt="name"
+									src={"/Img/" + array.name + "/[48].svg"}
+									style={{
+										width: "7.8125vh",
+										height: "7.8125vh",
+										margin: 0,
+										padding: 0,
+									}}
+								></img>
+							</Button>
 							<Typography
 								style={{ margin: 0, padding: 0, fontSize: 12, fontWeight: 400 }}
 							>
