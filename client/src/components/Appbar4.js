@@ -4,10 +4,16 @@ import React from "react";
 
 import { Box, Typography } from "@material-ui/core";
 
+import PlaidLogin from "./PlaidLink";
+
 import "../App.css";
 import { Link } from "react-router-dom";
 
 function Appbar1(props) {
+  function openPlaidLink() {
+    console.log("Clicked", "PLAID");
+  }
+
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -61,8 +67,9 @@ function Appbar1(props) {
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
-        <Box
+        {/* <Box
           p={1}
+          onClick={openPlaidLink}
           style={{
             position: "absolute",
             margin: 0,
@@ -75,6 +82,17 @@ function Appbar1(props) {
             src="Icons[32]/Type=Add.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
+        </Box> */}
+        <Box
+          p={1}
+          style={{
+            position: "absolute",
+            margin: 0,
+            padding: 0,
+            right: "3.13vw",
+          }}
+        >
+          <PlaidLogin />
         </Box>
       </Box>
     </div>

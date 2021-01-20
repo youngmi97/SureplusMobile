@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
 import gql from "graphql-tag";
+import axios from "axios";
 import { serviceByUser } from "../graphql/queries";
 
 import ToolBar from "../components/ToolBar";
@@ -51,7 +52,7 @@ export function Report(props) {
   //   num = 1;
   // }
 
-  console.log("Report Client", props.client);
+  //console.log("Report Client", props.client);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -60,6 +61,20 @@ export function Report(props) {
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
+  try {
+    axios
+      .post(
+        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/api/v1/getback",
+        {
+          body: "hello",
+        }
+      )
+      .then((res) => {
+        console.log("AXIOS", res);
+      });
+  } catch (e) {
+    console.log("axios error", e);
+  }
 
   try {
     props.client
