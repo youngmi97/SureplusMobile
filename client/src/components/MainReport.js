@@ -59,6 +59,7 @@ function Subscribe(props) {
 					marginTop: "2.956vh",
 					marginRight: "24px",
 					marginLeft: "24px",
+					backgroundColor: "white",
 
 					boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
 					borderRadius: "12px",
@@ -169,6 +170,7 @@ function Subscribe(props) {
 					marginTop: "2.956vh",
 					marginRight: "24px",
 					marginLeft: "24px",
+					backgroundColor: "white",
 
 					boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
 					borderRadius: "12px",

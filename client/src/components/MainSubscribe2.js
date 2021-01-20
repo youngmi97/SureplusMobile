@@ -42,6 +42,7 @@ function Subscribe(props) {
 				alignContent: "center",
 				maxHeight: "77vh",
 				overflow: "auto",
+				paddingBottom: 10,
 			}}
 		>
 			<div
