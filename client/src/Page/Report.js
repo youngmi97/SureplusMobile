@@ -63,11 +63,11 @@ export function Report(props) {
   //props.userData.sub --> userID used for query
   try {
     axios
-      .post(
-        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/api/v1/getback",
-        {
-          body: "hello",
-        }
+      .get(
+        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/api/info"
+        // {
+        //   body: "hello",
+        // }
       )
       .then((res) => {
         console.log("AXIOS", res);

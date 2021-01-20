@@ -55,6 +55,7 @@ const AuthStateApp = (props) => {
                 <Report userData={user.attributes} client={props.client} />
               )}
             />
+
             <Route
               exact
               path="/Profile"
@@ -62,6 +63,7 @@ const AuthStateApp = (props) => {
                 <Profile userData={user.attributes} client={props.client} />
               )}
             />
+
             <Route
               exact
               path="/Wallet"
