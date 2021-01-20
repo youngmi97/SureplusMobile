@@ -71,7 +71,7 @@ function ToolBar(props) {
                     style={{
                       margin: 0,
                       padding: 0,
-                      color: "#666666",
+                      color: "#ACB5BE",
                       fontSize: "15px",
                       fontFamily: "Avenir Next",
                       fontWeight: 600,
@@ -141,7 +141,7 @@ function ToolBar(props) {
                     style={{
                       margin: 0,
                       padding: 0,
-                      color: "#666666",
+                      color: "#ACB5BE",
                       fontSize: "15px",
                       fontFamily: "Avenir Next",
                       fontWeight: 600,

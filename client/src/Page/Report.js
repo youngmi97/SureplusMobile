@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
 import gql from "graphql-tag";
-import axios from "axios";
+
 import { serviceByUser } from "../graphql/queries";
 
 import ToolBar from "../components/ToolBar";
@@ -12,7 +12,7 @@ import Main2 from "../components/MainReport2";
 import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
@@ -46,11 +46,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Report(props) {
-  var num = 0;
+  const location = useLocation();
 
-  // if (props.location.param1 != null) {
-  //   num = 1;
-  // }
+  var num = 0;
+  if (location.param1 != null) {
+    num = 1;
+  }
 
   //console.log("Report Client", props.client);
 
@@ -58,23 +59,9 @@ export function Report(props) {
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(false);
-
+  const [data, setData] = React.useState([]);
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
-  try {
-    axios
-      .get(
-        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/api/info"
-        // {
-        //   body: "hello",
-        // }
-      )
-      .then((res) => {
-        console.log("AXIOS", res);
-      });
-  } catch (e) {
-    console.log("axios error", e);
-  }
 
   try {
     props.client
@@ -83,14 +70,13 @@ export function Report(props) {
         variables: { userID: props.userData.sub },
       })
       .then(({ data }) => {
-        console.log("demoData", data);
+        setData(data.serviceByUser.items);
       });
   } catch (e) {
     console.log("query error", e);
   }
 
   //context.login(props.userData);
-  console.log("Report", props.userData);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -203,9 +189,9 @@ export function Report(props) {
         >
           {(() => {
             if (ind == 0) {
-              return <Main />;
+              return <Main list={data} />;
             } else {
-              return <Main2 />;
+              return <Main2 list={data} />;
             }
           })()}
         </div>
@@ -252,7 +238,7 @@ export function Report(props) {
               alignItems: "center",
             }}
           >
-            Jinjae Kim
+            {props.userData.name}
           </Typography>
         </div>
         {/* Notice List */}
