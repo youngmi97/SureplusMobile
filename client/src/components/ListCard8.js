@@ -100,10 +100,10 @@ function ListCard2(props) {
                   p={1}
                   style={{
                     margin: 0,
-                    padding: "4px 8px",
+                    padding: "3px 8px",
                     marginRight: 16,
                     backgroundColor: "#F1F3F5",
-                    borderRadius: "10.5px",
+                    borderRadius: "12px",
                   }}
                 >
                   <Typography

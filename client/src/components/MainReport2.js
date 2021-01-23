@@ -1,3 +1,5 @@
+//Home, Wallet
+
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
@@ -9,10 +11,12 @@ import "../App.css";
 
 const useStyles = makeStyles((theme) => ({
 	ListItemSize2: {
-		color: "#666666",
+		color: "#8A8A8F",
 		padding: 0,
 		backgroundColor: "white",
-		fontSize: "11px",
+		fontSize: "12px",
+		lineHeight: "17px",
+		fontWeight: 500,
 		margin: 0,
 		borderRadius: "12px 12px 0px 0px",
 		paddingLeft: 20,
@@ -30,6 +34,7 @@ function Subscribe() {
 				alignContent: "center",
 				maxHeight: "77vh",
 				overflow: "auto",
+				paddingBottom: 20,
 			}}
 		>
 			<div
@@ -72,7 +77,7 @@ function Subscribe() {
 							r4="0px"
 							month="Mar"
 							day="4"
-							src="/Img/AppleMusic/[32].svg"
+							src="/PhysicalCards/Card.svg"
 							name="Wells Fargo"
 							plan="Master Card ･･34"
 							price={""}
@@ -90,7 +95,7 @@ function Subscribe() {
 							r4="12px"
 							month="Mar"
 							day="4"
-							src="/Img/BarkBox/[32].svg"
+							src="/PhysicalCards/Card.svg"
 							name="Amex"
 							plan="Visa Card ･･34"
 							price={""}
@@ -157,7 +162,7 @@ function Subscribe() {
 			</div>
 			<div
 				style={{
-					marginTop: "2.956vh",
+					marginTop: "2.0833vh",
 					marginRight: "24px",
 					marginLeft: "24px",
 
@@ -171,15 +176,6 @@ function Subscribe() {
 						padding: 0,
 					}}
 				>
-					{/* <ListCard1
-            r1="12px"
-            r2="12px"
-            r3="0px"
-            r4="0px"
-            text="This Week"
-            second="$11.8"
-            src="Recurring.svg"
-          ></ListCard1> */}
 					<Typography className={classes.ListItemSize2}>
 						Linked Accounts 3
 					</Typography>
@@ -189,7 +185,7 @@ function Subscribe() {
 						r3="0px"
 						r4="0px"
 						month="Mar"
-						src="/Img/Aaptiv/[32].svg"
+						src="/Bank/CitiBank.svg"
 						name="$10000"
 						plan="Citi Bank"
 						day={1}
@@ -200,7 +196,7 @@ function Subscribe() {
 						r3="0px"
 						r4="0px"
 						month="Mar"
-						src="/Img/AppleMusic/[32].svg"
+						src="/Bank/WellsFargo.svg"
 						name="$200"
 						plan="Wells Fargo"
 						day={0}
@@ -239,7 +235,7 @@ function Subscribe() {
 							>
 								<Typography
 									style={{
-										fontSize: "1.82vh",
+										fontSize: "14px",
 										color: "#000000",
 									}}
 								>
