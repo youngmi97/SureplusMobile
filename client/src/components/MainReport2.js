@@ -62,7 +62,7 @@ function Subscribe() {
 					</Typography>
 					<Button
 						component={Link}
-						to={{ pathname: "/Wallet", param1: "hihi" }}
+						to={{ pathname: "/Wallet", param1: 0 }}
 						style={{ margin: 0, padding: 0, width: "100%" }}
 					>
 						<ListCard2
@@ -80,7 +80,7 @@ function Subscribe() {
 					</Button>
 					<Button
 						component={Link}
-						to={{ pathname: "/Wallet", param1: "hihi" }}
+						to={{ pathname: "/Wallet", param1: 1 }}
 						style={{ margin: 0, padding: 0, width: "100%" }}
 					>
 						<ListCard2

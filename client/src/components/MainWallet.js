@@ -18,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Wallet() {
+function Wallet(props) {
+	const ind = props.ind;
+	const setIndex = props.setIndex;
 	const classes = useStyles();
+
 	return (
 		<div
 			style={{
@@ -60,6 +63,51 @@ function Wallet() {
 							borderRadius: "9.22px",
 						}}
 					></div>
+					{(() => {
+						if (ind != 0) {
+							return (
+								<Button
+									onClick={() => {
+										setIndex(0);
+									}}
+									style={{
+										minWidth: 0,
+										minHeight: 0,
+										padding: 0,
+										margin: 0,
+										marginTop: "2.08vh",
+										position: "absolute",
+										left: "24px",
+									}}
+								>
+									<img src="left.svg" style={{}} />
+								</Button>
+							);
+						}
+					})()}
+
+					{(() => {
+						if (ind != 1) {
+							return (
+								<Button
+									onClick={() => {
+										setIndex(1);
+									}}
+									style={{
+										minWidth: 0,
+										minHeight: 0,
+										padding: 0,
+										margin: 0,
+										marginTop: "2.08vh",
+										position: "absolute",
+										right: "24px",
+									}}
+								>
+									<img src="right.svg" style={{}} />
+								</Button>
+							);
+						}
+					})()}
 					<div
 						style={{
 							position: "relative",
@@ -98,6 +146,7 @@ function Wallet() {
 						</Typography>
 					</div>
 				</Box>
+
 				<Button
 					// Transaction Button
 					to="/Transaction"
@@ -188,7 +237,7 @@ function Wallet() {
 					marginRight: "24px",
 					marginLeft: "24px",
 					marginTop: "4.17vh",
-					borderRadius: "12px",
+					borderRadius: "12px 12px 0px 0px",
 					backgroundColor: "white",
 				}}
 			>
@@ -292,7 +341,7 @@ function Wallet() {
 							paddingLeft: 20,
 							paddingTop: 20,
 							alignItems: "center",
-							borderRadius: "0px 0px 0px 0px",
+							borderRadius: "0px 0px 12px 12px",
 						}}
 					>
 						<Typography className={classes.ListItemSize2}>
@@ -325,8 +374,8 @@ function Wallet() {
 					<ListCard2
 						r1="0px"
 						r2="0px"
-						r3="12px"
-						r4="12px"
+						r3="0px"
+						r4="0px"
 						month="Mar"
 						day="4"
 						src="/Img/AppleMusic/[32].svg"
