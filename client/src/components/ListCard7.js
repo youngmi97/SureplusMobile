@@ -71,7 +71,7 @@ function ListCard2(props) {
 							<Box p={1} style={{ margin: 0, padding: 0 }}>
 								<Typography
 									style={{
-										fontSize: "1.72vh",
+										fontSize: "14px",
 										textAlign: "left",
 										color: "#000000",
 										fontWeight: 500,
@@ -81,7 +81,7 @@ function ListCard2(props) {
 								</Typography>
 								<Typography
 									style={{
-										fontSize: "1.23vh",
+										fontSize: "10px",
 										fontWeight: 400,
 										textAlign: "left",
 										color: "#8A8A8F",
