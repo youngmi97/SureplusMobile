@@ -96,7 +96,7 @@ function Subscribe(props) {
 							>
 								<img
 									alt="name"
-									src={"/Img/" + array.name + "/[48].svg"}
+									src={"/Img/" + array.name + "/[32].svg"}
 									style={{
 										width: "7.8125vh",
 										height: "7.8125vh",
