@@ -1,3 +1,4 @@
+//List View
 import React from "react";
 
 import { Box, Button } from "@material-ui/core";
@@ -40,7 +41,7 @@ function Subscribe(props) {
 				alignContent: "center",
 				maxHeight: "77vh",
 				overflow: "auto",
-				paddingBottom: 10,
+				paddingBottom: 20,
 			}}
 		>
 			<div

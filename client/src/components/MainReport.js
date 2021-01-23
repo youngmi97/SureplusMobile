@@ -1,3 +1,4 @@
+//Home, Report
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
@@ -9,10 +10,12 @@ import "../App.css";
 
 const useStyles = makeStyles((theme) => ({
 	ListItemSize2: {
-		color: "#666666",
+		color: "#8a8a8F",
 		padding: 0,
 		backgroundColor: "white",
-		fontSize: "11px",
+		fontSize: "12px",
+		lineHeight: "17px",
+		fontWeight: 500,
 		margin: 0,
 		borderRadius: "12px 12px 0px 0px",
 		paddingLeft: 20,
@@ -168,7 +171,7 @@ function Subscribe(props) {
 			</div>
 			<div
 				style={{
-					marginTop: "2.956vh",
+					marginTop: "2.0833vh",
 					marginRight: "24px",
 					marginLeft: "24px",
 					backgroundColor: "white",
@@ -206,7 +209,7 @@ function Subscribe(props) {
 								src={"/Img/" + array.name + "/[32].svg"}
 								name={array.name}
 								plan={get_time(new Date(array.lastDate))}
-								price={"- $ " + array.cost}
+								price={"- $" + array.cost}
 							></ListCard2>
 						);
 					})}
