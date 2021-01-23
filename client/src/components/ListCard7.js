@@ -15,7 +15,7 @@ function ListCard2(props) {
 					borderTopRightRadius: props.r2,
 					borderBottomLeftRadius: props.r3,
 					borderBottomRightRadius: props.r4,
-					backdropFilter: "blur(28.14px)",
+
 					width: "100%",
 					height: "9.38vh",
 					textTransform: "none",

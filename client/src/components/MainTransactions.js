@@ -21,7 +21,6 @@ function Subscribe(props) {
 	const classes = useStyles();
 
 	const data = props.list;
-	console.log(data);
 
 	const dayindex = {};
 
@@ -37,8 +36,6 @@ function Subscribe(props) {
 			}
 		}
 	}
-
-	console.log(dayindex);
 
 	return (
 		<div
@@ -62,8 +59,8 @@ function Subscribe(props) {
 							marginRight: "24px",
 							marginLeft: "24px",
 							backgroundColor: "white",
+							borderRadius: "12px 12px 12px 12px",
 							boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-							borderRadius: "12px",
 						}}
 					>
 						<div
@@ -72,15 +69,6 @@ function Subscribe(props) {
 								padding: 0,
 							}}
 						>
-							{/* <ListCard1
-            r1="12px"
-            r2="12px"
-            r3="0px"
-            r4="0px"
-            text="This Week"
-            second="$11.8"
-            src="Recurring.svg"
-          ></ListCard1> */}
 							<div
 								style={{
 									position: "relative",

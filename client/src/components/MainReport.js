@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 
 import ListCard2 from "./ListCard7";
-import ListCard3 from "./ListCard6";
+import ListCard from "./ListCard6";
 import { Link } from "react-router-dom";
 import "../App.css";
 
@@ -52,6 +52,7 @@ function Subscribe(props) {
 				alignContent: "center",
 				maxHeight: "77vh",
 				overflow: "auto",
+				paddingBottom: 20,
 			}}
 		>
 			<div
@@ -91,7 +92,7 @@ function Subscribe(props) {
 									style={{ margin: 0, padding: 0, width: "100%" }}
 									to={{ pathname: "/OneSub", list: array, link: "/" }}
 								>
-									<ListCard3
+									<ListCard
 										r1="0px"
 										r2="0px"
 										r3="0px"
@@ -100,7 +101,7 @@ function Subscribe(props) {
 										name={array.name}
 										plan={"$" + array.cost + " / " + array.period}
 										day={get_date(today, new Date(array.lastDate))}
-									></ListCard3>
+									></ListCard>
 								</Button>
 							</div>
 						);

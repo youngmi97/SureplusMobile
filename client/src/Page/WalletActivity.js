@@ -25,6 +25,7 @@ function Wallet(props) {
 	} catch (e) {
 		console.log("query error", e);
 	}
+
 	return (
 		<div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
 			<div
