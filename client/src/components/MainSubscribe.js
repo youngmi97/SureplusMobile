@@ -39,7 +39,7 @@ function Subscribe(props) {
 			style={{
 				width: "100%",
 				alignContent: "center",
-				maxHeight: "77vh",
+				maxHeight: "74vh",
 				overflow: "auto",
 				paddingBottom: 20,
 			}}
