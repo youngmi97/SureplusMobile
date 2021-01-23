@@ -264,7 +264,7 @@ export function Report(props) {
 				>
 					<img
 						alt="Notice"
-						src="/Icons[24]/Type=Notice.svg"
+						src="/Icons[24]/Type=Profile.svg"
 						style={{ width: "3.125vh", height: "3.125vh" }}
 					></img>
 
@@ -303,7 +303,7 @@ export function Report(props) {
 				>
 					<img
 						alt="name"
-						src="/Icons[24]/Type=Profile.svg"
+						src="/Icons[24]/Type=Notice.svg"
 						style={{ width: "3.125vh", height: "3.125vh" }}
 					></img>
 					<Typography
@@ -316,7 +316,7 @@ export function Report(props) {
 							alignItems: "center",
 						}}
 					>
-						Saved
+						Notice Board
 					</Typography>
 				</Button>
 
