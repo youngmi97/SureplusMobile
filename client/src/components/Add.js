@@ -2,19 +2,11 @@
 
 import IconButton from "@material-ui/core/IconButton";
 import Switch from "@material-ui/core/Switch";
-import InputLabel from "@material-ui/core/InputLabel";
 
 import Button from "@material-ui/core/Button";
-import {
-  fade,
-  makeStyles,
-  withStyles,
-  useTheme,
-  MuiThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 // import AppBar from "@material-ui/core/AppBar";
-import DateFnsUtils from "@date-io/date-fns"; // choose your lib
+
 import List from "@material-ui/core/List";
 
 import ListItem from "@material-ui/core/ListItem";
@@ -22,15 +14,14 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DialogContent from "@material-ui/core/DialogContent";
 import Dialog from "@material-ui/core/Dialog";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import React from "react";
-import { ButtonBase, Typography, Avatar, Box, Drawer } from "@material-ui/core";
+import { Typography, Box, Drawer } from "@material-ui/core";
 //Sort
-import FormControl from "@material-ui/core/FormControl";
 
 import InputBase from "@material-ui/core/InputBase";
-import { Select } from "@material-ui/core";
+
 import EventRoundedIcon from "@material-ui/icons/EventRounded";
 import InputCalendar from "./InputCalendar";
 import "../App.css";
@@ -97,11 +88,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: "384px",
-    marginTop: 4,
-  },
   selectEmpty: {
     width: 384,
   },
@@ -192,9 +178,7 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: "0 0 0 0.2rem rgba(239, 239, 244, 0.25)",
     },
   },
-  formControl: {
-    minWidth: 120,
-  },
+
   sortStyle: {
     width: "fit-content",
     borderRadius: 8,
@@ -325,13 +309,6 @@ const shortmonth = [
 ];
 export default function Subscription(props) {
   const classes = useStyles();
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const [index, setIndex] = React.useState(0);
-  const [plan, setPlan] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [temporalname, setName] = React.useState(false);
 
   const handleChangeSwitch = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -339,16 +316,13 @@ export default function Subscription(props) {
 
   const [ind1, setIndex1] = React.useState(0);
   const [day, setDay] = React.useState(1);
-  const cards = { 1: [2], 2: [5] };
 
   const [open, setOpen] = React.useState(false);
   const [month, setMonth] = React.useState(0);
 
   const [open1, setOpen1] = React.useState(false);
 
-  const changeName = (name) => {
-    setName(name);
-  };
+  const changeName = (name) => {};
 
   const handleClickOpen1 = () => {
     setOpen1(true);
@@ -357,18 +331,11 @@ export default function Subscription(props) {
   const handleClose1 = () => {
     setOpen1(false);
   };
-  const handleIndex = (event) => {
-    setIndex(event.target.value);
-    setPlan(Netflix_plan[event.target.value]);
-    setPrice(Netflix_price[event.target.value]);
-  };
 
   const lists = ["Aaptiv", "AppleMusic", "AudiSelect", "Avast", "BarkBox"];
 
   lists.sort();
 
-  const Netflix_plan = ["", "Basic", "Standard", "Premium"];
-  const Netflix_price = ["", "$8.99", "$12.99", "$15.99"];
   const [state, setState] = React.useState({
     checkedA: true,
   });
@@ -448,6 +415,7 @@ export default function Subscription(props) {
                 style={{ padding: 0, margin: 0, minHeight: 0, minWidth: 0 }}
               >
                 <img
+                  alt="name"
                   src="Exit.svg"
                   style={{ width: "3.12vh", height: "3.12vh" }}
                 />
@@ -506,7 +474,7 @@ export default function Subscription(props) {
                         {name}
                       </Typography>
                       <ListItemSecondaryAction>
-                        <img src="/MovetoPage.svg" />
+                        <img alt="name" src="/MovetoPage.svg" />
                       </ListItemSecondaryAction>
                     </ListItem>
                   );
@@ -606,7 +574,8 @@ export default function Subscription(props) {
                 style={{ padding: 0, margin: 0, minHeight: 0, minWidth: 0 }}
               >
                 <img
-                  src="Icons[32]/Type=Back.svg"
+                  alt="name"
+                  src="Back.svg"
                   style={{ width: "3.12vh", height: "3.12vh" }}
                 />
               </IconButton>
@@ -642,6 +611,7 @@ export default function Subscription(props) {
                 style={{ padding: 0, margin: 0, minHeight: 0, minWidth: 0 }}
               >
                 <img
+                  alt="name"
                   src="Exit.svg"
                   style={{ width: "3.12vh", height: "3.12vh" }}
                 />
@@ -672,6 +642,7 @@ export default function Subscription(props) {
               }}
             >
               <img
+                alt="name"
                 src="/g5747.svg"
                 style={{
                   position: "absolute",

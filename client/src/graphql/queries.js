@@ -1,39 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getSubscriptionServices = /* GraphQL */ `
+  query GetSubscriptionServices($id: ID!) {
+    getSubscriptionServices(id: $id) {
       id
+      userID
+      transactionID
+      accountID
       name
-      posts {
-        items {
-          id
-          title
-          blogID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      cost
+      period
+      firstAddedDate
+      lastDate
+      category
+      source
       createdAt
       updatedAt
     }
   }
 `;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
+export const listSubscriptionServicess = /* GraphQL */ `
+  query ListSubscriptionServicess(
+    $filter: ModelSubscriptionServicesFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSubscriptionServicess(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
+        userID
+        transactionID
+        accountID
         name
-        posts {
-          nextToken
-        }
+        cost
+        period
+        firstAddedDate
+        lastDate
+        category
+        source
         createdAt
         updatedAt
       }
@@ -41,56 +50,35 @@ export const listBlogs = /* GraphQL */ `
     }
   }
 `;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
-      id
-      title
-      blogID
-      blog {
-        id
-        name
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
+export const serviceByUser = /* GraphQL */ `
+  query ServiceByUser(
+    $userID: String
+    $lastDate: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSubscriptionServicesFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    serviceByUser(
+      userID: $userID
+      lastDate: $lastDate
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
-        title
-        blogID
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
+        userID
+        transactionID
+        accountID
+        name
+        cost
+        period
+        firstAddedDate
+        lastDate
+        category
+        source
         createdAt
         updatedAt
       }
@@ -98,51 +86,35 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
-      id
-      postID
-      post {
-        id
-        title
-        blogID
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const serviceByUserAdded = /* GraphQL */ `
+  query ServiceByUserAdded(
+    $userID: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSubscriptionServicesFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    serviceByUserAdded(
+      userID: $userID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
-        postID
-        post {
-          id
-          title
-          blogID
-          createdAt
-          updatedAt
-        }
-        content
+        userID
+        transactionID
+        accountID
+        name
+        cost
+        period
+        firstAddedDate
+        lastDate
+        category
+        source
         createdAt
         updatedAt
       }

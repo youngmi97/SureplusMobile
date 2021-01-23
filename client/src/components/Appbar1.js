@@ -1,14 +1,9 @@
-// Home > Wallet > Cards
+import React from "react";
 
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import { Grid } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
+
 import "../App.css";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Appbar1(props) {
   return (
@@ -17,9 +12,7 @@ function Appbar1(props) {
         display="flex"
         p={1}
         alignItems="center"
-        style={{ margin: 0, 
-        padding:0,
-        height: "5.73vh" }}
+        style={{ margin: 0, padding: 0, height: "5.73vh" }}
       >
         <Box
           Button
@@ -33,10 +26,11 @@ function Appbar1(props) {
             left: "16px",
           }}
           component={Link}
-          to="/"
+          to={{ pathname: "/", param1: 1 }}
         >
           <img
-            src="Icons[32]/Type=Back.svg"
+            src="/Icons[32]/Type=Back.svg"
+            alt="name"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
@@ -49,7 +43,7 @@ function Appbar1(props) {
               textAlign: "center",
             }}
           >
-            Cards
+            {props.name}
           </Typography>
         </Box>
         <Box
@@ -64,7 +58,8 @@ function Appbar1(props) {
           }}
         >
           <img
-            src="Icons[32]/Type=Sort.svg"
+            src="/Icons[32]/Type=Sort.svg"
+            alt="name"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>
@@ -80,6 +75,7 @@ function Appbar1(props) {
           }}
         >
           <img
+            alt="name"
             src="Icons[32]/Type=Add.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>

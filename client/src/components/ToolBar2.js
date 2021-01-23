@@ -1,19 +1,10 @@
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import AddSubscription from "./Add";
-import { Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import React from "react";
+
+import { Button, Box, Typography } from "@material-ui/core";
+
 import "../App.css";
 
 function ToolBar(props) {
-  const useStyles = makeStyles((theme) => ({}));
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const value = props.value;
   const setValue = props.setValue;
   return (

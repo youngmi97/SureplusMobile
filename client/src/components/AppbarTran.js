@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import { Grid } from "@material-ui/core";
+import React from "react";
+
+import { Box, Typography } from "@material-ui/core";
+
 import "../App.css";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Appbar1(props) {
   return (
@@ -30,7 +27,8 @@ function Appbar1(props) {
           to={props.link}
         >
           <img
-            src="Icons[32]/Type=Back.svg"
+            alt="name"
+            src="Back.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
         </Box>

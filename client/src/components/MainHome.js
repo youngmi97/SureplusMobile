@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
+import React from "react";
+
+import { Box } from "@material-ui/core";
 import ListCard from "./ListCard";
 import ListCard2 from "./ListCard2";
 import "../App.css";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function Home() {
   return (

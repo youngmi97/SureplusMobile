@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
-import Home from "./Page/Home";
+
 import Subscription from "./Page/Subscription";
 import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
@@ -15,86 +15,211 @@ import Onboarding from "./Page/Onboarding";
 import UsePhone from "./Page/UsePhone";
 import Wallet from "./Page/Wallet";
 import UsePhoneCode from "./Page/UsePhoneCode";
-import Following from "./Page/Following";
-import Followers from "./Page/Followers";
+import WalletActivity from "./Page/WalletActivity";
+import OneSub from "./Page/OneSub";
 
 import {
-	AmplifyAuthenticator,
-	AmplifySignOut,
-	AmplifySignUp,
-	AmplifySignIn,
+  AmplifyAuthenticator,
+  AmplifySignOut,
+  AmplifySignUp,
+  AmplifySignIn,
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
-const AuthStateApp = () => {
-	const [authState, setAuthState] = useState();
-	const [user, setUser] = useState();
+import { AuthProvider } from "./context/auth";
 
-	//prompt users to download pwa
+const AuthStateApp = (props) => {
+  const [authState, setAuthState] = useState();
+  const [user, setUser] = useState();
 
-	useEffect(() => {
-		onAuthUIStateChange((nextAuthState, authData) => {
-			setAuthState(nextAuthState);
-			setUser(authData);
-		});
-	}, []);
+  //const context = useContext(AuthContext)
+  //prompt users to download pwa
+  //console.log("App", props.client);
 
-	return authState === AuthState.SignedIn && user ? (
-		<div className="App">
-			<Router>
-				<div>
-				<Route exact path="/" component={Report} />
-          <Route exact path="/Profile" component={Profile} />
-          <Route exact path="/Wallet" component={Wallet} />
-          <Route exact path="/Accounts" component={Accounts} />
-          {/* <Route exact path="/Home" component={Home} /> */}
-          <Route exact path="/Transaction" component={Transaction} />
-          <Route exact path="/Notification" component={Notification} />
-          <Route exact path="/Subscription" component={Subscription} />
-          <Route exact path="/Subscription2" component={Subscription2} />
-          <Route exact path="/Crew" component={Crew} />
-          <Route exact path="/Crew2" component={Crew2} />
-          <Route exact path="/Onboarding" component={Onboarding} />
-          <Route exact path="/UsePhone" component={UsePhone} />
-          <Route exact path="/UsePhoneCode" component={UsePhoneCode} />
-          <Route exact path="/Following" component={Following} />
-          <Route exact path="/Followers" component={Followers} />
-					{/* Component with no routes are sent to signout prompt */}
-					<AmplifySignOut />
-				</div>
-			</Router>
-		</div>
-	) : (
-		<AmplifyAuthenticator>
-			<AmplifySignUp
-				slot="sign-up"
-				usernameAlias="phone_number"
-				formFields={[
-					{
-						type: "name",
-						label: "Name",
-						placeholder: "Name",
-						required: true,
-					},
+  useEffect(() => {
+    onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
+  }, [user, authState]);
 
-					{
-						type: "password",
-						label: "Custom Password Label",
-						placeholder: "custom password placeholder",
-						required: true,
-					},
+  return authState == AuthState.SignedIn && user ? (
+    <AuthProvider>
+      <div className="App">
+        <Router>
+          <div>
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <Report userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Profile"
+              component={() => (
+                <Profile userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Wallet"
+              component={() => (
+                <Wallet userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Accounts"
+              component={() => (
+                <Accounts userData={user.attributes} client={props.client} />
+              )}
+            />
+            {/* <Route exact path="/Home" component={Home} /> */}
+            <Route
+              exact
+              path="/Transaction"
+              component={() => (
+                <Transaction userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Notification"
+              component={() => (
+                <Notification
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Subscription"
+              component={() => (
+                <Subscription
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Subscription2"
+              component={() => (
+                <Subscription2
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Crew"
+              component={() => (
+                <Crew userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Crew2"
+              component={() => (
+                <Crew2 userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/OneSub"
+              component={() => (
+                <OneSub userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/WalletActivity"
+              component={() => (
+                <WalletActivity
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/Onboarding"
+              ccomponent={() => (
+                <Onboarding userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/UsePhone"
+              component={() => (
+                <UsePhone userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/UsePhoneCode"
+              component={() => (
+                <UsePhoneCode
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
+            {/* <Route
+							exact
+							path="/Following"
+							component={() => (
+								<Following userData={user.attributes} client={props.client} />
+							)}
+						/>
+						<Route
+							exact
+							path="/Followers"
+							component={() => (
+								<Followers userData={user.attributes} client={props.client} />
+							)}
+						/> */}
+            {/* Component with no routes are sent to signout prompt */}
+            <AmplifySignOut />
+          </div>
+        </Router>
+      </div>
+    </AuthProvider>
+  ) : (
+    <AmplifyAuthenticator>
+      <AmplifySignUp
+        slot="sign-up"
+        usernameAlias="phone_number"
+        formFields={[
+          {
+            type: "name",
+            label: "Name",
+            placeholder: "Name",
+            required: true,
+          },
 
-					{
-						type: "phone_number",
-						label: "Custom Phone Label",
-						placeholder: "custom Phone placeholder",
-						required: false,
-					},
-				]}
-			/>
-			<AmplifySignIn slot="sign-in" usernameAlias="phone_number" />
-		</AmplifyAuthenticator>
-	);
+          {
+            type: "password",
+            label: "Custom Password Label",
+            placeholder: "custom password placeholder",
+            required: true,
+          },
+
+          {
+            type: "phone_number",
+            label: "Custom Phone Label",
+            placeholder: "custom Phone placeholder",
+            required: false,
+          },
+        ]}
+      />
+      <AmplifySignIn slot="sign-in" usernameAlias="phone_number" />
+    </AmplifyAuthenticator>
+  );
 };
 
 export default AuthStateApp;

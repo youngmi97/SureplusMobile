@@ -1,21 +1,15 @@
 //Subscriptions Tab
 
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
 import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+
 import AddSubscription from "./Add";
-import { Grid } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
 import "../App.css";
 
 function Appbar2(props) {
-  const useStyles = makeStyles((theme) => ({}));
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const StyledTabs = withStyles({
     root: {
       minHeight: "auto",
@@ -78,7 +72,7 @@ function Appbar2(props) {
             {props.Text}
           </Typography>
         </Box>
-        <Box
+        {/* <Box
           p={1}
           style={{
             position: "absolute",
@@ -98,11 +92,12 @@ function Appbar2(props) {
             }}
           >
             <img
+              alt="name"
               src="Frame 318.svg"
               style={{ width: "4.16vh", height: "4.16vh" }}
             ></img>
           </Button>
-        </Box>
+        </Box> */}
       </Box>
       <StyledTabs
         value={props.state}
@@ -126,11 +121,11 @@ function Appbar2(props) {
           component={Link}
         />
       </StyledTabs>
-      <AddSubscription
+      {/* <AddSubscription
         open={open}
         handleClose={() => handleClose()}
         handleClickOpen={() => handleClickOpen()}
-      />
+      /> */}
     </div>
   );
 }

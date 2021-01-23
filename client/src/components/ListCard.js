@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, Typography, Box } from "@material-ui/core";
-import "../App.css";
+import React from "react";
 
-const useStyles = makeStyles((theme) => ({}));
+import { Button, Typography, Box } from "@material-ui/core";
+import "../App.css";
 
 function ListCard(props) {
   return (
@@ -44,6 +42,7 @@ function ListCard(props) {
                   }}
                 >
                   <img
+                    alt="name"
                     src={props.src}
                     style={{
                       width: "3vh",
@@ -71,6 +70,7 @@ function ListCard(props) {
                   }}
                 >
                   <img
+                    alt="name"
                     src={"chevron.up -s.svg"}
                     style={{
                       width: "3vh",
@@ -105,7 +105,7 @@ function ListCard(props) {
                       display: "flex",
                     }}
                   >
-                    <img
+                    <img alt="name"
                       src="chevron.right -s.svg"
                       style={{
                         width: "3vh",
@@ -166,6 +166,7 @@ function ListCard(props) {
                     }}
                   >
                     <img
+                      alt="name"
                       src="chevron.right -s.svg"
                       style={{
                         width: "3vh",

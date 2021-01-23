@@ -1,53 +1,10 @@
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button, Box, Typography, Tabs, Tab } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import AddSubscription from "./Add";
-import { Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import React from "react";
+
+import { Button, Box, Typography } from "@material-ui/core";
+
 import "../App.css";
 
 function ToolBar(props) {
-  const useStyles = makeStyles((theme) => ({}));
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const StyledTabs = withStyles({
-    root: {
-      minHeight: "auto",
-      padding: 0,
-      margin: 0,
-    },
-    indicator: {
-      display: "flex",
-      padding: 0,
-      justifyContent: "center",
-      backgroundColor: "transparent",
-      bottom: 0,
-      "& > span": {
-        width: "90%",
-        backgroundColor: "black",
-      },
-    },
-  })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
-  const StyledTab = withStyles((theme) => ({
-    root: {
-      minHeight: "auto",
-      minWidth: "auto",
-      textTransform: "none",
-      color: "#000000",
-      fontWeight: 500,
-      fontSize: "2.08vh",
-      margin: 0,
-      padding: 2,
-      opacity: 0.2,
-      "&:focus": {
-        opacity: 1,
-      },
-    },
-  }))((props) => <Tab disableRipple {...props} />);
   const value = props.value;
   const setValue = props.setValue;
   return (
@@ -61,10 +18,7 @@ function ToolBar(props) {
         {(() => {
           if (value == 0) {
             return (
-              <Box
-                p={1}
-                style={{ margin: 0, padding: 0 }}
-              >
+              <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Button
                   onClick={() => setValue(0)}
                   style={{
@@ -98,10 +52,7 @@ function ToolBar(props) {
             );
           } else {
             return (
-              <Box
-                p={1}
-                style={{ margin: 0, padding: 0 }}
-              >
+              <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Button
                   onClick={() => setValue(0)}
                   style={{
@@ -120,7 +71,7 @@ function ToolBar(props) {
                     style={{
                       margin: 0,
                       padding: 0,
-                      color: "#666666",
+                      color: "#ACB5BE",
                       fontSize: "15px",
                       fontFamily: "Avenir Next",
                       fontWeight: 600,
@@ -190,7 +141,7 @@ function ToolBar(props) {
                     style={{
                       margin: 0,
                       padding: 0,
-                      color: "#666666",
+                      color: "#ACB5BE",
                       fontSize: "15px",
                       fontFamily: "Avenir Next",
                       fontWeight: 600,
@@ -204,8 +155,6 @@ function ToolBar(props) {
             );
           }
         })()}
-        
-        
       </Box>
     </div>
   );
