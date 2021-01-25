@@ -67,6 +67,7 @@ class PlaidLogin extends Component {
 
             //this.props.history.push("/Accounts");
             console.log("accountsCount", this.state.accounts.length);
+            //console.log("accounts", res.data.transactions.accounts);
             console.log("transactionsCount", this.state.transactions.length);
           })
       );
