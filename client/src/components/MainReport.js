@@ -1,18 +1,21 @@
+//Home, Report
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 
 import ListCard2 from "./ListCard7";
-import ListCard3 from "./ListCard6";
+import ListCard from "./ListCard6";
 import { Link } from "react-router-dom";
 import "../App.css";
 
 const useStyles = makeStyles((theme) => ({
 	ListItemSize2: {
-		color: "#666666",
+		color: "#8a8a8F",
 		padding: 0,
 		backgroundColor: "white",
-		fontSize: "11px",
+		fontSize: "12px",
+		lineHeight: "17px",
+		fontWeight: 500,
 		margin: 0,
 		borderRadius: "12px 12px 0px 0px",
 		paddingLeft: 20,
@@ -52,6 +55,7 @@ function Subscribe(props) {
 				alignContent: "center",
 				maxHeight: "77vh",
 				overflow: "auto",
+				paddingBottom: 20,
 			}}
 		>
 			<div
@@ -91,7 +95,7 @@ function Subscribe(props) {
 									style={{ margin: 0, padding: 0, width: "100%" }}
 									to={{ pathname: "/OneSub", list: array, link: "/" }}
 								>
-									<ListCard3
+									<ListCard
 										r1="0px"
 										r2="0px"
 										r3="0px"
@@ -100,7 +104,7 @@ function Subscribe(props) {
 										name={array.name}
 										plan={"$" + array.cost + " / " + array.period}
 										day={get_date(today, new Date(array.lastDate))}
-									></ListCard3>
+									></ListCard>
 								</Button>
 							</div>
 						);
@@ -167,7 +171,7 @@ function Subscribe(props) {
 			</div>
 			<div
 				style={{
-					marginTop: "2.956vh",
+					marginTop: "2.0833vh",
 					marginRight: "24px",
 					marginLeft: "24px",
 					backgroundColor: "white",
@@ -205,7 +209,7 @@ function Subscribe(props) {
 								src={"/Img/" + array.name + "/[32].svg"}
 								name={array.name}
 								plan={get_time(new Date(array.lastDate))}
-								price={"- $ " + array.cost}
+								price={"- $" + array.cost}
 							></ListCard2>
 						);
 					})}

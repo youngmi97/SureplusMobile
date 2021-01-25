@@ -1,3 +1,4 @@
+//Calendar View
 import React from "react";
 
 import { Box, Button } from "@material-ui/core";
@@ -54,7 +55,7 @@ function Subscribe(props) {
 			style={{
 				width: "100%",
 				alignContent: "center",
-				maxHeight: "77vh",
+				maxHeight: "74vh",
 				overflow: "auto",
 				paddingBottom: 10,
 			}}
@@ -97,6 +98,8 @@ function Subscribe(props) {
 												margin: 0,
 												marginTop: 16,
 												padding: 0,
+												backgroundColor: "white",
+												borderRadius: "12px",
 												filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))",
 											}}
 										>
@@ -112,10 +115,10 @@ function Subscribe(props) {
 														}}
 													>
 														<ListCard
-															r1="12px"
-															r2="12px"
-															r3="12px"
-															r4="12px"
+															r1="0px"
+															r2="0px"
+															r3="0px"
+															r4="0px"
 															month={shortmonth[new Date(key).getMonth()]}
 															day={new Date(key).getDate()}
 															src={"/Img/" + array1.name + "/[32].svg"}
@@ -138,6 +141,8 @@ function Subscribe(props) {
 									margin: 0,
 									marginTop: 16,
 									padding: 0,
+									backgroundColor: "white",
+									borderRadius: "12px",
 									filter: "drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.1))",
 								}}
 							>
@@ -145,18 +150,28 @@ function Subscribe(props) {
 									(array1, index1) => {
 										const key = localkey[selected.getDate()];
 										return (
-											<ListCard
-												r1="12px"
-												r2="12px"
-												r3="12px"
-												r4="12px"
-												month={new Date(key).getMonth() + 1}
-												day={new Date(key).getDate()}
-												src={"/Img/" + array1.name + "/[32].svg"}
-												name={array1.name}
-												plan={"$" + array1.cost + " / " + array1.period}
-												share={0}
-											></ListCard>
+											<Button
+												component={Link}
+												style={{ margin: 0, padding: 0, width: "100%" }}
+												to={{
+													pathname: "/OneSub",
+													list: array1,
+													link: "/Subscription2",
+												}}
+											>
+												<ListCard
+													r1="0px"
+													r2="0px"
+													r3="0px"
+													r4="0px"
+													month={shortmonth[new Date(key).getMonth()]}
+													day={new Date(key).getDate()}
+													src={"/Img/" + array1.name + "/[32].svg"}
+													name={array1.name}
+													plan={"$" + array1.cost + " / " + array1.period}
+													share={0}
+												></ListCard>
+											</Button>
 										);
 									}
 								)}

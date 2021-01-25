@@ -1,3 +1,5 @@
+//Home, Report, Upcoming Subscriptions, List
+
 import React from "react";
 
 import { Button, Typography, Box } from "@material-ui/core";
@@ -71,7 +73,7 @@ function ListCard2(props) {
               <Box p={1} style={{ margin: 0, padding: 0 }}>
                 <Typography
                   style={{
-                    fontSize: "1.72vh",
+                    fontSize: "14px",
                     textAlign: "left",
                     color: "#000000",
                     fontWeight: 500,
@@ -81,7 +83,7 @@ function ListCard2(props) {
                 </Typography>
                 <Typography
                   style={{
-                    fontSize: "1.23vh",
+                    fontSize: "10px",
                     fontWeight: 400,
                     textAlign: "left",
                     color: "#8A8A8F",
@@ -93,45 +95,72 @@ function ListCard2(props) {
             </Box>
           </Box>
           {(() => {
-            if (props.day != 7) {
+            if (props.day <= 7) {
               return (
                 <Box
                   p={1}
                   style={{
                     margin: 0,
-                    padding: "4px 8px",
+                    padding: "3px 8px",
                     marginRight: 16,
                     backgroundColor: "rgba(255, 0, 0, 0.1)",
-                    borderRadius: "10.5px",
+                    borderRadius: "12px",
                   }}
                 >
                   <Typography
                     style={{
-                      fontSize: "1.23vh",
+                      fontSize: "13px",
                       color: "#FF3B30",
                       fontWeight: 600,
+                      letterSpacing: "-0.08px"
                     }}
                   >
                     D-{props.day}
                   </Typography>
                 </Box>
               );
-            } else {
+            }
+            else if (props.day <= 14) {
               return (
                 <Box
                   p={1}
                   style={{
                     margin: 0,
-                    padding: "4px 8px",
+                    padding: "3px 8px",
                     marginRight: 16,
                     backgroundColor: "rgba(255, 204, 0, 0.1)",
-                    borderRadius: "10.5px",
+                    borderRadius: "12px",
                   }}
                 >
                   <Typography
                     style={{
-                      fontSize: "1.23vh",
+                      fontSize: "13px",
                       color: "#FFCC00",
+                      fontWeight: 600,
+                      letterSpacing: "-0.08px"
+                    }}
+                  >
+                    D-{props.day}
+                  </Typography>
+                </Box>
+              );
+            } 
+            else {
+              return (
+                <Box
+                  p={1}
+                  style={{
+                    margin: 0,
+                    padding: "3px 8px",
+                    marginRight: 16,
+                    backgroundColor: "rgba(30, 215, 96, 0.1)",
+                    borderRadius: "12px",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      fontSize: "13px",
+                      color: "#4CD964",
                       fontWeight: 600,
                     }}
                   >

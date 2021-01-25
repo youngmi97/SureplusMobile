@@ -369,7 +369,7 @@ export default function Subscription(props) {
 					>
 						<img
 							alt="name"
-							src="/Spotify.svg"
+							src={"/SubscriptionCards/"+li.name+".svg"}
 							style={{
 								margin:0,padding:0,
 								position: "absolute",
