@@ -3,7 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
 import gql from "graphql-tag";
-import getServicePlaid from "../graphql/queries";
+
+import { serviceByUser } from "../graphql/queries";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -11,7 +12,7 @@ import Main2 from "../components/MainReport2";
 import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
@@ -45,32 +46,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Report(props) {
-  var num = 0;
+  const location = useLocation();
 
-  if (props.param1 != null) {
+  var num = 0;
+  if (location.param1 != null) {
     num = 1;
   }
+
+  //console.log("Report Client", props.client);
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(false);
-
+  const [data, setData] = React.useState([]);
   //const context = useContext(AuthContext);
+  //props.userData.sub --> userID used for query
 
-  // try {
-  //   props.client
-  //     .query({
-  //       query: gql(getServicePlaid),
-  //     })
-  //     .then(({ data }) => {
-  //       console.log("demoData", data);
-  //     });
-  // } catch (e) {
-  //   console.log("query error", e);
-  // }
+  try {
+    props.client
+      .query({
+        query: gql(serviceByUser),
+        variables: { userID: props.userData.sub },
+      })
+      .then(({ data }) => {
+        setData(data.serviceByUser.items);
+      });
+  } catch (e) {
+    console.log("query error", e);
+  }
 
-  //context.login(props.userData);
-  console.log("Report", props.userData);
+  console.log(data);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,34 +130,12 @@ export function Report(props) {
                 >
                   <img
                     alt="name"
-                    src="MyProfile.png"
+                    src="ProfileIcon.png"
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
               </Box>
-              {/* <Box
-                p={1}
-                style={{
-                  margin: 0,
-                  padding: 0,
-                }}
-              >
-                <Button
-                  style={{
-                    padding: 0,
-                    margin: 0,
-                    minHeight: 0,
-                    minWidth: 0,
-                    borderRadius: "100%",
-                  }}
-                >
-                  <img
-                    src="/Icons[32]/Type=Search.svg"
-                    alt="name"
-                    style={{ width: "4.16vh", height: "4.16vh" }}
-                  ></img>
-                </Button>
-              </Box> */}
+
               <Box
                 p={1}
                 style={{
@@ -205,9 +189,9 @@ export function Report(props) {
         >
           {(() => {
             if (ind == 0) {
-              return <Main />;
+              return <Main list={data} />;
             } else {
-              return <Main2 />;
+              return <Main2 list={data} />;
             }
           })()}
         </div>
@@ -232,7 +216,8 @@ export function Report(props) {
       >
         <div
           style={{
-            marginTop: 28,
+            marginTop: 16,
+            padding: "12px 20px 12px 20px",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -240,20 +225,23 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="MyProfile.png"
-            style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
+            src="ProfileIcon.png"
+            style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
           <Typography
             style={{
               margin: 0,
               padding: 0,
               marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
-            Jinjae Kim
+            {props.userData.name}
           </Typography>
         </div>
+        {/* Notice List */}
         <Button
           component={Link}
           to="/Profile"
@@ -265,15 +253,19 @@ export function Report(props) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            marginTop: 32,
+            marginTop: 16,
             height: 48,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
             textTransform: "none",
           }}
         >
           <img
-            alt="name"
-            src="MyProfile.png"
-            style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
+            alt="Notice"
+            src="/Icons[24]/Type=Profile.svg"
+            style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
 
           <Typography
@@ -281,6 +273,8 @@ export function Report(props) {
               margin: 0,
               padding: 0,
               marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
@@ -298,30 +292,38 @@ export function Report(props) {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
-            marginTop: 32,
+            marginTop: 16,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
             height: 48,
             textTransform: "none",
           }}
         >
           <img
             alt="name"
-            src="MyProfile.png"
-            style={{ width: "4.16vh", height: "4.16vh", marginLeft: 12 }}
+            src="/Icons[24]/Type=Notice.svg"
+            style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
             style={{
               margin: 0,
               padding: 0,
               marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
-            Saved
+            Notice Board
           </Typography>
         </Button>
+
         <div
-          style={{ backgroundColor: "grey", height: "0.6px", marginTop: 16 }}
+          style={{ backgroundColor: "grey", height: "0.5px", marginTop: 16 }}
         ></div>
+        {/* Privacy and Settings */}
         <Box
           Button
           style={{
@@ -336,13 +338,18 @@ export function Report(props) {
             style={{
               margin: 0,
               padding: 0,
-              marginLeft: 16,
+              paddingTop: 12,
+              paddingLeft: 20,
+              paddingBottom: 12,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
             Privacy and Settings
           </Typography>
         </Box>
+        {/* Customer Support */}
         <Box
           Button
           style={{
@@ -357,7 +364,11 @@ export function Report(props) {
             style={{
               margin: 0,
               padding: 0,
-              marginLeft: 16,
+              paddingTop: 12,
+              paddingLeft: 20,
+              paddingBottom: 12,
+              fontWeight: 500,
+              fontSize: 17,
               alignItems: "center",
             }}
           >
