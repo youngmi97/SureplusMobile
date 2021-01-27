@@ -18,6 +18,8 @@ import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
 //import { AuthContext } from "../context/auth";
 
+import Loading from "../components/Loading";
+
 const drawerWidth = "75vw";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +62,20 @@ export function Report(props) {
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState([]);
+
+  const loadingLayout = (
+    <div
+      style={{
+        position: "absolute",
+        zIndex: "1000",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(255,255,255,0.75)",
+      }}
+    >
+      <Loading />
+    </div>
+  );
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
 
@@ -95,6 +111,8 @@ export function Report(props) {
 
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
+      {loadingLayout}
+
       <div>
         <div
           position="absolute"
@@ -177,6 +195,7 @@ export function Report(props) {
         >
           <ToolBar value={ind} setValue={setIndex} />
         </div>
+
         <div
           position="fixed"
           className={clsx(classes.appBar, {

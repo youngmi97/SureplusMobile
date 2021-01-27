@@ -18,6 +18,7 @@
     "aws-appsync": "^4.0.2",
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
+    "framer-motion": "^3.2.2-rc.1",
     "graphql-tag": "^2.11.0",
     "nodemon": "^2.0.6",
     "react": "^17.0.1",
