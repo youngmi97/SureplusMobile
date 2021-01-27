@@ -52,7 +52,11 @@ const AuthStateApp = (props) => {
               exact
               path="/"
               component={() => (
-                <Report userData={user.attributes} client={props.client} />
+                <Report
+                  userData={user.attributes}
+                  client={props.client}
+                  param1={null}
+                />
               )}
             />
             <Route
@@ -148,7 +152,7 @@ const AuthStateApp = (props) => {
             <Route
               exact
               path="/Onboarding"
-              ccomponent={() => (
+              component={() => (
                 <Onboarding userData={user.attributes} client={props.client} />
               )}
             />
