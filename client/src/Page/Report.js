@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export function Report(props) {
   var num = 0;
 
-  if (props.location.param1 != null) {
+  if (props.param1 != null) {
     num = 1;
   }
   const classes = useStyles();

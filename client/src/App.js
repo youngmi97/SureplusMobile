@@ -52,7 +52,11 @@ const AuthStateApp = (props) => {
               exact
               path="/"
               component={() => (
-                <Report userData={user.attributes} client={props.client} />
+                <Report
+                  userData={user.attributes}
+                  client={props.client}
+                  param1={null}
+                />
               )}
             />
             <Route
@@ -139,7 +143,7 @@ const AuthStateApp = (props) => {
               exact
               path="/WalletActivity"
               component={() => (
-                <WalletActivicty
+                <WalletActivity
                   userData={user.attributes}
                   client={props.client}
                 />
@@ -148,7 +152,7 @@ const AuthStateApp = (props) => {
             <Route
               exact
               path="/Onboarding"
-              ccomponent={() => (
+              component={() => (
                 <Onboarding userData={user.attributes} client={props.client} />
               )}
             />
@@ -169,20 +173,7 @@ const AuthStateApp = (props) => {
                 />
               )}
             />
-            <Route
-              exact
-              path="/Following"
-              component={() => (
-                <Following userData={user.attributes} client={props.client} />
-              )}
-            />
-            <Route
-              exact
-              path="/Followers"
-              component={() => (
-                <Followers userData={user.attributes} client={props.client} />
-              )}
-            />
+
             {/* Component with no routes are sent to signout prompt */}
             <AmplifySignOut />
           </div>
