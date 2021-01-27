@@ -110,8 +110,16 @@ export function Report(props) {
     setOpen(open);
   };
 
+  const onRefresh = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 5000);
+    });
+  };
+
   return (
-    <PullToRefresh refreshingContent={loadingLayout} onRefresh={this.onRefresh}>
+    <PullToRefresh refreshingContent={loadingLayout} onRefresh={onRefresh}>
       <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
         <div>
           <div
