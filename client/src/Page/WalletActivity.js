@@ -35,7 +35,7 @@ function Wallet(props) {
 					backgroundColor: "white",
 				}}
 			>
-				<AppBar name={"WalletActivity"} link={"/"} />
+				<AppBar name={"Wallet Activity"} link={"/"} />
 			</div>
 			<div
 				style={{
