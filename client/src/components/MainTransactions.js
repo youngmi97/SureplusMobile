@@ -42,9 +42,9 @@ function Subscribe(props) {
 			style={{
 				width: "100%",
 				alignContent: "center",
-				maxHeight: "77vh",
+				maxHeight: "79.0365vh",
 				overflow: "auto",
-				paddingBottom: 10,
+				paddingBottom: 24,
 			}}
 		>
 			{Object.keys(dayindex).map(function (key, index) {
@@ -59,8 +59,8 @@ function Subscribe(props) {
 							marginRight: "24px",
 							marginLeft: "24px",
 							backgroundColor: "white",
-							borderRadius: "12px 12px 12px 12px",
-							boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+							borderRadius: 8,
+							// boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
 						}}
 					>
 						<div
@@ -90,12 +90,13 @@ function Subscribe(props) {
 								</Typography>
 								<hr
 									style={{
-										borderTop: "0.6px solid #bbb",
+										border: "1px solid #C8C7CC",
 										position: "absolute",
 										bottom: 0,
 										right: 0,
-										width: "70%",
+										width: "59.4667vw",
 										height: 0,
+										opacity: "30%",
 									}}
 								/>
 							</div>

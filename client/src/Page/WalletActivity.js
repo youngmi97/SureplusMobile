@@ -30,9 +30,11 @@ function Wallet(props) {
 		<div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
 			<div
 				style={{
+					position: "relative",
 					width: "100%",
 					height: "5.72vh",
 					backgroundColor: "white",
+					boxShadow: "0px 0.347222px 0.347222px rgba(196, 196, 196, 0.75)",
 				}}
 			>
 				<AppBar name={"Wallet Activity"} link={"/"} />
