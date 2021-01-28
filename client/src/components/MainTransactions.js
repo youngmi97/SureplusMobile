@@ -22,6 +22,21 @@ function Subscribe(props) {
 
 	const data = props.list;
 
+	function get_time(day1) {
+		const day = new Date(day1.getTime() + day1.getTimezoneOffset() * 60 * 1000);
+
+		return (
+			day.getMonth() +
+			1 +
+			"/" +
+			day.getDate() +
+			" " +
+			day.getHours() +
+			":" +
+			day.getMinutes()
+		);
+	}
+
 	const dayindex = {};
 
 	for (let i = 0; i < 3; i++) {
@@ -110,7 +125,8 @@ function Subscribe(props) {
 									r4="0px"
 									src={"/Img/" + array.name + "/[32].svg"}
 									name={array.name}
-									plan={"$" + array.cost + " / " + array.period}
+									plan={get_time(new Date(array.lastDate))}
+									price={"- $" + array.cost}
 								></ListCard2>
 							);
 						})}
