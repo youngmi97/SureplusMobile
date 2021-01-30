@@ -20,29 +20,30 @@ import OneSub from "./Page/OneSub";
 import Customersupport from "./Page/CustomerSupport";
 
 import {
-  AmplifyAuthenticator,
-  AmplifySignOut,
-  AmplifySignUp,
-  AmplifySignIn,
+	AmplifyAuthenticator,
+	AmplifySignOut,
+	AmplifySignUp,
+	AmplifySignIn,
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 import { AuthProvider } from "./context/auth";
 
 const AuthStateApp = (props) => {
-  const [authState, setAuthState] = useState();
-  const [user, setUser] = useState();
+	const [authState, setAuthState] = useState();
+	const [user, setUser] = useState();
 
-  //const context = useContext(AuthContext)
-  //prompt users to download pwa
-  //console.log("App", props.client);
+	//const context = useContext(AuthContext)
+	//prompt users to download pwa
+	//console.log("App", props.client);
 
-  useEffect(() => {
-    onAuthUIStateChange((nextAuthState, authData) => {
-      setAuthState(nextAuthState);
-      setUser(authData);
-    });
-  }, [user, authState]);
+	useEffect(() => {
+		onAuthUIStateChange((nextAuthState, authData) => {
+			setAuthState(nextAuthState);
+			setUser(authData);
+		});
+	}, [user, authState]);
+
 
   return authState == AuthState.SignedIn && user ? (
     <AuthProvider>
@@ -185,6 +186,7 @@ const AuthStateApp = (props) => {
               )}
             />
             {/* <Route
+
 							exact
 							path="/Following"
 							component={() => (
@@ -198,43 +200,43 @@ const AuthStateApp = (props) => {
 								<Followers userData={user.attributes} client={props.client} />
 							)}
 						/> */}
-            {/* Component with no routes are sent to signout prompt */}
-            <AmplifySignOut />
-          </div>
-        </Router>
-      </div>
-    </AuthProvider>
-  ) : (
-    <AmplifyAuthenticator>
-      <AmplifySignUp
-        slot="sign-up"
-        usernameAlias="phone_number"
-        formFields={[
-          {
-            type: "name",
-            label: "Name",
-            placeholder: "Name",
-            required: true,
-          },
+						{/* Component with no routes are sent to signout prompt */}
+						{/* <AmplifySignOut /> */}
+					</div>
+				</Router>
+			</div>
+		</AuthProvider>
+	) : (
+		<AmplifyAuthenticator>
+			<AmplifySignUp
+				slot="sign-up"
+				usernameAlias="phone_number"
+				formFields={[
+					{
+						type: "name",
+						label: "Name",
+						placeholder: "Name",
+						required: true,
+					},
 
-          {
-            type: "password",
-            label: "Custom Password Label",
-            placeholder: "custom password placeholder",
-            required: true,
-          },
+					{
+						type: "password",
+						label: "Custom Password Label",
+						placeholder: "custom password placeholder",
+						required: true,
+					},
 
-          {
-            type: "phone_number",
-            label: "Custom Phone Label",
-            placeholder: "custom Phone placeholder",
-            required: false,
-          },
-        ]}
-      />
-      <AmplifySignIn slot="sign-in" usernameAlias="phone_number" />
-    </AmplifyAuthenticator>
-  );
+					{
+						type: "phone_number",
+						label: "Custom Phone Label",
+						placeholder: "custom Phone placeholder",
+						required: false,
+					},
+				]}
+			/>
+			<AmplifySignIn slot="sign-in" usernameAlias="phone_number" />
+		</AmplifyAuthenticator>
+	);
 };
 
 export default AuthStateApp;
