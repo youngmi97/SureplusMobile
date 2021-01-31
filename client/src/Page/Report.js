@@ -111,7 +111,7 @@ export function Report(props) {
 
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
-      {loadingLayout}
+      {/* {loadingLayout} */}
 
       <div>
         <div
