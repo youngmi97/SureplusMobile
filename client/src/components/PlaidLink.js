@@ -53,19 +53,26 @@ class PlaidLogin extends Component {
 
   handleOnSuccess(public_token, metadata) {
     axios
-      .post("http://localhost:5000/auth/public_token", {
-        public_token: public_token,
-      })
+      .post(
+        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/auth/public_token",
+        {
+          public_token: public_token,
+        }
+      )
       .then((response) =>
-        axios.get("http://localhost:5000/transactions").then((res) => {
-          this.setState({ transactions: res.data.transactions.transactions });
-          this.setState({ accounts: res.data.transactions.accounts });
+        axios
+          .get(
+            "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/transactions"
+          )
+          .then((res) => {
+            this.setState({ transactions: res.data.transactions.transactions });
+            this.setState({ accounts: res.data.transactions.accounts });
 
-          //this.props.history.push("/Accounts");
-          console.log("accountsCount", this.state.accounts.length);
-          console.log("accounts", this.state.accounts);
-          console.log("transactionsCount", this.state.transactions.length);
-        })
+            //this.props.history.push("/Accounts");
+            console.log("accountsCount", this.state.accounts.length);
+            console.log("accounts", this.state.accounts);
+            console.log("transactionsCount", this.state.transactions.length);
+          })
       );
     console.log("handleOnSuccess");
   }

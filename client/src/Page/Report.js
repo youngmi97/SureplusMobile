@@ -295,7 +295,7 @@ export function Report(props) {
           }}
         >
           <img
-            alt="Notice"
+            alt="Profile"
             src="/Icons[24]/Type=Profile.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
@@ -334,7 +334,7 @@ export function Report(props) {
           }}
         >
           <img
-            alt="name"
+            alt="Notification"
             src="/Icons[24]/Type=Notice.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
@@ -373,7 +373,7 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="/Icons[24]/Type=Notice.svg"
+            src="/Icons[24]/Type=CustomerSupport.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
@@ -416,7 +416,7 @@ export function Report(props) {
               alignItems: "center",
             }}
           >
-            Privacy and Settings
+            Privacy Policy
           </Typography>
         </Box>
         {/* Customer Support */}
