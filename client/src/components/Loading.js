@@ -15,10 +15,10 @@ const loadingContainer = {
 
 const loadingCircle = {
   display: "block",
-  width: "0.5rem",
-  height: "0.5rem",
+  width: "0.25rem",
+  height: "0.25rem",
   backgroundColor: "#7610EB",
-  borderRadius: "0.25rem",
+  borderRadius: "0.175rem",
 };
 
 const loadingContainerVariants = {
