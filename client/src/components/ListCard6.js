@@ -12,12 +12,12 @@ function ListCard2(props) {
         style={{
           padding: 0,
           marginTop: 0,
-          backgroundColor: "white",
+
           borderTopLeftRadius: props.r1,
           borderTopRightRadius: props.r2,
           borderBottomLeftRadius: props.r3,
           borderBottomRightRadius: props.r4,
-          backdropFilter: "blur(28.14px)",
+
           width: "100%",
           height: "9.38vh",
           textTransform: "none",
@@ -112,15 +112,14 @@ function ListCard2(props) {
                       fontSize: "13px",
                       color: "#FF3B30",
                       fontWeight: 600,
-                      letterSpacing: "-0.08px"
+                      letterSpacing: "-0.08px",
                     }}
                   >
                     D-{props.day}
                   </Typography>
                 </Box>
               );
-            }
-            else if (props.day <= 14) {
+            } else if (props.day <= 14) {
               return (
                 <Box
                   p={1}
@@ -137,15 +136,14 @@ function ListCard2(props) {
                       fontSize: "13px",
                       color: "#FFCC00",
                       fontWeight: 600,
-                      letterSpacing: "-0.08px"
+                      letterSpacing: "-0.08px",
                     }}
                   >
                     D-{props.day}
                   </Typography>
                 </Box>
               );
-            } 
-            else {
+            } else {
               return (
                 <Box
                   p={1}

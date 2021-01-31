@@ -41,10 +41,12 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
+    maxHeight: "100vh",
     flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
+    maxHeight: "100vh",
   },
 }));
 
@@ -68,19 +70,6 @@ export function Report(props) {
   const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
 
-  const loadingLayout = (
-    <div
-      style={{
-        position: "absolute",
-        zIndex: "1000",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(255,255,255,0.75)",
-      }}
-    >
-      <Loading />
-    </div>
-  );
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
 
@@ -193,50 +182,51 @@ export function Report(props) {
             </Box>
           </div>
         </div>
-        <PullToRefresh
-          refreshingContent={
-            <div style={{ height: "70px" }}>
-              <Loading />
+        <div>
+          <PullToRefresh
+            refreshingContent={
+              <div style={{ height: "70px" }}>
+                <Loading />
+              </div>
+            }
+            pullingContent={<div></div>}
+            canFetchMore={true}
+            onRefresh={onRefresh}
+          >
+            <div
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open,
+              })}
+              style={{
+                width: "100%",
+                height: "5.73vh",
+                marginTop: "1.56vh",
+              }}
+            >
+              <ToolBar value={ind} setValue={setIndex} />
             </div>
-          }
-          pullingContent={<div></div>}
-          canFetchMore={true}
-          onRefresh={onRefresh}
-        >
-          <div
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-            style={{
-              width: "100%",
-              height: "5.73vh",
-              marginTop: "1.56vh",
-            }}
-          >
-            <ToolBar value={ind} setValue={setIndex} />
-          </div>
 
-          <div
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-            style={{
-              width: "100%",
-              alignContent: "center",
-            }}
-          >
-            {(() => {
-              if (ind == 0) {
-                return <Main list={data} />;
-              } else {
-                return <Main2 list={data} />;
-              }
-            })()}
-          </div>
-        </PullToRefresh>
-
+            <div
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open,
+              })}
+              style={{
+                width: "100%",
+                alignContent: "center",
+              }}
+            >
+              {(() => {
+                if (ind == 0) {
+                  return <Main list={data} />;
+                } else {
+                  return <Main2 list={data} />;
+                }
+              })()}
+            </div>
+          </PullToRefresh>
+        </div>
         <div
           position="fixed"
           className={clsx(classes.appBar, {
