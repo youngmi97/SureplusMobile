@@ -17,6 +17,7 @@ import Wallet from "./Page/Wallet";
 import UsePhoneCode from "./Page/UsePhoneCode";
 import WalletActivity from "./Page/WalletActivity";
 import OneSub from "./Page/OneSub";
+import Customersupport from "./Page/CustomerSupport";
 
 import {
   AmplifyAuthenticator,
@@ -173,7 +174,18 @@ const AuthStateApp = (props) => {
                 />
               )}
             />
+            <Route
+              exact
+              path="/Customersupport"
+              component={() => (
+                <Customersupport
+                  userData={user.attributes}
+                  client={props.client}
+                />
+              )}
+            />
             {/* <Route
+
 							exact
 							path="/Following"
 							component={() => (
@@ -188,7 +200,7 @@ const AuthStateApp = (props) => {
 							)}
 						/> */}
             {/* Component with no routes are sent to signout prompt */}
-            <AmplifySignOut />
+            {/* <AmplifySignOut /> */}
           </div>
         </Router>
       </div>

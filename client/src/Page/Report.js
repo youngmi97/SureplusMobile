@@ -5,6 +5,7 @@ import "../App.css";
 import gql from "graphql-tag";
 
 import { serviceByUser } from "../graphql/queries";
+import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -54,13 +55,17 @@ export function Report(props) {
   if (location.param1 != null) {
     num = 1;
   }
+  var op = false;
+  if (location.param2 != null) {
+    op = true;
+  }
 
   //console.log("Report Client", props.client);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
 
   const loadingLayout = (
@@ -109,10 +114,16 @@ export function Report(props) {
     setOpen(open);
   };
 
+  const onRefresh = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 5000);
+    });
+  };
+
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
-      {/* {loadingLayout} */}
-
       <div>
         <div
           position="absolute"
@@ -182,38 +193,49 @@ export function Report(props) {
             </Box>
           </div>
         </div>
-        <div
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-          style={{
-            width: "100%",
-            height: "5.73vh",
-            marginTop: "1.56vh",
-          }}
+        <PullToRefresh
+          refreshingContent={
+            <div style={{ height: "70px" }}>
+              <Loading />
+            </div>
+          }
+          pullingContent={<div></div>}
+          canFetchMore={true}
+          onRefresh={onRefresh}
         >
-          <ToolBar value={ind} setValue={setIndex} />
-        </div>
+          <div
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open,
+            })}
+            style={{
+              width: "100%",
+              height: "5.73vh",
+              marginTop: "1.56vh",
+            }}
+          >
+            <ToolBar value={ind} setValue={setIndex} />
+          </div>
 
-        <div
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-          style={{
-            width: "100%",
-            alignContent: "center",
-          }}
-        >
-          {(() => {
-            if (ind == 0) {
-              return <Main list={data} />;
-            } else {
-              return <Main2 list={data} />;
-            }
-          })()}
-        </div>
+          <div
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open,
+            })}
+            style={{
+              width: "100%",
+              alignContent: "center",
+            }}
+          >
+            {(() => {
+              if (ind == 0) {
+                return <Main list={data} />;
+              } else {
+                return <Main2 list={data} />;
+              }
+            })()}
+          </div>
+        </PullToRefresh>
 
         <div
           position="fixed"
@@ -224,6 +246,7 @@ export function Report(props) {
           <BottomNavigation value={value} setValue={setValue} />
         </div>
       </div>
+
       <Drawer
         className={classes.drawer}
         anchor="left"
@@ -302,7 +325,7 @@ export function Report(props) {
         </Button>
         <Button
           component={Link}
-          to="/Profile"
+          to="/Notification"
           style={{
             margin: 0,
             padding: 0,
@@ -335,7 +358,45 @@ export function Report(props) {
               alignItems: "center",
             }}
           >
-            Notice Board
+            Notice
+          </Typography>
+        </Button>
+        <Button
+          component={Link}
+          to="/Customersupport"
+          style={{
+            margin: 0,
+            padding: 0,
+
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 16,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
+            height: 48,
+            textTransform: "none",
+          }}
+        >
+          <img
+            alt="name"
+            src="/Icons[24]/Type=Notice.svg"
+            style={{ width: "3.125vh", height: "3.125vh" }}
+          ></img>
+          <Typography
+            style={{
+              margin: 0,
+              padding: 0,
+              marginLeft: 16,
+              fontWeight: 500,
+              fontSize: 17,
+              alignItems: "center",
+            }}
+          >
+            Customer Support
           </Typography>
         </Button>
 
@@ -369,31 +430,6 @@ export function Report(props) {
           </Typography>
         </Box>
         {/* Customer Support */}
-        <Box
-          Button
-          style={{
-            marginTop: 16,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            height: 48,
-          }}
-        >
-          <Typography
-            style={{
-              margin: 0,
-              padding: 0,
-              paddingTop: 12,
-              paddingLeft: 20,
-              paddingBottom: 12,
-              fontWeight: 500,
-              fontSize: 17,
-              alignItems: "center",
-            }}
-          >
-            Customer Support
-          </Typography>
-        </Box>
       </Drawer>
     </div>
   );
