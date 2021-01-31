@@ -185,6 +185,7 @@ const AuthStateApp = (props) => {
               )}
             />
             {/* <Route
+
 							exact
 							path="/Following"
 							component={() => (
