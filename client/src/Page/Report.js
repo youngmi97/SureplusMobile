@@ -4,7 +4,11 @@ import "../App.css";
 
 import gql from "graphql-tag";
 
-import { serviceByUser } from "../graphql/queries";
+import {
+  serviceByUser,
+  accountByUser,
+  serviceByUserAccount,
+} from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
@@ -69,6 +73,7 @@ export function Report(props) {
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
+  const [data1, setData1] = React.useState([]);
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
@@ -86,7 +91,33 @@ export function Report(props) {
     console.log("query error", e);
   }
 
-  console.log(data);
+  try {
+    props.client
+      .query({
+        query: gql(accountByUser),
+        variables: { userID: props.userData.sub },
+      })
+      .then(({ data }) => {});
+  } catch (e) {
+    console.log("query error", e);
+  }
+
+  try {
+    props.client
+      .query({
+        query: gql(serviceByUserAccount),
+
+        variables: { accountID: "PzqWK5zXNWIoP8xj5pbaulJ5jl9PMZC7ygXDx" },
+      })
+      .then(({ data }) => {
+        console.log(data.serviceByUserAccount.items);
+        setData1(data.serviceByUserAccount.items);
+      });
+  } catch (e) {
+    console.log("query error", e);
+  }
+
+  console.log(data1);
 
   const handleDrawerOpen = () => {
     setOpen(true);

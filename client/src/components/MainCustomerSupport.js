@@ -24,6 +24,7 @@ import InputBase from "@material-ui/core/InputBase";
 import EventRoundedIcon from "@material-ui/icons/EventRounded";
 import InputCalendar from "./InputCalendar";
 import "../App.css";
+import { set, get } from "idb-keyval";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -339,6 +340,30 @@ export default function Subscription(props) {
     checkedA: true,
   });
 
+  const [value, setValue] = React.useState(null);
+
+  const [email, setEmail] = React.useState("");
+
+  const handleEmail = (email) => {
+    if (email == "") {
+      set("email", "your@email.com")
+        .then(() => console.log("It worked!"))
+        .catch((err) => console.log("It failed!", err));
+    } else {
+      set("email", email)
+        .then(() => console.log("It worked!"))
+        .catch((err) => console.log("It failed!", err));
+    }
+  };
+
+  get("email").then((val) => {
+    if (val == null) {
+      setEmail("your@email.com");
+    } else {
+      setEmail(val);
+    }
+  });
+
   return (
     <div>
       <div className={classes.Dialog}>
@@ -381,15 +406,16 @@ export default function Subscription(props) {
                 style={{ fontWeight: 400, color: "#000000" }}
               >
                 <InputBase
-                  placeholder={"your@email.com"}
+                  placeholder={email}
                   inputProps={{
                     style: { textAlign: "right" },
                   }}
                   style={{
                     margin: 0,
                     padding: 0,
-                    Width: 0,
+                    width: "300px",
                   }}
+                  onChange={(event) => setValue(event.target.value)}
                 />
               </ListItemSecondaryAction>
             </ListItem>
@@ -417,6 +443,7 @@ export default function Subscription(props) {
             </div>
           </List>
           <Button
+            onClick={() => handleEmail(value)}
             style={{
               position: "absolute",
               bottom: 24,
