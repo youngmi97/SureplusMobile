@@ -199,7 +199,7 @@ const AuthStateApp = (props) => {
 							)}
 						/> */}
             {/* Component with no routes are sent to signout prompt */}
-            <AmplifySignOut />
+            {/* <AmplifySignOut /> */}
           </div>
         </Router>
       </div>

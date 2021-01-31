@@ -7,53 +7,73 @@ import Main from "../components/MainSubscribe";
 import gql from "graphql-tag";
 
 import { serviceByUser } from "../graphql/queries";
+import PullToRefresh from "react-simple-pull-to-refresh";
 
 import BottomNavigation from "../components/BottomNavigation";
+import Loading from "../components/Loading";
 
 function Subscription(props) {
-	const [data, setData] = React.useState([]);
-	try {
-		props.client
-			.query({
-				query: gql(serviceByUser),
-				variables: { userID: props.userData.sub },
-			})
-			.then(({ data }) => {
-				setData(data.serviceByUser.items);
-			});
-	} catch (e) {
-		console.log("query error", e);
-	}
-	const [value, setValue] = React.useState(1);
-	return (
-		<div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
-			<div
-				style={{
-					width: "100%",
-					height: "11.4vh",
-					backgroundColor: "white",
-				}}
-			>
-				<AppBar
-					Text={"Subscriptions"}
-					Tab1="List"
-					Tab2="Calendar"
-					Link="Subscription"
-					state={0}
-				/>
-			</div>
-			<div
-				style={{
-					width: "100%",
+  const onRefresh = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 5000);
+    });
+  };
+  const [data, setData] = React.useState([]);
+  try {
+    props.client
+      .query({
+        query: gql(serviceByUser),
+        variables: { userID: props.userData.sub },
+      })
+      .then(({ data }) => {
+        setData(data.serviceByUser.items);
+      });
+  } catch (e) {
+    console.log("query error", e);
+  }
+  const [value, setValue] = React.useState(1);
+  return (
+    <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
+      <div
+        style={{
+          width: "100%",
+          height: "11.4vh",
+          backgroundColor: "white",
+        }}
+      >
+        <AppBar
+          Text={"Subscriptions"}
+          Tab1="List"
+          Tab2="Calendar"
+          Link="Subscription"
+          state={0}
+        />
+      </div>
+      <PullToRefresh
+        refreshingContent={
+          <div style={{ height: "70px" }}>
+            <Loading />
+          </div>
+        }
+        pullingContent={<div></div>}
+        canFetchMore={true}
+        onRefresh={onRefresh}
+      >
+        <div
+          style={{
+            width: "100%",
 
-					alignContent: "center",
-				}}
-			>
-				<Main list={data} />
-			</div>
-			<BottomNavigation value={value} setValue={setValue} />
-		</div>
-	);
+            alignContent: "center",
+          }}
+        >
+          <Main list={data} />
+        </div>
+      </PullToRefresh>
+      <BottomNavigation value={value} setValue={setValue} />
+    </div>
+  );
 }
 
 export default Subscription;
