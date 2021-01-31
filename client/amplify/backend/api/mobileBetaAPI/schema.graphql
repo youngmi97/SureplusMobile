@@ -29,6 +29,11 @@ type SubscriptionServices
   @model
   @key(name: "uld", fields: ["userID", "lastDate"], queryField: "serviceByUser")
   @key(
+    name: "uud"
+    fields: ["accountID", "lastDate"]
+    queryField: "serviceByUserAccount"
+  )
+  @key(
     name: "uca"
     fields: ["userID", "createdAt"]
     queryField: "serviceByUserAdded"

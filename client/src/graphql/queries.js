@@ -146,6 +146,42 @@ export const serviceByUser = /* GraphQL */ `
     }
   }
 `;
+export const serviceByUserAccount = /* GraphQL */ `
+  query ServiceByUserAccount(
+    $accountID: String
+    $lastDate: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSubscriptionServicesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    serviceByUserAccount(
+      accountID: $accountID
+      lastDate: $lastDate
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        transactionID
+        accountID
+        name
+        cost
+        period
+        firstAddedDate
+        lastDate
+        category
+        source
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const serviceByUserAdded = /* GraphQL */ `
   query ServiceByUserAdded(
     $userID: String
