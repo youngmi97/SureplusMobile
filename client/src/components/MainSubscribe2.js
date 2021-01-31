@@ -56,7 +56,7 @@ function Subscribe(props) {
         width: "100%",
         alignContent: "center",
 
-        maxHeight: "73.3365vh",
+        height: "73.3365vh",
         overflow: "auto",
         paddingBottom: 24,
       }}
