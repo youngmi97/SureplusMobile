@@ -3,7 +3,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
+import gql from "graphql-tag";
 
+import { serviceByUserAccount, accountByUser } from "../graphql/queries";
 import ListCard2 from "./ListCard7";
 import ListCard3 from "./ListCard8";
 import { Link } from "react-router-dom";
@@ -24,8 +26,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Subscribe() {
+function Subscribe(props) {
   const classes = useStyles();
+  const [data, setData] = React.useState([]);
+  const [data1, setData1] = React.useState([]);
+  const [num, setNum] = React.useState("");
+
+  try {
+    props.client
+      .query({
+        query: gql(accountByUser),
+
+        variables: { userID: props.userData.sub },
+      })
+      .then(({ data }) => {
+        setData(data.accountByUser.items);
+        setNum(data.accountByUser.items.length);
+      });
+  } catch (e) {
+    console.log("query error", e);
+  }
+
+  console.log(data);
+  console.log(data1);
 
   return (
     <div
@@ -63,44 +86,35 @@ function Subscribe() {
             src="Recurring.svg"
           ></ListCard1> */}
           <Typography className={classes.ListItemSize2}>
-            Physical Cards 1
+            {"Physical Cards " + num}
           </Typography>
-          <Button
-            component={Link}
-            to={{ pathname: "/Wallet", param1: 0 }}
-            style={{ margin: 0, padding: 0, width: "100%" }}
-          >
-            <ListCard2
-              r1="0px"
-              r2="0px"
-              r3="0px"
-              r4="0px"
-              month="Mar"
-              day="4"
-              src="/PhysicalCards/Card.svg"
-              name="Wells Fargo"
-              plan="Master Card ･･34"
-              price={""}
-            ></ListCard2>
-          </Button>
-          <Button
-            component={Link}
-            to={{ pathname: "/Wallet", param1: 1 }}
-            style={{ margin: 0, padding: 0, width: "100%" }}
-          >
-            <ListCard2
-              r1="0px"
-              r2="0px"
-              r3="12px"
-              r4="12px"
-              month="Mar"
-              day="4"
-              src="/PhysicalCards/Card.svg"
-              name="Amex"
-              plan="Visa Card ･･34"
-              price={""}
-            ></ListCard2>
-          </Button>
+          {data.map((array, index) => {
+            return (
+              <Button
+                component={Link}
+                to={{
+                  pathname: "/Wallet",
+                  param1: index,
+                  param2: data.length,
+                }}
+                style={{ margin: 0, padding: 0, width: "100%" }}
+              >
+                <ListCard2
+                  r1="0px"
+                  r2="0px"
+                  r3="0px"
+                  r4="0px"
+                  month="Mar"
+                  day="4"
+                  src="/PhysicalCards/Card.svg"
+                  name={array.name}
+                  plan="Master Card ･･34"
+                  price={""}
+                ></ListCard2>
+              </Button>
+            );
+          })}
+
           {/* <Button
             component={Link}
             to="/Wallet"

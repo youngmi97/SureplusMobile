@@ -4,7 +4,11 @@ import "../App.css";
 
 import gql from "graphql-tag";
 
-import { serviceByUser, serviceByUserAccount } from "../graphql/queries";
+import {
+  serviceByUser,
+  serviceByUserAccount,
+  accountByUser,
+} from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
@@ -86,8 +90,6 @@ export function Report(props) {
   } catch (e) {
     console.log("query error", e);
   }
-
-  console.log(data1);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -222,7 +224,9 @@ export function Report(props) {
                 if (ind == 0) {
                   return <Main list={data} />;
                 } else {
-                  return <Main2 list={data} />;
+                  return (
+                    <Main2 client={props.client} userData={props.userData} />
+                  );
                 }
               })()}
             </div>
