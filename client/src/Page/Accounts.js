@@ -6,7 +6,7 @@ import AppBar from "../components/Appbar4";
 import Main from "../components/MainAccounts";
 import BottomNavigation from "../components/BottomNavigation";
 
-function Wallet() {
+function Wallet(props) {
   const [value, setValue] = React.useState(0);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
@@ -17,7 +17,7 @@ function Wallet() {
           backgroundColor: "white",
         }}
       >
-        <AppBar name={"Linked Accounts"} />
+        <AppBar name={"Linked Accounts"} userData={props.userData} />
       </div>
       <div
         style={{

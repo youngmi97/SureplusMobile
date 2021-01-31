@@ -38,9 +38,12 @@ class PlaidLogin extends Component {
   constructor(props, context) {
     super(props, context);
 
+    console.log("props", props.userData);
+
     this.state = {
       transactions: [],
       accounts: [],
+      userData: props.userData,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -49,30 +52,24 @@ class PlaidLogin extends Component {
   }
 
   //axios base url : https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev
-  //axios local base url : https://localhost:5000
+  //axios local base url : http://localhost:5000
 
   handleOnSuccess(public_token, metadata) {
     axios
-      .post(
-        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/auth/public_token",
-        {
-          public_token: public_token,
-        }
-      )
+      .post("http://localhost:5000/auth/public_token", {
+        public_token: public_token,
+        userData: this.props.userData.sub,
+      })
       .then((response) =>
-        axios
-          .get(
-            "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/transactions"
-          )
-          .then((res) => {
-            this.setState({ transactions: res.data.transactions.transactions });
-            this.setState({ accounts: res.data.transactions.accounts });
+        axios.get("http://localhost:5000/transactions").then((res) => {
+          this.setState({ transactions: res.data.transactions.transactions });
+          this.setState({ accounts: res.data.transactions.accounts });
 
-            //this.props.history.push("/Accounts");
-            console.log("accountsCount", this.state.accounts.length);
-            console.log("accounts", this.state.accounts);
-            console.log("transactionsCount", this.state.transactions.length);
-          })
+          //this.props.history.push("/Accounts");
+          console.log("accountsCount", this.state.accounts.length);
+          console.log("accounts", this.state.accounts);
+          console.log("transactionsCount", this.state.transactions.length);
+        })
       );
     console.log("handleOnSuccess");
   }

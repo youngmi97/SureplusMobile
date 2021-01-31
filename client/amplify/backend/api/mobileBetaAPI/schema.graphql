@@ -12,6 +12,19 @@
 # Post -> Transaction
 # Comment -> Service
 
+type UserCards
+  @model
+  @key(
+    name: "uld"
+    fields: ["userID", "balance"]
+    queryField: "accountByUser"
+  ) {
+  id: ID!
+  userID: String
+  name: String
+  balance: String
+}
+
 type SubscriptionServices
   @model
   @key(name: "uld", fields: ["userID", "lastDate"], queryField: "serviceByUser")
