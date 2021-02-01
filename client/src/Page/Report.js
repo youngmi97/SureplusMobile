@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from '../styles/Report.styles'
 import "../App.css";
 
 import gql from "graphql-tag";
@@ -18,32 +18,6 @@ import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
 //import { AuthContext } from "../context/auth";
 
-const drawerWidth = "75vw";
-
-const useStyles = makeStyles((theme) => ({
-	appBar: {
-		transition: theme.transitions.create(["margin", "width"], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-	},
-
-	appBarShift: {
-		width: `calc(100% - ${drawerWidth}px)`,
-		marginLeft: drawerWidth,
-		transition: theme.transitions.create(["margin", "width"], {
-			easing: theme.transitions.easing.easeOut,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	},
-	drawer: {
-		width: drawerWidth,
-		flexShrink: 0,
-	},
-	drawerPaper: {
-		width: drawerWidth,
-	},
-}));
 
 export function Report(props) {
 	const location = useLocation();
@@ -89,26 +63,23 @@ export function Report(props) {
 		) {
 			return;
 		}
-
 		setOpen(open);
 	};
 
 	return (
-		<div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
+		<div style={{ flex: 1, flexDirection: 'column'}}>
 			<div>
 				<div
-					position="absolute"
 					className={clsx(classes.appBar, {
 						[classes.appBarShift]: open,
 					})}
 					style={{
-						width: "100%",
-						height: "5.73vh",
+						flex: 1,
 					}}
 				>
-					<div style={{ width: "100%" }}>
+					<div style={{ flex: 1, flexDirection: 'row'}}>
 						<Box
-							display="flex"
+							// display="flex"
 							// p={1}
 							alignItems="center"
 							style={{
