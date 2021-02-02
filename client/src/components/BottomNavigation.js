@@ -13,7 +13,7 @@ export default function BottomNav(props) {
   const setValue = props.setValue;
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ flex: 1 }}>
       <BottomNavigation
         value={value}
         onChange={(event, newValue) => {
