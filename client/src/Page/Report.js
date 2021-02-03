@@ -46,11 +46,12 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     maxHeight: "100vh",
-    flexShrink: 0,
+    overflow: "hidden",
   },
   drawerPaper: {
     width: drawerWidth,
     maxHeight: "100vh",
+    overflow: "hidden",
   },
 }));
 
