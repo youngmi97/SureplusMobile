@@ -13,16 +13,19 @@ export default function BottomNav(props) {
   const setValue = props.setValue;
 
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 4 }}>
       <BottomNavigation
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
         style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-around",
+          backgroundColor: "black",
           position: "absolute",
           bottom: 0,
-          width: "100vw",
           height: "9.11vh",
           borderTopLeftRadius: "12px",
           borderTopRightRadius: "12px",

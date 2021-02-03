@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useStyles } from "../styles/Report.styles";
+import { useStyles } from "../styles/Drawer";
 
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
