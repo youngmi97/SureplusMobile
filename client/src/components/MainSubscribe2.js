@@ -1,7 +1,7 @@
 //Calendar View
 import React from "react";
 
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import ListCard from "./ListCard3";
 
 import Calendar from "./calendar";
@@ -56,7 +56,7 @@ function Subscribe(props) {
         width: "100%",
         alignContent: "center",
 
-        maxHeight: "73.3365vh",
+        height: "73.3365vh",
         overflow: "auto",
         paddingBottom: 24,
       }}

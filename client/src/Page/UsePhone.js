@@ -6,6 +6,7 @@ import { Button, Typography, Grid } from "@material-ui/core";
 
 function Onboarding() {
   const [number, setNumber] = React.useState("");
+  const [first, setFirst] = React.useState(true);
 
   const makeText = (a) => {
     if (a == "-") {
@@ -66,7 +67,8 @@ function Onboarding() {
           Enter your Phone
         </Typography>
         {(() => {
-          if (number == "") {
+          console.log(first);
+          if (first == true) {
             return (
               <Typography
                 style={{
@@ -84,12 +86,17 @@ function Onboarding() {
               <Typography
                 style={{
                   fontWeight: 400,
-                  color: "#8A8A8F",
-                  fontSize: "2.21vh",
+                  color: "black",
+                  fontSize: "2.7vh",
                   marginTop: "1.82vh",
                 }}
               >
-                {number}
+                {"+1 (" +
+                  number.slice(0, 3) +
+                  ") " +
+                  number.slice(3, 6) +
+                  " " +
+                  number.slice(6)}
               </Typography>
             );
           }
@@ -102,6 +109,23 @@ function Onboarding() {
             marginTop: "1.82vh",
           }}
         ></Typography>
+        {(() => {
+          if (first != true) {
+            return (
+              <Typography
+                style={{
+                  fontWeight: 400,
+                  color: "#8A8A8F",
+                  fontSize: "2.21vh",
+                  marginTop: "0.2vh",
+                }}
+              >
+                By entering and tapping Next, you agree to the Beta Software
+                Program Agreement & Privacy Policy
+              </Typography>
+            );
+          }
+        })()}
       </div>
 
       <Grid
@@ -128,6 +152,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(1);
+              setFirst(false);
             }}
           >
             <Typography
@@ -156,6 +181,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(2);
+              setFirst(false);
             }}
           >
             <Typography
@@ -183,6 +209,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(3);
+              setFirst(false);
             }}
           >
             <Typography
@@ -209,6 +236,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(4);
+              setFirst(false);
             }}
           >
             <Typography
@@ -237,6 +265,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(5);
+              setFirst(false);
             }}
           >
             <Typography
@@ -264,6 +293,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(6);
+              setFirst(false);
             }}
           >
             <Typography
@@ -290,6 +320,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(7);
+              setFirst(false);
             }}
           >
             <Typography
@@ -318,6 +349,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(8);
+              setFirst(false);
             }}
           >
             <Typography
@@ -345,6 +377,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(9);
+              setFirst(false);
             }}
           >
             <Typography
@@ -379,9 +412,7 @@ function Onboarding() {
                 fontWeight: 500,
                 fontSize: "3.125vh",
               }}
-            >
-              ABC
-            </Typography>
+            ></Typography>
           </Button>
         </Grid>
         <Grid item xs={4} style={{}}>
@@ -396,6 +427,7 @@ function Onboarding() {
             }}
             onClick={() => {
               makeText(0);
+              setFirst(false);
             }}
           >
             <Typography
@@ -451,7 +483,16 @@ function Onboarding() {
             marginTop: "3.38vh",
           }}
           component={Link}
-          to="/UsePhoneCode"
+          to={{
+            pathname: "/UsePhoneCode",
+            param1:
+              "+1 (" +
+              number.slice(0, 3) +
+              ") " +
+              number.slice(3, 6) +
+              " " +
+              number.slice(6),
+          }}
         >
           <Typography
             style={{

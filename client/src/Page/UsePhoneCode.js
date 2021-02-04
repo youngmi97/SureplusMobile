@@ -1,10 +1,12 @@
 import React from "react";
 
 import "../App.css";
-import { Link } from "react-router-dom";
-import { Button, Typography, Grid } from "@material-ui/core";
+import { Link, useLocation } from "react-router-dom";
+
+import { Button, Typography, Grid, Box } from "@material-ui/core";
 
 function Onboarding() {
+  const location = useLocation();
   const [number, setNumber] = React.useState("");
 
   const makeText = (a) => {
@@ -24,17 +26,36 @@ function Onboarding() {
         backgroundColor: "white",
       }}
     >
-      <div
+      <Box
+        display="flex"
         style={{
-          display: "flex",
           width: "100%",
           height: "5.72vh",
           backgroundColor: "white",
-          textAlign: "right",
+
+          margin: 0,
+          padding: 0,
           alignItems: "center",
-          justifyContent: "flex-end",
         }}
       >
+        <Box flexGrow={1}>
+          <Button
+            style={{ margin: 0, padding: 0, minWidth: 0, minHeight: 0 }}
+            component={Link}
+            to="/UsePhone"
+          >
+            <img
+              alt="name"
+              src="Back.svg"
+              style={{
+                width: "3.94vh",
+                height: "3.94vh",
+                margin: 0,
+                padding: 0,
+              }}
+            ></img>
+          </Button>
+        </Box>
         <Button style={{ margin: 0, padding: 0, minWidth: 0, minHeight: 0 }}>
           <img
             alt="name"
@@ -47,7 +68,7 @@ function Onboarding() {
             }}
           ></img>
         </Button>
-      </div>
+      </Box>
       <div
         style={{
           display: "flex",
@@ -61,7 +82,10 @@ function Onboarding() {
         }}
       >
         <Typography style={{ fontWeight: 400, fontSize: "3.125vh" }}>
-          Please enter the code sent to jinjae@sureplus.io
+          {"Please enter the code sent to"}
+        </Typography>
+        <Typography style={{ fontWeight: 400, fontSize: "3.125vh" }}>
+          {location.param1}
         </Typography>
         {(() => {
           if (number == "") {
@@ -377,9 +401,7 @@ function Onboarding() {
                 fontWeight: 500,
                 fontSize: "3.125vh",
               }}
-            >
-              ABC
-            </Typography>
+            ></Typography>
           </Button>
         </Grid>
         <Grid item xs={4} style={{}}>
