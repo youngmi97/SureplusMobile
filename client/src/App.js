@@ -18,6 +18,7 @@ import UsePhoneCode from "./Page/UsePhoneCode";
 import WalletActivity from "./Page/WalletActivity";
 import OneSub from "./Page/OneSub";
 import Customersupport from "./Page/CustomerSupport";
+import AllSubscription from "./Page/Allsubscription";
 
 import {
   AmplifyAuthenticator,
@@ -72,6 +73,16 @@ const AuthStateApp = (props) => {
               path="/Wallet"
               component={() => (
                 <Wallet userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/Allsubs"
+              component={() => (
+                <AllSubscription
+                  userData={user.attributes}
+                  client={props.client}
+                />
               )}
             />
             <Route

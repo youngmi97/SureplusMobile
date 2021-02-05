@@ -1,6 +1,37 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUserCards = /* GraphQL */ `
+  query GetUserCards($id: ID!) {
+    getUserCards(id: $id) {
+      id
+      userID
+      name
+      balance
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserCardss = /* GraphQL */ `
+  query ListUserCardss(
+    $filter: ModelUserCardsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserCardss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        name
+        balance
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getSubscriptionServices = /* GraphQL */ `
   query GetSubscriptionServices($id: ID!) {
     getSubscriptionServices(id: $id) {
@@ -50,6 +81,35 @@ export const listSubscriptionServicess = /* GraphQL */ `
     }
   }
 `;
+export const accountByUser = /* GraphQL */ `
+  query AccountByUser(
+    $userID: String
+    $balance: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserCardsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    accountByUser(
+      userID: $userID
+      balance: $balance
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        name
+        balance
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const serviceByUser = /* GraphQL */ `
   query ServiceByUser(
     $userID: String
@@ -61,6 +121,42 @@ export const serviceByUser = /* GraphQL */ `
   ) {
     serviceByUser(
       userID: $userID
+      lastDate: $lastDate
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        transactionID
+        accountID
+        name
+        cost
+        period
+        firstAddedDate
+        lastDate
+        category
+        source
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const serviceByUserAccount = /* GraphQL */ `
+  query ServiceByUserAccount(
+    $accountID: String
+    $lastDate: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSubscriptionServicesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    serviceByUserAccount(
+      accountID: $accountID
       lastDate: $lastDate
       sortDirection: $sortDirection
       filter: $filter

@@ -35,7 +35,14 @@ function Subscription(props) {
   }
   const [value, setValue] = React.useState(1);
   return (
-    <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
+    <div
+      style={{
+        width: "100%",
+        alignContent: "center",
+
+        height: "100vh",
+      }}
+    >
       <div
         style={{
           width: "100%",
@@ -51,26 +58,28 @@ function Subscription(props) {
           state={0}
         />
       </div>
-      <PullToRefresh
-        refreshingContent={
-          <div style={{ height: "70px" }}>
-            <Loading />
-          </div>
-        }
-        pullingContent={<div></div>}
-        canFetchMore={true}
-        onRefresh={onRefresh}
-      >
-        <div
-          style={{
-            width: "100%",
-
-            alignContent: "center",
-          }}
+      <div>
+        <PullToRefresh
+          refreshingContent={
+            <div style={{ height: "70px" }}>
+              <Loading />
+            </div>
+          }
+          pullingContent={<div></div>}
+          canFetchMore={true}
+          onRefresh={onRefresh}
         >
-          <Main list={data} />
-        </div>
-      </PullToRefresh>
+          <div
+            style={{
+              width: "100%",
+
+              alignContent: "center",
+            }}
+          >
+            <Main list={data} />
+          </div>
+        </PullToRefresh>
+      </div>
       <BottomNavigation value={value} setValue={setValue} />
     </div>
   );

@@ -4,6 +4,7 @@ import "../App.css";
 import AppBar from "../components/AppbarCustomer";
 import Main from "../components/MainCustomerSupport";
 import { useLocation } from "react-router-dom";
+
 function Subscription(props) {
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>

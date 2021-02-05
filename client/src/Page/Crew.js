@@ -6,6 +6,7 @@ import BottomNavigation from "../components/BottomNavigation";
 
 function Crew() {
   const [value, setValue] = React.useState(2);
+
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       <div

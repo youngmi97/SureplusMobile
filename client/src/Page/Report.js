@@ -4,7 +4,11 @@ import "../App.css";
 
 import gql from "graphql-tag";
 
-import { serviceByUser } from "../graphql/queries";
+import {
+  serviceByUser,
+  serviceByUserAccount,
+  accountByUser,
+} from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
@@ -41,10 +45,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    maxHeight: "100vh",
+    overflow: "hidden",
   },
   drawerPaper: {
     width: drawerWidth,
+    maxHeight: "100vh",
+    overflow: "hidden",
   },
 }));
 
@@ -67,20 +74,8 @@ export function Report(props) {
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
+  const [data1, setData1] = React.useState([]);
 
-  const loadingLayout = (
-    <div
-      style={{
-        position: "absolute",
-        zIndex: "1000",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(255,255,255,0.75)",
-      }}
-    >
-      <Loading />
-    </div>
-  );
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
 
@@ -96,8 +91,6 @@ export function Report(props) {
   } catch (e) {
     console.log("query error", e);
   }
-
-  console.log(data);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -193,50 +186,53 @@ export function Report(props) {
             </Box>
           </div>
         </div>
-        <PullToRefresh
-          refreshingContent={
-            <div style={{ height: "70px" }}>
-              <Loading />
+        <div>
+          <PullToRefresh
+            refreshingContent={
+              <div style={{ height: "70px" }}>
+                <Loading />
+              </div>
+            }
+            pullingContent={<div></div>}
+            canFetchMore={true}
+            onRefresh={onRefresh}
+          >
+            <div
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open,
+              })}
+              style={{
+                width: "100%",
+                height: "5.73vh",
+                marginTop: "1.56vh",
+              }}
+            >
+              <ToolBar value={ind} setValue={setIndex} />
             </div>
-          }
-          pullingContent={<div></div>}
-          canFetchMore={true}
-          onRefresh={onRefresh}
-        >
-          <div
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-            style={{
-              width: "100%",
-              height: "5.73vh",
-              marginTop: "1.56vh",
-            }}
-          >
-            <ToolBar value={ind} setValue={setIndex} />
-          </div>
 
-          <div
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
-            style={{
-              width: "100%",
-              alignContent: "center",
-            }}
-          >
-            {(() => {
-              if (ind == 0) {
-                return <Main list={data} />;
-              } else {
-                return <Main2 list={data} />;
-              }
-            })()}
-          </div>
-        </PullToRefresh>
-
+            <div
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open,
+              })}
+              style={{
+                width: "100%",
+                alignContent: "center",
+              }}
+            >
+              {(() => {
+                if (ind == 0) {
+                  return <Main list={data} />;
+                } else {
+                  return (
+                    <Main2 client={props.client} userData={props.userData} />
+                  );
+                }
+              })()}
+            </div>
+          </PullToRefresh>
+        </div>
         <div
           position="fixed"
           className={clsx(classes.appBar, {
