@@ -120,9 +120,6 @@ export function Report(props) {
       <div>
         <div
           position="absolute"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
           style={{
             width: "100%",
             height: "5.73vh",
@@ -199,9 +196,6 @@ export function Report(props) {
           >
             <div
               position="fixed"
-              className={clsx(classes.appBar, {
-                [classes.appBarShift]: open,
-              })}
               style={{
                 width: "100%",
                 height: "5.73vh",
@@ -213,9 +207,6 @@ export function Report(props) {
 
             <div
               position="fixed"
-              className={clsx(classes.appBar, {
-                [classes.appBarShift]: open,
-              })}
               style={{
                 width: "100%",
                 alignContent: "center",
@@ -233,12 +224,7 @@ export function Report(props) {
             </div>
           </PullToRefresh>
         </div>
-        <div
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
+        <div position="fixed">
           <BottomNavigation value={value} setValue={setValue} />
         </div>
       </div>
@@ -400,31 +386,39 @@ export function Report(props) {
           style={{ backgroundColor: "grey", height: "0.5px", marginTop: 16 }}
         ></div>
         {/* Privacy and Settings */}
-        <Box
-          Button
+        <Button
+          component={Link}
+          to="/TermofService"
           style={{
-            marginTop: 16,
+            margin: 0,
+            padding: 0,
+
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 16,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
             height: 48,
+            textTransform: "none",
           }}
         >
           <Typography
             style={{
               margin: 0,
               padding: 0,
-              paddingTop: 12,
-              paddingLeft: 20,
-              paddingBottom: 12,
               fontWeight: 500,
               fontSize: 17,
               alignItems: "center",
             }}
           >
-            Privacy Policy
+            Term of Service
           </Typography>
-        </Box>
+        </Button>
+
         {/* Customer Support */}
       </Drawer>
     </div>
