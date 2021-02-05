@@ -29,6 +29,7 @@ import {
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 import { AuthProvider } from "./context/auth";
+import TermofService from "./Page/TermofService";
 
 const AuthStateApp = (props) => {
   const [authState, setAuthState] = useState();
@@ -166,6 +167,16 @@ const AuthStateApp = (props) => {
               path="/Onboarding"
               component={() => (
                 <Onboarding userData={user.attributes} client={props.client} />
+              )}
+            />
+            <Route
+              exact
+              path="/TermofService"
+              component={() => (
+                <TermofService
+                  userData={user.attributes}
+                  client={props.client}
+                />
               )}
             />
             <Route
