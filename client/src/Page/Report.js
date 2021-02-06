@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
@@ -14,7 +14,6 @@ import PullToRefresh from "react-simple-pull-to-refresh";
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
 import Main2 from "../components/MainReport2";
-import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 
 import { Link, useLocation } from "react-router-dom";
@@ -79,6 +78,19 @@ export function Report(props) {
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
 
+  try {
+    props.client
+      .query({
+        query: gql(serviceByUser),
+        variables: { userID: props.userData.sub },
+      })
+      .then(({ data }) => {
+        setData(data.serviceByUser.items);
+      });
+  } catch (e) {
+    console.log("query error", e);
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -94,32 +106,10 @@ export function Report(props) {
     setOpen(open);
   };
 
-  const callServiceByUser = () => {
-    try {
-      console.log("sub", props.userData.sub);
-      props.client
-        .query({
-          query: gql(serviceByUser),
-          variables: { userID: props.userData.sub },
-        })
-        .then(({ data }) => {
-          setData(data.serviceByUser.items);
-        });
-    } catch (e) {
-      console.log("query error", e);
-    }
-  };
-
-  useEffect(() => {
-    callServiceByUser();
-  }, []);
-
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
-
-        callServiceByUser();
       }, 5000);
     });
   };
@@ -233,9 +223,7 @@ export function Report(props) {
             </div>
           </PullToRefresh>
         </div>
-        <div position="fixed">
-          <BottomNavigation value={value} setValue={setValue} />
-        </div>
+        <div position="fixed"></div>
       </div>
 
       <Drawer

@@ -11,6 +11,27 @@ import "../App.css";
 export default function BottomNav(props) {
   const value = props.value;
   const setValue = props.setValue;
+  const home = (
+    <img
+      alt="name"
+      style={{ width: "3.92vh", height: "3.92vh" }}
+      src="Property 1=Home.svg"
+    ></img>
+  );
+  const subscription = (
+    <img
+      alt="name"
+      style={{ width: "3.92vh", height: "3.92vh" }}
+      src="Property 1=Subscriptions.svg"
+    ></img>
+  );
+  const group = (
+    <img
+      alt="name"
+      style={{ width: "3.92vh", height: "3.92vh" }}
+      src="Property 1=Group.svg"
+    ></img>
+  );
 
   return (
     <div style={{ width: "100%" }}>
@@ -49,13 +70,7 @@ export default function BottomNav(props) {
                   </Typography>
                 }
                 style={{ margin: 0, padding: 0, minWidth: "auto" }}
-                icon={
-                  <img
-                    alt="name"
-                    style={{ width: "3.92vh", height: "3.92vh" }}
-                    src="Property 1=Home.svg"
-                  ></img>
-                }
+                icon={home}
               />
             );
           } else {
@@ -75,13 +90,7 @@ export default function BottomNav(props) {
                   minWidth: "auto",
                   opacity: 0.3,
                 }}
-                icon={
-                  <img
-                    alt="name"
-                    style={{ width: "3.92vh", height: "3.92vh" }}
-                    src="Property 1=Home.svg"
-                  ></img>
-                }
+                icon={home}
               />
             );
           }
@@ -99,13 +108,7 @@ export default function BottomNav(props) {
                   </Typography>
                 }
                 style={{ margin: 0, padding: 0, minWidth: "auto" }}
-                icon={
-                  <img
-                    alt="name"
-                    style={{ width: "3.92vh", height: "3.92vh" }}
-                    src="Property 1=Subscriptions.svg"
-                  ></img>
-                }
+                icon={subscription}
               />
             );
           } else {
@@ -125,13 +128,7 @@ export default function BottomNav(props) {
                   minWidth: "auto",
                   opacity: 0.3,
                 }}
-                icon={
-                  <img
-                    alt="name"
-                    style={{ width: "3.92vh", height: "3.92vh" }}
-                    src="Property 1=Subscriptions.svg"
-                  ></img>
-                }
+                icon={subscription}
               />
             );
           }
@@ -149,13 +146,7 @@ export default function BottomNav(props) {
                   </Typography>
                 }
                 style={{ margin: 0, padding: 0, minWidth: "auto" }}
-                icon={
-                  <img
-                    alt="name"
-                    style={{ width: "3.92vh", height: "3.92vh" }}
-                    src="Property 1=Group.svg"
-                  ></img>
-                }
+                icon={group}
               />
             );
           } else {
@@ -175,13 +166,7 @@ export default function BottomNav(props) {
                   minWidth: "auto",
                   opacity: 0.3,
                 }}
-                icon={
-                  <img
-                    alt="name"
-                    style={{ width: "3.92vh", height: "3.92vh" }}
-                    src="Property 1=Group.svg"
-                  ></img>
-                }
+                icon={group}
               />
             );
           }

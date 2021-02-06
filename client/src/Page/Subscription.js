@@ -80,7 +80,6 @@ function Subscription(props) {
           </div>
         </PullToRefresh>
       </div>
-      <BottomNavigation value={value} setValue={setValue} />
     </div>
   );
 }

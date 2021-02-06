@@ -33,7 +33,6 @@ function Crew2() {
       >
         <Main />
       </div>
-      <BottomNavigation value={value} setValue={setValue} />
     </div>
   );
 }
