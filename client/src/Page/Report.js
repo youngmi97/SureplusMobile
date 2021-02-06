@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
@@ -106,12 +106,32 @@ export function Report(props) {
     setOpen(open);
   };
 
+  const callServiceByUser = () => {
+    try {
+      console.log("sub", props.userData);
+      props.client
+        .query({
+          query: gql(serviceByUser),
+          fetchPolicy: "network-only",
+          variables: { userID: props.userData.sub },
+        })
+        .then(({ data }) => {
+          console.log("data", data);
+          setData(data.serviceByUser.items);
+        });
+    } catch (e) {
+      console.log("query error", e);
+    }
+  };
+
+  useEffect(() => {
+    callServiceByUser();
+  }, []);
+
   const onRefresh = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-      }, 5000);
-    });
+    return Promise.all([
+      new Promise((resolve) => setTimeout(resolve, 2000)),
+    ]).then(callServiceByUser());
   };
 
   return (
