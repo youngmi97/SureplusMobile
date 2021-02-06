@@ -118,11 +118,7 @@ export function Report(props) {
 
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-
-        callServiceByUser();
-      }, 5000);
+      callServiceByUser();
     });
   };
 
