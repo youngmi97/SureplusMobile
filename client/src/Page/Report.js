@@ -79,19 +79,6 @@ export function Report(props) {
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
 
-  try {
-    props.client
-      .query({
-        query: gql(serviceByUser),
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.serviceByUser.items);
-      });
-  } catch (e) {
-    console.log("query error", e);
-  }
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -111,6 +98,20 @@ export function Report(props) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
+
+        try {
+          console.log("sub", props.userData.sub);
+          props.client
+            .query({
+              query: gql(serviceByUser),
+              variables: { userID: props.userData.sub },
+            })
+            .then(({ data }) => {
+              setData(data.serviceByUser.items);
+            });
+        } catch (e) {
+          console.log("query error", e);
+        }
       }, 5000);
     });
   };
