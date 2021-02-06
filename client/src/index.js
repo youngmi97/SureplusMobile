@@ -12,7 +12,7 @@ import Amplify, { Auth } from "aws-amplify";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 import { ApolloProvider } from "react-apollo";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 //import { withAuthenticator } from 'aws-amplify-react';
@@ -37,7 +37,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <MuiThemeProvider theme={theme}>
-      <App client={client} />
+      <Router>
+        <App client={client} />
+      </Router>
     </MuiThemeProvider>
   </ApolloProvider>,
   document.getElementById("root")

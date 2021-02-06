@@ -12,6 +12,22 @@
 # Post -> Transaction
 # Comment -> Service
 
+# Create User Table
+# Update SyncCognitoDynamo Lambda (tableName, field,)
+# Erase all users from Cognito UserPools
+# Create a new test user based on + 1
+
+type User
+  @model
+  @key(name: "uld", fields: ["name", "createdAt"], queryField: "UserByName") {
+  id: ID!
+  name: String
+  phone_number: String
+  plaidToken: String
+  createdAt: String
+  type: String
+}
+
 type UserCards
   @model
   @key(
