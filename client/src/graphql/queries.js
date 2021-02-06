@@ -1,6 +1,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      phone_number
+      plaidToken
+      createdAt
+      type
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        phone_number
+        plaidToken
+        createdAt
+        type
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getUserCards = /* GraphQL */ `
   query GetUserCards($id: ID!) {
     getUserCards(id: $id) {
@@ -75,6 +108,36 @@ export const listSubscriptionServicess = /* GraphQL */ `
         category
         source
         createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const userByName = /* GraphQL */ `
+  query UserByName(
+    $name: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    UserByName(
+      name: $name
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        phone_number
+        plaidToken
+        createdAt
+        type
         updatedAt
       }
       nextToken
