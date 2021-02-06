@@ -96,13 +96,15 @@ export function Report(props) {
 
   const callServiceByUser = () => {
     try {
-      console.log("sub", props.userData.sub);
+      console.log("sub", props.userData);
       props.client
         .query({
           query: gql(serviceByUser),
+          fetchPolicy: "network-only",
           variables: { userID: props.userData.sub },
         })
         .then(({ data }) => {
+          console.log("data", data);
           setData(data.serviceByUser.items);
         });
     } catch (e) {
