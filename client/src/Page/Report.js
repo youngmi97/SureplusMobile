@@ -117,9 +117,9 @@ export function Report(props) {
   }, []);
 
   const onRefresh = () => {
-    return new Promise((resolve, reject) => {
-      callServiceByUser();
-    });
+    return Promise.all([
+      new Promise((resolve) => setTimeout(resolve, 2000)),
+    ]).then(callServiceByUser());
   };
 
   return (
