@@ -3,8 +3,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
-import { Toast } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import { Toast } from "react-bootstrap";
+//import "bootstrap/dist/css/bootstrap.min.css";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { UpdateUserNotification, updateUser } from "./graphql/mutations";
@@ -112,7 +112,7 @@ const AuthStateApp = (props) => {
 
   return authState == AuthState.SignedIn && user ? (
     <div style={{ backgroundColor: "#f1f2f4" }}>
-      <Toast
+      {/* <Toast
         onClose={() => setShow(false)}
         show={show}
         delay={3000}
@@ -136,7 +136,7 @@ const AuthStateApp = (props) => {
           <small>just now</small>
         </Toast.Header>
         <Toast.Body>{notification.body}</Toast.Body>
-      </Toast>
+      </Toast> */}
 
       <div>
         <Route
