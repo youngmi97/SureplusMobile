@@ -1,16 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
 import { API, graphqlOperation } from "aws-amplify";
 
-import gql from "graphql-tag";
-
-import {
-  serviceByUser,
-  serviceByUserAccount,
-  accountByUser,
-} from "../graphql/queries";
+import { serviceByUser } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
@@ -20,44 +13,15 @@ import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 
 import { Link, useLocation } from "react-router-dom";
-import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
-//import { AuthContext } from "../context/auth";
+import { AuthContext } from "../context/auth";
 
 import Loading from "../components/Loading";
-
-const drawerWidth = "75vw";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawer: {
-    width: drawerWidth,
-    maxHeight: "100vh",
-    overflow: "hidden",
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    maxHeight: "100vh",
-    overflow: "hidden",
-  },
-}));
+import { useStyles } from "../styles/Report.style";
 
 export function Report(props) {
+  const { setSubscriptions } = useContext(AuthContext);
   const location = useLocation();
 
   var num = 0;
@@ -75,11 +39,6 @@ export function Report(props) {
   const [value, setValue] = React.useState(0);
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
-  const [data, setData] = React.useState([]);
-  const [data1, setData1] = React.useState([]);
-
-  //const context = useContext(AuthContext);
-  //props.userData.sub --> userID used for query
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -97,13 +56,13 @@ export function Report(props) {
   };
 
   async function callServiceByUser() {
-    const someData = await API.graphql({
+    const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
         userID: props.userData.sub,
       },
     });
-    console.log("someData", someData);
+    setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
 
   useEffect(() => {
@@ -215,7 +174,7 @@ export function Report(props) {
             >
               {(() => {
                 if (ind == 0) {
-                  return <Main list={data} />;
+                  return <Main />;
                 } else {
                   return (
                     <Main2 client={props.client} userData={props.userData} />
