@@ -1,18 +1,24 @@
-import React from "react";
+import { useState } from "react";
 
 import "../App.css";
 import { Link } from "react-router-dom";
 import { Button, Typography, Grid } from "@material-ui/core";
+import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
 function Onboarding() {
-  const [number, setNumber] = React.useState("");
-  const [first, setFirst] = React.useState(true);
+  const [initialNumber, setInitialNumbers] = useState("0000000000");
+  const [number, setNumber] = useState("");
+  const [first, setFirst] = useState(true);
 
   const makeText = (a) => {
-    if (a == "-") {
-      setNumber(number.substring(0, number.length - 1));
+    if (number.length < 10 || a == "del") {
+      if (a == "del") {
+        setNumber(number.substring(0, number.length - 1));
+      } else {
+        setNumber(number + a);
+      }
     } else {
-      setNumber(number + a);
+      console.log("more than 10 digits");
     }
   };
 
@@ -73,12 +79,17 @@ function Onboarding() {
               <Typography
                 style={{
                   fontWeight: 400,
-                  color: "#8A8A8F",
-                  fontSize: "2.21vh",
+                  color: "gray",
+                  fontSize: "2.7vh",
                   marginTop: "1.82vh",
                 }}
               >
-                Mobile Number
+                {"+1 (" +
+                  initialNumber.slice(0, 3) +
+                  ") " +
+                  initialNumber.slice(3, 6) +
+                  " " +
+                  initialNumber.slice(6)}
               </Typography>
             );
           } else {
@@ -110,21 +121,19 @@ function Onboarding() {
           }}
         ></Typography>
         {(() => {
-          if (first != true) {
-            return (
-              <Typography
-                style={{
-                  fontWeight: 400,
-                  color: "#8A8A8F",
-                  fontSize: "2.21vh",
-                  marginTop: "0.2vh",
-                }}
-              >
-                By entering and tapping Next, you agree to the Beta Software
-                Program Agreement & Privacy Policy
-              </Typography>
-            );
-          }
+          return (
+            <Typography
+              style={{
+                fontWeight: 400,
+                color: "#8A8A8F",
+                fontSize: "2.21vh",
+                marginTop: "0.2vh",
+              }}
+            >
+              By entering and tapping Next, you agree to the Beta Software
+              Program Agreement & Privacy Policy
+            </Typography>
+          );
         })()}
       </div>
 
@@ -454,20 +463,10 @@ function Onboarding() {
               boxSizing: "border-box",
             }}
             onClick={() => {
-              makeText("-");
+              makeText("del");
             }}
           >
-            <Typography
-              style={{
-                margin: 0,
-                padding: 0,
-                color: "Black",
-                fontWeight: 500,
-                fontSize: "3.125vh",
-              }}
-            >
-              -
-            </Typography>
+            <BackspaceOutlinedIcon></BackspaceOutlinedIcon>
           </Button>
         </Grid>
         <Button
