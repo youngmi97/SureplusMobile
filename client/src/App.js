@@ -6,6 +6,10 @@ import Report from "./Page/Report";
 import { Toast } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { API, graphqlOperation } from "aws-amplify";
+import { UpdateUserNotification, updateUser } from "./graphql/mutations";
+import { getUser } from "./graphql/queries";
+
 import Subscription from "./Page/Subscription";
 import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
@@ -42,22 +46,45 @@ const AuthStateApp = (props) => {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [show, setShow] = useState(false);
 
+  async function updateFirebaseToken(authData, token) {
+    //getUser
+    const existingUser = await API.graphql({
+      query: getUser,
+      variables: {
+        id: authData.attributes.sub,
+      },
+    });
+
+    let firebaseTokenList = existingUser.data.getUser.firebaseToken;
+    if (!firebaseTokenList.includes(token)) {
+      firebaseTokenList = firebaseTokenList.push(token);
+    }
+    const updateFirebaseToken = await API.graphql(
+      graphqlOperation(updateUser, {
+        input: {
+          id: authData.attributes.sub,
+          firebaseToken: firebaseTokenList,
+        },
+      })
+    );
+  }
+
   useEffect(() => {
+    const messaging = firebase.messaging();
+
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
       setUser(authData);
+
+      messaging
+        .getToken()
+        .then((token) => {
+          updateFirebaseToken(authData, token);
+        })
+        .catch(() => {
+          console.log("error occured");
+        });
     });
-
-    const messaging = firebase.messaging();
-
-    messaging
-      .getToken()
-      .then((token) => {
-        console.log("Token: ", token);
-      })
-      .catch(() => {
-        console.log("error occured");
-      });
 
     new Promise((resolve) => {
       messaging.onMessage((payload) => {

@@ -17,6 +17,20 @@
 # Erase all users from Cognito UserPools
 # Create a new test user based on + 1
 
+type UserNotification
+  @model
+  @key(
+    name: "uld"
+    fields: ["userID", "createdAt"]
+    queryField: "NotificationsByUser"
+  ) {
+  id: ID!
+  userID: String
+  serviceName: String
+  createdAt: String
+  type: String
+}
+
 type User
   @model
   @key(name: "uld", fields: ["name", "createdAt"], queryField: "UserByName") {
@@ -24,6 +38,7 @@ type User
   name: String
   phone_number: String
   plaidToken: String
+  firebaseToken: [String]
   createdAt: String
   type: String
 }
