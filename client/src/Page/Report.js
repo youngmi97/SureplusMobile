@@ -11,6 +11,11 @@ import {
   serviceByUserAccount,
   accountByUser,
 } from "../graphql/queries";
+
+import {
+  onCreateSubscriptionServices,
+  onUpdateSubscriptionServices,
+} from "../graphql/subscriptions";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
@@ -104,6 +109,23 @@ export function Report(props) {
       },
     });
     console.log("someData", someData);
+    setData(someData.data.serviceByUser.items);
+
+    const serviceCreated = await API.graphql(
+      graphqlOperation(onCreateSubscriptionServices)
+    ).subscribe({
+      next: (serviceData) => {
+        console.log("CREATED", serviceData);
+      },
+    });
+
+    const serviceUpdated = await API.graphql(
+      graphqlOperation(onUpdateSubscriptionServices)
+    ).subscribe({
+      next: (serviceData) => {
+        console.log("UPDATED", serviceData);
+      },
+    });
   }
 
   useEffect(() => {
