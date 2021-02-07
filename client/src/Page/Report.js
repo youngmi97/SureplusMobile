@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useEffect } from "react";
 import "../App.css";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -71,9 +71,9 @@ export function Report(props) {
     console.log(subscriptions);
   }
 
-  useMemo(() => {
+  useEffect(() => {
     callServiceByUser();
-  }, [subscriptions]);
+  }, []);
 
   const onRefresh = () => {
     console.log("refreshed");
