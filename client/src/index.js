@@ -39,9 +39,11 @@ ReactDOM.render(
   <AuthProvider>
     <ApolloProvider client={client}>
       <MuiThemeProvider theme={theme}>
-        <Router>
-          <App />
-        </Router>
+        <div style={{ paddingTop: 10 }}>
+          <Router>
+            <App />
+          </Router>
+        </div>
       </MuiThemeProvider>
     </ApolloProvider>
   </AuthProvider>,

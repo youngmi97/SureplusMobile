@@ -34,144 +34,141 @@ export default function BottomNav(props) {
   );
 
   return (
-    <div style={{ width: "100%" }}>
-      <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        style={{
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-          height: "9.11vh",
-          borderTopLeftRadius: "12px",
-          borderTopRightRadius: "12px",
-          paddingBottom: "24px",
-          "& .MuiBottomNavigationAction-root": {
-            "@media (max-width: 768px)": {
-              minWidth: "auto",
-              padding: "0px",
-            },
+    <BottomNavigation
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      style={{
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        height: "9.5vh",
+        borderTopLeftRadius: "12px",
+        borderTopRightRadius: "12px",
+        "& .MuiBottomNavigationAction-root": {
+          "@media (max-width: 768px)": {
+            minWidth: "auto",
+            padding: "0px",
           },
-          boxShadow: "0px -4px 15px rgba(0, 0, 0, 0.08)",
-        }}
-      >
-        {(() => {
-          if (value == 0) {
-            return (
-              <BottomNavigationAction
-                component={Link}
-                showLabel={true}
-                to="/"
-                label={
-                  <Typography style={{ color: "black", fontSize: 12 }}>
-                    Home
-                  </Typography>
-                }
-                style={{ margin: 0, padding: 0, minWidth: "auto" }}
-                icon={home}
-              />
-            );
-          } else {
-            return (
-              <BottomNavigationAction
-                component={Link}
-                showLabel={true}
-                to="/"
-                label={
-                  <Typography style={{ color: "black", fontSize: 12 }}>
-                    Home
-                  </Typography>
-                }
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  minWidth: "auto",
-                  opacity: 0.3,
-                }}
-                icon={home}
-              />
-            );
-          }
-        })()}
-        {(() => {
-          if (value == 1) {
-            return (
-              <BottomNavigationAction
-                component={Link}
-                to="/Subscription"
-                showLabel={true}
-                label={
-                  <Typography style={{ color: "black", fontSize: 12 }}>
-                    Subscriptions
-                  </Typography>
-                }
-                style={{ margin: 0, padding: 0, minWidth: "auto" }}
-                icon={subscription}
-              />
-            );
-          } else {
-            return (
-              <BottomNavigationAction
-                component={Link}
-                to="/Subscription"
-                showLabel={true}
-                label={
-                  <Typography style={{ color: "black", fontSize: 12 }}>
-                    Subscriptions
-                  </Typography>
-                }
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  minWidth: "auto",
-                  opacity: 0.3,
-                }}
-                icon={subscription}
-              />
-            );
-          }
-        })()}
-        {(() => {
-          if (value == 2) {
-            return (
-              <BottomNavigationAction
-                component={Link}
-                to="/Crew"
-                showLabel={true}
-                label={
-                  <Typography style={{ color: "black", fontSize: 12 }}>
-                    Groups
-                  </Typography>
-                }
-                style={{ margin: 0, padding: 0, minWidth: "auto" }}
-                icon={group}
-              />
-            );
-          } else {
-            return (
-              <BottomNavigationAction
-                component={Link}
-                to="/Crew"
-                showLabel={true}
-                label={
-                  <Typography style={{ color: "black", fontSize: 12 }}>
-                    Groups
-                  </Typography>
-                }
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  minWidth: "auto",
-                  opacity: 0.3,
-                }}
-                icon={group}
-              />
-            );
-          }
-        })()}
-      </BottomNavigation>
-    </div>
+        },
+        boxShadow: "0px -4px 15px rgba(0, 0, 0, 0.08)",
+      }}
+    >
+      {(() => {
+        if (value == 0) {
+          return (
+            <BottomNavigationAction
+              component={Link}
+              showLabel={true}
+              to="/"
+              label={
+                <Typography style={{ color: "black", fontSize: 12 }}>
+                  Home
+                </Typography>
+              }
+              style={{ margin: 0, padding: 0, minWidth: "auto" }}
+              icon={home}
+            />
+          );
+        } else {
+          return (
+            <BottomNavigationAction
+              component={Link}
+              showLabel={true}
+              to="/"
+              label={
+                <Typography style={{ color: "black", fontSize: 12 }}>
+                  Home
+                </Typography>
+              }
+              style={{
+                margin: 0,
+                padding: 0,
+                minWidth: "auto",
+                opacity: 0.3,
+              }}
+              icon={home}
+            />
+          );
+        }
+      })()}
+      {(() => {
+        if (value == 1) {
+          return (
+            <BottomNavigationAction
+              component={Link}
+              to="/Subscription"
+              showLabel={true}
+              label={
+                <Typography style={{ color: "black", fontSize: 12 }}>
+                  Subscriptions
+                </Typography>
+              }
+              style={{ margin: 0, padding: 0, minWidth: "auto" }}
+              icon={subscription}
+            />
+          );
+        } else {
+          return (
+            <BottomNavigationAction
+              component={Link}
+              to="/Subscription"
+              showLabel={true}
+              label={
+                <Typography style={{ color: "black", fontSize: 12 }}>
+                  Subscriptions
+                </Typography>
+              }
+              style={{
+                margin: 0,
+                padding: 0,
+                minWidth: "auto",
+                opacity: 0.3,
+              }}
+              icon={subscription}
+            />
+          );
+        }
+      })()}
+      {(() => {
+        if (value == 2) {
+          return (
+            <BottomNavigationAction
+              component={Link}
+              to="/Crew"
+              showLabel={true}
+              label={
+                <Typography style={{ color: "black", fontSize: 12 }}>
+                  Groups
+                </Typography>
+              }
+              style={{ margin: 0, padding: 0, minWidth: "auto" }}
+              icon={group}
+            />
+          );
+        } else {
+          return (
+            <BottomNavigationAction
+              component={Link}
+              to="/Crew"
+              showLabel={true}
+              label={
+                <Typography style={{ color: "black", fontSize: 12 }}>
+                  Groups
+                </Typography>
+              }
+              style={{
+                margin: 0,
+                padding: 0,
+                minWidth: "auto",
+                opacity: 0.3,
+              }}
+              icon={group}
+            />
+          );
+        }
+      })()}
+    </BottomNavigation>
   );
 }
