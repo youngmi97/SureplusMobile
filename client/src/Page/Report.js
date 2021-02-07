@@ -3,7 +3,14 @@ import "../App.css";
 
 import { API, graphqlOperation } from "aws-amplify";
 
-import { serviceByUser } from "../graphql/queries";
+import gql from "graphql-tag";
+
+import {
+  serviceByUser,
+  serviceByUserAccount,
+  accountByUser,
+} from "../graphql/queries";
+
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import ToolBar from "../components/ToolBar";
