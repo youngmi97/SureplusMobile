@@ -121,12 +121,12 @@ class PlaidLogin extends Component {
           <Button
             style={{
               position: "absolute",
-              bottom: 48,
+              bottom: 24,
               margin: 0,
               padding: 0,
               height: "48px",
               borderRadius: "24px",
-              background: "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+              background: "#f7f7f7",
               color: "white",
               textTransform: "none",
               width: "calc(100% - 48px)",
@@ -136,13 +136,13 @@ class PlaidLogin extends Component {
               style={{
                 margin: 0,
                 padding: 0,
-                color: "white",
+                color: "Black",
 
                 fontWeight: 500,
                 fontSize: "17px",
               }}
             >
-              Link bank
+              Link Another Account
             </Typography>
           </Button>
         </div>

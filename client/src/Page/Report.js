@@ -12,6 +12,11 @@ import {
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { AuthContext } from "../context/auth";
 
+import {
+  onCreateSubscriptionServices,
+  onUpdateSubscriptionServices,
+} from "../graphql/subscriptions";
+
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
 import Main2 from "../components/MainReport2";
@@ -96,6 +101,17 @@ export function Report(props) {
     setOpen(open);
   };
 
+  // Listen to Service Creation Event
+  async function waitCreateSubs() {
+    const serviceCreated = await API.graphql(
+      graphqlOperation(onCreateSubscriptionServices)
+    ).subscribe({
+      next: (serviceData) => {
+        console.log("CREATED", serviceData);
+      },
+    });
+  }
+
   async function callServiceByUser() {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
@@ -108,6 +124,7 @@ export function Report(props) {
 
   useEffect(() => {
     callServiceByUser();
+    waitCreateSubs();
   }, []);
 
   const onRefresh = () => {
