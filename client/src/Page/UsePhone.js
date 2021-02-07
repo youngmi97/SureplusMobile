@@ -5,20 +5,30 @@ import { Link } from "react-router-dom";
 import { Button, Typography, Grid } from "@material-ui/core";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
+String.prototype.replaceAt = function (index, character) {
+  return (
+    this.substr(0, index) + character + this.substr(index + character.length)
+  );
+};
+
 function Onboarding() {
   const [initialNumber, setInitialNumbers] = useState("0000000000");
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState("0000000000");
   const [first, setFirst] = useState(true);
+  const [index, setIndex] = useState(0);
 
   const makeText = (a) => {
-    if (number.length < 10 || a == "del") {
+    if (index < 10 || a == "del") {
       if (a == "del") {
-        setNumber(number.substring(0, number.length - 1));
+        if (index > 0) {
+          setNumber(number.replaceAt(index - 1, String(0)));
+          setIndex(index - 1);
+        }
       } else {
-        setNumber(number + a);
+        setNumber(number.replaceAt(index, String(a)));
+        setIndex(index + 1);
       }
     } else {
-      console.log("more than 10 digits");
     }
   };
 
@@ -185,7 +195,7 @@ function Onboarding() {
               padding: 0,
               height: "7.29vh",
               width: "100%",
-              color: "white",
+
               textTransform: "none",
             }}
             onClick={() => {
@@ -269,7 +279,7 @@ function Onboarding() {
               padding: 0,
               height: "7.29vh",
               width: "100%",
-              color: "white",
+
               textTransform: "none",
             }}
             onClick={() => {
@@ -353,7 +363,7 @@ function Onboarding() {
               padding: 0,
               height: "7.29vh",
               width: "100%",
-              color: "white",
+
               textTransform: "none",
             }}
             onClick={() => {
@@ -431,7 +441,7 @@ function Onboarding() {
               padding: 0,
               height: "7.29vh",
               width: "100%",
-              color: "white",
+
               textTransform: "none",
             }}
             onClick={() => {
