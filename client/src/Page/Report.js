@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useMemo } from "react";
 import "../App.css";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -28,7 +28,7 @@ import Loading from "../components/Loading";
 import { useStyles } from "../styles/Report.style";
 
 export function Report(props) {
-  const { setSubscriptions } = useContext(AuthContext);
+  const { subscriptions, setSubscriptions } = useContext(AuthContext);
   const location = useLocation();
 
   var num = 0;
@@ -39,8 +39,6 @@ export function Report(props) {
   if (location.param2 != null) {
     op = true;
   }
-
-  //console.log("Report Client", props.client);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -70,13 +68,15 @@ export function Report(props) {
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);
+    console.log(subscriptions);
   }
 
-  useEffect(() => {
+  useMemo(() => {
     callServiceByUser();
-  }, []);
+  }, [subscriptions]);
 
   const onRefresh = () => {
+    console.log("refreshed");
     return Promise.all([
       new Promise((resolve) => setTimeout(resolve, 2000)),
     ]).then(callServiceByUser());
