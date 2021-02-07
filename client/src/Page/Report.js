@@ -1,8 +1,7 @@
-import React, { useContext, useMemo, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
-
 import { API, graphqlOperation } from "aws-amplify";
-
 import gql from "graphql-tag";
 
 import {
@@ -10,22 +9,52 @@ import {
   serviceByUserAccount,
   accountByUser,
 } from "../graphql/queries";
-
 import PullToRefresh from "react-simple-pull-to-refresh";
+import { AuthContext } from "../context/auth";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
 import Main2 from "../components/MainReport2";
-import BottomNavigation from "../components/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 
 import { Link, useLocation } from "react-router-dom";
+import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
-import { AuthContext } from "../context/auth";
+//import { AuthContext } from "../context/auth";
 
 import Loading from "../components/Loading";
-import { useStyles } from "../styles/Report.style";
+import FirstLinkDrawer from "../components/FirstLinkDrawer";
+
+const drawerWidth = "75vw";
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawer: {
+    width: drawerWidth,
+    maxHeight: "100vh",
+    overflow: "hidden",
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    maxHeight: "100vh",
+    overflow: "hidden",
+  },
+}));
 
 export function Report(props) {
   const { subscriptions, setSubscriptions } = useContext(AuthContext);
@@ -40,14 +69,21 @@ export function Report(props) {
     op = true;
   }
 
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [ind, setIndex] = React.useState(num);
-  const [open, setOpen] = React.useState(op);
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  //console.log("Report Client", props.client);
+
+  const classes = useStyles();
+
+  const [ind, setIndex] = React.useState(num);
+  const [open, setOpen] = React.useState(op);
+  const [data, setData] = React.useState([]);
+  const [data1, setData1] = React.useState([]);
+
+  //const context = useContext(AuthContext);
+  //props.userData.sub --> userID used for query
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -68,7 +104,6 @@ export function Report(props) {
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);
-    console.log(subscriptions);
   }
 
   useEffect(() => {
@@ -181,7 +216,7 @@ export function Report(props) {
             >
               {(() => {
                 if (ind == 0) {
-                  return <Main />;
+                  return <Main list={data} />;
                 } else {
                   return (
                     <Main2 client={props.client} userData={props.userData} />
@@ -191,9 +226,7 @@ export function Report(props) {
             </div>
           </PullToRefresh>
         </div>
-        <div position="fixed">
-          <BottomNavigation value={value} setValue={setValue} />
-        </div>
+        <div position="fixed"></div>
       </div>
 
       <Drawer
@@ -386,8 +419,42 @@ export function Report(props) {
           </Typography>
         </Button>
 
+        <Button
+          component={Link}
+          to="/PrivacyPolicy"
+          style={{
+            margin: 0,
+            padding: 0,
+
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 6,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
+            height: 48,
+            textTransform: "none",
+          }}
+        >
+          <Typography
+            style={{
+              margin: 0,
+              padding: 0,
+              fontWeight: 500,
+              fontSize: 17,
+              alignItems: "center",
+            }}
+          >
+            Privacy Policy
+          </Typography>
+        </Button>
+
         {/* Customer Support */}
       </Drawer>
+      <FirstLinkDrawer userData={props.userData} />
     </div>
   );
 }

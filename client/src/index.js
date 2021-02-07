@@ -12,7 +12,8 @@ import AppSyncConfig from "./aws-exports";
 import Amplify, { Auth } from "aws-amplify";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
-import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "react-apollo";
+import { BrowserRouter as Router } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 // import { Rehydrated } from "aws-appsync-react";
 //import { withAuthenticator } from 'aws-amplify-react';
@@ -38,9 +39,11 @@ ReactDOM.render(
   <AuthProvider>
     <ApolloProvider client={client}>
       <MuiThemeProvider theme={theme}>
-        <App />
+        <Router>
+          <App />
+        </Router>
       </MuiThemeProvider>
-    </ApolloProvider>{" "}
+    </ApolloProvider>
   </AuthProvider>,
   document.getElementById("root")
 );
