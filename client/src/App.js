@@ -19,6 +19,7 @@ import WalletActivity from "./Page/WalletActivity";
 import OneSub from "./Page/OneSub";
 import Customersupport from "./Page/CustomerSupport";
 import AllSubscription from "./Page/Allsubscription";
+import PrivacyPolicy from "./Page/PrivacyPolicy";
 
 import BottomNavigation from "./components/BottomNavigation";
 
@@ -185,6 +186,13 @@ const AuthStateApp = (props) => {
             path="/TermofService"
             component={() => (
               <TermofService userData={user.attributes} client={props.client} />
+            )}
+          />
+          <Route
+            exact
+            path="/PrivacyPolicy"
+            component={() => (
+              <PrivacyPolicy userData={user.attributes} client={props.client} />
             )}
           />
           <Route

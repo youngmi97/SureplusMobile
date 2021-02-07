@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
 import axios from "axios";
 import "../App.css";
+import { Button, Typography } from "@material-ui/core";
 import gql from "graphql-tag";
 import { withRouter } from "react-router-dom";
 
@@ -55,6 +56,7 @@ class PlaidLogin extends Component {
   //axios local base url : http://localhost:5000
 
   handleOnSuccess(public_token, metadata) {
+    this.props.setState(1);
     axios
       .post(
         "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/auth/public_token",
@@ -72,7 +74,6 @@ class PlaidLogin extends Component {
             this.setState({ transactions: res.data.transactions.transactions });
             this.setState({ accounts: res.data.transactions.accounts });
 
-            //this.props.history.push("/Accounts");
             console.log("accountsCount", this.state.accounts.length);
             console.log("accounts", this.state.accounts);
             console.log("transactionsCount", this.state.transactions.length);
@@ -109,11 +110,42 @@ class PlaidLogin extends Component {
           border: "none",
         }}
       >
-        <img
-          alt="name"
-          src="Icons[32]/Type=Add.svg"
-          style={{ width: "3.8vh", height: "3.8vh" }}
-        ></img>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            style={{
+              position: "absolute",
+              bottom: 48,
+              margin: 0,
+              padding: 0,
+              height: "48px",
+              borderRadius: "24px",
+              background: "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+              color: "white",
+              textTransform: "none",
+              width: "calc(100% - 48px)",
+            }}
+          >
+            <Typography
+              style={{
+                margin: 0,
+                padding: 0,
+                color: "white",
+
+                fontWeight: 500,
+                fontSize: "17px",
+              }}
+            >
+              Link bank
+            </Typography>
+          </Button>
+        </div>
       </PlaidLink>
     );
   }

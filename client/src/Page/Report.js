@@ -23,6 +23,7 @@ import { Box, Button } from "@material-ui/core";
 //import { AuthContext } from "../context/auth";
 
 import Loading from "../components/Loading";
+import FirstLinkDrawer from "../components/FirstLinkDrawer";
 
 const drawerWidth = "75vw";
 
@@ -436,8 +437,42 @@ export function Report(props) {
           </Typography>
         </Button>
 
+        <Button
+          component={Link}
+          to="/PrivacyPolicy"
+          style={{
+            margin: 0,
+            padding: 0,
+
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 6,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
+            height: 48,
+            textTransform: "none",
+          }}
+        >
+          <Typography
+            style={{
+              margin: 0,
+              padding: 0,
+              fontWeight: 500,
+              fontSize: 17,
+              alignItems: "center",
+            }}
+          >
+            Privacy Policy
+          </Typography>
+        </Button>
+
         {/* Customer Support */}
       </Drawer>
+      <FirstLinkDrawer userData={props.userData} />
     </div>
   );
 }
