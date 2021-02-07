@@ -2,21 +2,15 @@ import React, { useReducer, createContext } from "react";
 
 const AuthContext = createContext({
   user: null,
-  login: (userData) => {},
-  logout: () => {},
+  subscriptions: [],
 });
 
 function authReducer(state, action) {
   switch (action.type) {
-    case "LOGIN":
+    case "SET_SUBSCRIPTIONS":
       return {
         ...state,
-        user: action.payload,
-      };
-    case "LOGOUT":
-      return {
-        ...state,
-        user: null,
+        subscriptions: action.payload,
       };
     default:
       return state;
@@ -24,26 +18,28 @@ function authReducer(state, action) {
 }
 
 function AuthProvider(props) {
-  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const [state, dispatch] = useReducer(authReducer, {
+    user: null,
+    subscriptions: [],
+  });
 
   // authReducer will listen to any dispatch actions
   // passes down to component tree
-  function login(userData) {
+  function setSubscriptions(subscriptions) {
     dispatch({
-      type: "LOGIN",
-      payload: userData,
+      type: "SET_SUBSCRIPTIONS",
+      payload: subscriptions,
     });
-  }
-
-  // dispatches an action with type LOGOUT
-  function logout() {
-    dispatch({ type: "LOGOUT" });
   }
 
   //value is what will be passed down to components under the following context provider
   return (
     <AuthContext.Provider
-      value={{ user: state.user, login, logout }}
+      value={{
+        user: state.user,
+        subscriptions: state.subscriptions,
+        setSubscriptions,
+      }}
       {...props}
     />
   );
