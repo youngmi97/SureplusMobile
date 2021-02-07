@@ -20,6 +20,8 @@ import OneSub from "./Page/OneSub";
 import Customersupport from "./Page/CustomerSupport";
 import AllSubscription from "./Page/Allsubscription";
 
+import firebase from "./firebase";
+
 import {
   AmplifyAuthenticator,
   AmplifySignOut,
@@ -42,6 +44,17 @@ const AuthStateApp = (props) => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
       setUser(authData);
+
+      const messaging = firebase.messaging();
+
+      messaging
+        .getToken()
+        .then((token) => {
+          console.log("Token: ", token);
+        })
+        .catch(() => {
+          console.log("error occured");
+        });
     });
   }, [user, authState]);
 
