@@ -1,6 +1,41 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUserNotification = /* GraphQL */ `
+  query GetUserNotification($id: ID!) {
+    getUserNotification(id: $id) {
+      id
+      userID
+      serviceName
+      createdAt
+      type
+      updatedAt
+    }
+  }
+`;
+export const listUserNotifications = /* GraphQL */ `
+  query ListUserNotifications(
+    $filter: ModelUserNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserNotifications(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        serviceName
+        createdAt
+        type
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -8,6 +43,7 @@ export const getUser = /* GraphQL */ `
       name
       phone_number
       plaidToken
+      firebaseToken
       createdAt
       type
       updatedAt
@@ -26,6 +62,7 @@ export const listUsers = /* GraphQL */ `
         name
         phone_number
         plaidToken
+        firebaseToken
         createdAt
         type
         updatedAt
@@ -114,6 +151,35 @@ export const listSubscriptionServicess = /* GraphQL */ `
     }
   }
 `;
+export const notificationsByUser = /* GraphQL */ `
+  query NotificationsByUser(
+    $userID: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    NotificationsByUser(
+      userID: $userID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        serviceName
+        createdAt
+        type
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const userByName = /* GraphQL */ `
   query UserByName(
     $name: String
@@ -136,6 +202,7 @@ export const userByName = /* GraphQL */ `
         name
         phone_number
         plaidToken
+        firebaseToken
         createdAt
         type
         updatedAt

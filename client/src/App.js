@@ -6,6 +6,10 @@ import Report from "./Page/Report";
 import { Toast } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { API, graphqlOperation } from "aws-amplify";
+import { UpdateUserNotification, updateUser } from "./graphql/mutations";
+import { getUser } from "./graphql/queries";
+
 import Subscription from "./Page/Subscription";
 import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
@@ -49,37 +53,61 @@ const AuthStateApp = (props) => {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [show, setShow] = useState(false);
 
+  async function updateFirebaseToken(authData, token) {
+    //getUser
+    const existingUser = await API.graphql({
+      query: getUser,
+      variables: {
+        id: authData.attributes.sub,
+      },
+    });
+
+    let firebaseTokenList = existingUser.data.getUser.firebaseToken;
+    if (!firebaseTokenList.includes(token)) {
+      firebaseTokenList.push(token);
+    }
+
+    const updateFirebaseToken = await API.graphql(
+      graphqlOperation(updateUser, {
+        input: {
+          id: authData.attributes.sub,
+          firebaseToken: firebaseTokenList,
+        },
+      })
+    );
+  }
+
   useEffect(() => {
+    const messaging = firebase.messaging();
+
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
       setUser(authData);
-    });
-  }, [user, authState]);
 
-  useEffect(() => {
-    if (firebase.messaging.isSupported()) {
-      const messaging = firebase.messaging();
+      //check firebase.messaging.isSupported();
+
       messaging
         .getToken()
         .then((token) => {
           console.log("Token: ", token);
+          updateFirebaseToken(authData, token);
         })
-        .catch((e) => {
-          console.log(e, "error occured");
+        .catch(() => {
+          console.log("error occured");
         });
+    });
 
-      new Promise((resolve) => {
-        messaging.onMessage((payload) => {
-          console.log("payload", payload);
-          setShow(true);
-          setNotification({
-            title: payload.notification.title,
-            body: payload.notification.body,
-          });
-          resolve(payload);
+    new Promise((resolve) => {
+      messaging.onMessage((payload) => {
+        console.log("payload", payload);
+        setShow(true);
+        setNotification({
+          title: payload.notification.title,
+          body: payload.notification.body,
         });
+        resolve(payload);
       });
-    }
+    });
   }, []);
 
   return authState == AuthState.SignedIn && user ? (
