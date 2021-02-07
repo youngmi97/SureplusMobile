@@ -111,7 +111,7 @@ const AuthStateApp = (props) => {
   }, []);
 
   return authState == AuthState.SignedIn && user ? (
-    <div>
+    <div style={{ backgroundColor: "#f1f2f4" }}>
       <Toast
         onClose={() => setShow(false)}
         show={show}
