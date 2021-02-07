@@ -37,7 +37,6 @@ const AuthStateApp = (props) => {
 
   //const context = useContext(AuthContext)
   //prompt users to download pwa
-  //console.log("App", props.client);
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
@@ -55,156 +54,94 @@ const AuthStateApp = (props) => {
               exact
               path="/"
               component={() => (
-                <Report
-                  userData={user.attributes}
-                  client={props.client}
-                  param1={null}
-                />
+                <Report userData={user.attributes} param1={null} />
               )}
             />
             <Route
               exact
               path="/Profile"
-              component={() => (
-                <Profile userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Profile userData={user.attributes} />}
             />
             <Route
               exact
               path="/Wallet"
-              component={() => (
-                <Wallet userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Wallet userData={user.attributes} />}
             />
             <Route
               exact
               path="/Allsubs"
-              component={() => (
-                <AllSubscription
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <AllSubscription userData={user.attributes} />}
             />
             <Route
               exact
               path="/Accounts"
-              component={() => (
-                <Accounts userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Accounts userData={user.attributes} />}
             />
             {/* <Route exact path="/Home" component={Home} /> */}
             <Route
               exact
               path="/Transaction"
-              component={() => (
-                <Transaction userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Transaction userData={user.attributes} />}
             />
             <Route
               exact
               path="/Notification"
-              component={() => (
-                <Notification
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <Notification userData={user.attributes} />}
             />
             <Route
               exact
               path="/Subscription"
-              component={() => (
-                <Subscription
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <Subscription userData={user.attributes} />}
             />
             <Route
               exact
               path="/Subscription2"
-              component={() => (
-                <Subscription2
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <Subscription2 userData={user.attributes} />}
             />
             <Route
               exact
               path="/Crew"
-              component={() => (
-                <Crew userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Crew userData={user.attributes} />}
             />
             <Route
               exact
               path="/Crew2"
-              component={() => (
-                <Crew2 userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Crew2 userData={user.attributes} />}
             />
             <Route
               exact
               path="/OneSub"
-              component={() => (
-                <OneSub userData={user.attributes} client={props.client} />
-              )}
+              component={() => <OneSub userData={user.attributes} />}
             />
             <Route
               exact
               path="/WalletActivity"
-              component={() => (
-                <WalletActivity
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <WalletActivity userData={user.attributes} />}
             />
             <Route
               exact
               path="/Onboarding"
-              component={() => (
-                <Onboarding userData={user.attributes} client={props.client} />
-              )}
+              component={() => <Onboarding userData={user.attributes} />}
             />
             <Route
               exact
               path="/TermofService"
-              component={() => (
-                <TermofService
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <TermofService userData={user.attributes} />}
             />
             <Route
               exact
               path="/UsePhone"
-              component={() => (
-                <UsePhone userData={user.attributes} client={props.client} />
-              )}
+              component={() => <UsePhone userData={user.attributes} />}
             />
             <Route
               exact
               path="/UsePhoneCode"
-              component={() => (
-                <UsePhoneCode
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <UsePhoneCode userData={user.attributes} />}
             />
             <Route
               exact
               path="/Customersupport"
-              component={() => (
-                <Customersupport
-                  userData={user.attributes}
-                  client={props.client}
-                />
-              )}
+              component={() => <Customersupport userData={user.attributes} />}
             />
             {/* <Route
 

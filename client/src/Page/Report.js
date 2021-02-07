@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 
+import { API, graphqlOperation } from "aws-amplify";
+
 import gql from "graphql-tag";
 
 import {
@@ -94,23 +96,15 @@ export function Report(props) {
     setOpen(open);
   };
 
-  const callServiceByUser = () => {
-    try {
-      console.log("sub", props.userData);
-      props.client
-        .query({
-          query: gql(serviceByUser),
-          fetchPolicy: "network-only",
-          variables: { userID: props.userData.sub },
-        })
-        .then(({ data }) => {
-          console.log("data", data);
-          setData(data.serviceByUser.items);
-        });
-    } catch (e) {
-      console.log("query error", e);
-    }
-  };
+  async function callServiceByUser() {
+    const someData = await API.graphql({
+      query: serviceByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    console.log("someData", someData);
+  }
 
   useEffect(() => {
     callServiceByUser();
