@@ -26,6 +26,9 @@ import WalletActivity from "./Page/WalletActivity";
 import OneSub from "./Page/OneSub";
 import Customersupport from "./Page/CustomerSupport";
 import AllSubscription from "./Page/Allsubscription";
+import PrivacyPolicy from "./Page/PrivacyPolicy";
+
+import BottomNavigation from "./components/BottomNavigation";
 
 import firebase from "./firebase";
 
@@ -38,11 +41,15 @@ import {
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 import { AuthProvider, AuthContext } from "./context/auth";
+import { Link, useLocation } from "react-router-dom";
 import TermofService from "./Page/TermofService";
 
 const AuthStateApp = (props) => {
   const [user, setUser] = useState();
+  const location = useLocation();
+  const path = location.pathname;
   const [authState, setAuthState] = useState();
+  const [value, setValue] = React.useState(0);
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [show, setShow] = useState(false);
 
@@ -57,8 +64,9 @@ const AuthStateApp = (props) => {
 
     let firebaseTokenList = existingUser.data.getUser.firebaseToken;
     if (!firebaseTokenList.includes(token)) {
-      firebaseTokenList = firebaseTokenList.push(token);
+      firebaseTokenList.push(token);
     }
+
     const updateFirebaseToken = await API.graphql(
       graphqlOperation(updateUser, {
         input: {
@@ -76,9 +84,12 @@ const AuthStateApp = (props) => {
       setAuthState(nextAuthState);
       setUser(authData);
 
+      //check firebase.messaging.isSupported();
+
       messaging
         .getToken()
         .then((token) => {
+          console.log("Token: ", token);
           updateFirebaseToken(authData, token);
         })
         .catch(() => {
@@ -97,7 +108,7 @@ const AuthStateApp = (props) => {
         resolve(payload);
       });
     });
-  }, [user, authState]);
+  }, []);
 
   return authState == AuthState.SignedIn && user ? (
     <div className="App">
@@ -126,102 +137,100 @@ const AuthStateApp = (props) => {
         </Toast.Header>
         <Toast.Body>{notification.body}</Toast.Body>
       </Toast>
-      <Router>
-        <div>
-          <Route
-            exact
-            path="/"
-            component={() => (
-              <Report userData={user.attributes} param1={null} />
-            )}
-          />
-          <Route
-            exact
-            path="/Profile"
-            component={() => <Profile userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Wallet"
-            component={() => <Wallet userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Allsubs"
-            component={() => <AllSubscription userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Accounts"
-            component={() => <Accounts userData={user.attributes} />}
-          />
-          {/* <Route exact path="/Home" component={Home} /> */}
-          <Route
-            exact
-            path="/Transaction"
-            component={() => <Transaction userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Notification"
-            component={() => <Notification userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Subscription"
-            component={() => <Subscription userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Subscription2"
-            component={() => <Subscription2 userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Crew"
-            component={() => <Crew userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Crew2"
-            component={() => <Crew2 userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/OneSub"
-            component={() => <OneSub userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/WalletActivity"
-            component={() => <WalletActivity userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Onboarding"
-            component={() => <Onboarding userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/TermofService"
-            component={() => <TermofService userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/UsePhone"
-            component={() => <UsePhone userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/UsePhoneCode"
-            component={() => <UsePhoneCode userData={user.attributes} />}
-          />
-          <Route
-            exact
-            path="/Customersupport"
-            component={() => <Customersupport userData={user.attributes} />}
-          />
-          {/* <Route
+
+      <div>
+        <Route
+          exact
+          path="/"
+          component={() => <Report userData={user.attributes} param1={null} />}
+        />
+        <Route
+          exact
+          path="/Profile"
+          component={() => <Profile userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Wallet"
+          component={() => <Wallet userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Allsubs"
+          component={() => <AllSubscription userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Accounts"
+          component={() => <Accounts userData={user.attributes} />}
+        />
+        {/* <Route exact path="/Home" component={Home} /> */}
+        <Route
+          exact
+          path="/Transaction"
+          component={() => <Transaction userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Notification"
+          component={() => <Notification userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Subscription"
+          component={() => <Subscription userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Subscription2"
+          component={() => <Subscription2 userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Crew"
+          component={() => <Crew userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Crew2"
+          component={() => <Crew2 userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/OneSub"
+          component={() => <OneSub userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/WalletActivity"
+          component={() => <WalletActivity userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Onboarding"
+          component={() => <Onboarding userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/TermofService"
+          component={() => <TermofService userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/UsePhone"
+          component={() => <UsePhone userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/UsePhoneCode"
+          component={() => <UsePhoneCode userData={user.attributes} />}
+        />
+        <Route
+          exact
+          path="/Customersupport"
+          component={() => <Customersupport userData={user.attributes} />}
+        />
+        {/* <Route
 
 							exact
 							path="/Following"
@@ -236,10 +245,20 @@ const AuthStateApp = (props) => {
 								<Followers userData={user.attributes} client={props.client} />
 							)}
 						/> */}
-          {/* Component with no routes are sent to signout prompt */}
-          <AmplifySignOut />
-        </div>
-      </Router>
+        {/* Component with no routes are sent to signout prompt */}
+        {(() => {
+          if (
+            (path == "/") |
+            (path == "/Subscription") |
+            (path == "/Subscription2") |
+            (path == "/Crew") |
+            (path == "/Crew2")
+          ) {
+            return <BottomNavigation value={value} setValue={setValue} />;
+          }
+        })()}
+        <AmplifySignOut />
+      </div>
     </div>
   ) : (
     <AmplifyAuthenticator>

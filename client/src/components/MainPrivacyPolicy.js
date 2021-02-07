@@ -18,7 +18,7 @@ function Main(props) {
   return (
     <div style={{ backgroundColor: "white" }}>
       <iframe
-        src="https://www.sureplus.io/terms-of-service"
+        src="https://www.sureplus.io/privacy-policy"
         style={{
           margin: 0,
           padding: 0,
