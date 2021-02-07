@@ -47,30 +47,33 @@ const AuthStateApp = (props) => {
       setAuthState(nextAuthState);
       setUser(authData);
     });
-
-    const messaging = firebase.messaging();
-
-    messaging
-      .getToken()
-      .then((token) => {
-        console.log("Token: ", token);
-      })
-      .catch(() => {
-        console.log("error occured");
-      });
-
-    new Promise((resolve) => {
-      messaging.onMessage((payload) => {
-        console.log("payload", payload);
-        setShow(true);
-        setNotification({
-          title: payload.notification.title,
-          body: payload.notification.body,
-        });
-        resolve(payload);
-      });
-    });
   }, [user, authState]);
+
+  useEffect(() => {
+    if (firebase.messaging.isSupported()) {
+      const messaging = firebase.messaging();
+      messaging
+        .getToken()
+        .then((token) => {
+          console.log("Token: ", token);
+        })
+        .catch((e) => {
+          console.log(e, "error occured");
+        });
+
+      new Promise((resolve) => {
+        messaging.onMessage((payload) => {
+          console.log("payload", payload);
+          setShow(true);
+          setNotification({
+            title: payload.notification.title,
+            body: payload.notification.body,
+          });
+          resolve(payload);
+        });
+      });
+    }
+  }, []);
 
   return authState == AuthState.SignedIn && user ? (
     <div className="App">

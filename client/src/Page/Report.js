@@ -68,7 +68,6 @@ export function Report(props) {
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);
-    console.log(subscriptions);
   }
 
   useEffect(() => {
