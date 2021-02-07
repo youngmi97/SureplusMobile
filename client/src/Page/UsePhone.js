@@ -16,19 +16,35 @@ function Onboarding() {
   const [number, setNumber] = useState("0000000000");
   const [first, setFirst] = useState(true);
   const [index, setIndex] = useState(0);
+  const [realindex, setRealIndex] = useState(3);
 
   const makeText = (a) => {
     if (index < 10 || a == "del") {
       if (a == "del") {
         if (index > 0) {
           setNumber(number.replaceAt(index - 1, String(0)));
+          makeIndex(index - 1);
           setIndex(index - 1);
         }
       } else {
         setNumber(number.replaceAt(index, String(a)));
+        makeIndex(index + 1);
         setIndex(index + 1);
       }
-    } else {
+    }
+  };
+
+  const makeIndex = (index) => {
+    if (index < 1) {
+      setRealIndex(4);
+    } else if (index < 3) {
+      setRealIndex(4 + index);
+    } else if (index < 4) {
+      setRealIndex(5 + index);
+    } else if (index < 7) {
+      setRealIndex(6 + index);
+    } else if (index >= 7) {
+      setRealIndex(7 + index);
     }
   };
 
@@ -96,29 +112,59 @@ function Onboarding() {
               >
                 {"+1 (" +
                   initialNumber.slice(0, 3) +
-                  ") " +
+                  ")-" +
                   initialNumber.slice(3, 6) +
-                  " " +
+                  "-" +
                   initialNumber.slice(6)}
               </Typography>
             );
           } else {
             return (
-              <Typography
+              <div
                 style={{
-                  fontWeight: 400,
-                  color: "black",
-                  fontSize: "2.7vh",
-                  marginTop: "1.82vh",
+                  display: "flex",
+                  flexDirection: "row",
                 }}
               >
-                {"+1 (" +
-                  number.slice(0, 3) +
-                  ") " +
-                  number.slice(3, 6) +
-                  " " +
-                  number.slice(6)}
-              </Typography>
+                <Typography
+                  style={{
+                    fontWeight: 400,
+                    color: "black",
+                    fontSize: "2.7vh",
+                    margin: 0,
+                    padding: 0,
+                    marginTop: "1.82vh",
+                  }}
+                >
+                  {(
+                    "+1 (" +
+                    number.slice(0, 3) +
+                    ")-" +
+                    number.slice(3, 6) +
+                    "-" +
+                    number.slice(6)
+                  ).substr(0, realindex)}
+                </Typography>
+                <Typography
+                  style={{
+                    fontWeight: 400,
+                    color: "gray",
+                    fontSize: "2.7vh",
+                    margin: 0,
+                    padding: 0,
+                    marginTop: "1.82vh",
+                  }}
+                >
+                  {(
+                    "+1 (" +
+                    number.slice(0, 3) +
+                    ")-" +
+                    number.slice(3, 6) +
+                    "-" +
+                    number.slice(6)
+                  ).substr(realindex)}
+                </Typography>
+              </div>
             );
           }
         })()}
@@ -497,9 +543,9 @@ function Onboarding() {
             param1:
               "+1 (" +
               number.slice(0, 3) +
-              ") " +
+              ")-" +
               number.slice(3, 6) +
-              " " +
+              "-" +
               number.slice(6),
           }}
         >
