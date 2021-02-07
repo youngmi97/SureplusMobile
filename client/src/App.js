@@ -3,6 +3,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
+import { Toast } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import Subscription from "./Page/Subscription";
 import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
@@ -36,27 +39,66 @@ import TermofService from "./Page/TermofService";
 const AuthStateApp = (props) => {
   const [user, setUser] = useState();
   const [authState, setAuthState] = useState();
+  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
       setUser(authData);
+    });
 
-      const messaging = firebase.messaging();
+    const messaging = firebase.messaging();
 
-      messaging
-        .getToken()
-        .then((token) => {
-          console.log("Token: ", token);
-        })
-        .catch(() => {
-          console.log("error occured");
+    messaging
+      .getToken()
+      .then((token) => {
+        console.log("Token: ", token);
+      })
+      .catch(() => {
+        console.log("error occured");
+      });
+
+    new Promise((resolve) => {
+      messaging.onMessage((payload) => {
+        console.log("payload", payload);
+        setShow(true);
+        setNotification({
+          title: payload.notification.title,
+          body: payload.notification.body,
         });
+        resolve(payload);
+      });
     });
   }, [user, authState]);
 
   return authState == AuthState.SignedIn && user ? (
     <div className="App">
+      <Toast
+        onClose={() => setShow(false)}
+        show={show}
+        delay={3000}
+        autohide
+        animation
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          minWidth: 200,
+        }}
+      >
+        <Toast.Header>
+          <img
+            src="images/SureplusFavicon.png"
+            className="rounded mr-2"
+            style={{ width: "10px", height: "10px" }}
+            alt=""
+          />
+          <strong className="mr-auto">{notification.title}</strong>
+          <small>just now</small>
+        </Toast.Header>
+        <Toast.Body>{notification.body}</Toast.Body>
+      </Toast>
       <Router>
         <div>
           <Route
