@@ -63,7 +63,9 @@ class PlaidLogin extends Component {
           userData: this.props.userData.sub,
         }
       )
-      .then((response) =>
+      .then((response) => {
+        console.log("access token", response.data.access_token);
+        // add the plaidToken from response.data.access_token
         axios
           .get(
             "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/transactions"
@@ -76,8 +78,8 @@ class PlaidLogin extends Component {
             console.log("accountsCount", this.state.accounts.length);
             console.log("accounts", this.state.accounts);
             console.log("transactionsCount", this.state.transactions.length);
-          })
-      );
+          });
+      });
     console.log("handleOnSuccess");
   }
 

@@ -1,8 +1,9 @@
 //Home, Report
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 
+import { AuthContext } from "../context/auth";
 import ListCard2 from "./ListCard7";
 import ListCard from "./ListCard6";
 import { Link } from "react-router-dom";
@@ -23,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Subscribe(props) {
+function Subscribe() {
+  const { subscriptions } = useContext(AuthContext);
   const today = new Date();
 
   function get_date(today, day) {
@@ -88,7 +90,7 @@ function Subscribe(props) {
           <Typography className={classes.ListItemSize2}>
             Upcoming Subscriptions
           </Typography>
-          {props.list.slice(0, 2).map((array, index) => {
+          {subscriptions.slice(0, 2).map((array, index) => {
             return (
               <div>
                 <Button
@@ -199,7 +201,7 @@ function Subscribe(props) {
           <Typography className={classes.ListItemSize2}>
             Wallet Activity
           </Typography>
-          {props.list.slice(0, 2).map((array, index) => {
+          {subscriptions.slice(0, 2).map((array, index) => {
             return (
               <ListCard2
                 r1="0px"

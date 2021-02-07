@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
-
+import { API, graphqlOperation } from "aws-amplify";
 import gql from "graphql-tag";
 
 import {
@@ -10,6 +10,7 @@ import {
   accountByUser,
 } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
+import { AuthContext } from "../context/auth";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Report(props) {
+  const { subscriptions, setSubscriptions } = useContext(AuthContext);
   const location = useLocation();
 
   var num = 0;
@@ -67,10 +69,14 @@ export function Report(props) {
     op = true;
   }
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
   //console.log("Report Client", props.client);
 
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
@@ -78,23 +84,6 @@ export function Report(props) {
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
-
-  try {
-    props.client
-      .query({
-        query: gql(serviceByUser),
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.serviceByUser.items);
-      });
-  } catch (e) {
-    console.log("query error", e);
-  }
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -107,29 +96,22 @@ export function Report(props) {
     setOpen(open);
   };
 
-  const callServiceByUser = () => {
-    try {
-      console.log("sub", props.userData);
-      props.client
-        .query({
-          query: gql(serviceByUser),
-          fetchPolicy: "network-only",
-          variables: { userID: props.userData.sub },
-        })
-        .then(({ data }) => {
-          console.log("data", data);
-          setData(data.serviceByUser.items);
-        });
-    } catch (e) {
-      console.log("query error", e);
-    }
-  };
+  async function callServiceByUser() {
+    const subscriptionData = await API.graphql({
+      query: serviceByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setSubscriptions(subscriptionData.data.serviceByUser.items);
+  }
 
   useEffect(() => {
     callServiceByUser();
   }, []);
 
   const onRefresh = () => {
+    console.log("refreshed");
     return Promise.all([
       new Promise((resolve) => setTimeout(resolve, 2000)),
     ]).then(callServiceByUser());
