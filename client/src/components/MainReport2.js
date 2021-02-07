@@ -1,6 +1,9 @@
 //Home, Wallet
 
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
+import { API, graphqlOperation } from "aws-amplify";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 import gql from "graphql-tag";
@@ -28,27 +31,25 @@ const useStyles = makeStyles((theme) => ({
 
 function Subscribe(props) {
   const classes = useStyles();
-  const [data, setData] = React.useState([]);
+  const [subscriptions, setSubscriptions] = React.useState([]);
   const [data1, setData1] = React.useState([]);
   const [num, setNum] = React.useState("");
 
-  try {
-    props.client
-      .query({
-        query: gql(accountByUser),
-
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.accountByUser.items);
-        setNum(data.accountByUser.items.length);
-      });
-  } catch (e) {
-    console.log("query error", e);
+  async function callaccountByUser() {
+    const subscriptionData = await API.graphql({
+      query: accountByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setSubscriptions(subscriptionData.data.accountByUser.items);
+    setNum(subscriptionData.data.accountByUser.items.length);
+    console.log(subscriptions);
   }
 
-  console.log(data);
-  console.log(data1);
+  useEffect(() => {
+    callaccountByUser();
+  }, []);
 
   return (
     <div
@@ -88,14 +89,14 @@ function Subscribe(props) {
           <Typography className={classes.ListItemSize2}>
             {"Physical Cards " + num}
           </Typography>
-          {data.map((array, index) => {
+          {subscriptions.map((array, index) => {
             return (
               <Button
                 component={Link}
                 to={{
                   pathname: "/Wallet",
                   param1: index,
-                  param2: data.length,
+                  param2: subscriptions.length,
                 }}
                 style={{ margin: 0, padding: 0, width: "100%" }}
               >

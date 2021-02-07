@@ -223,7 +223,7 @@ function FirstLinkDrawer(props) {
                 >
                   <img
                     alt="name"
-                    src="Done.gif"
+                    src="Done.svg"
                     style={{ width: "16.27vh", height: "16.27vh" }}
                   ></img>
                   <Typography

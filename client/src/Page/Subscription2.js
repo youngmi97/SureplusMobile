@@ -1,6 +1,7 @@
-import React from "react";
-
 import "../App.css";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
+import { API, graphqlOperation } from "aws-amplify";
 import AppBar from "../components/Appbar3";
 import Main from "../components/MainSubscribe2";
 import gql from "graphql-tag";
@@ -13,6 +14,7 @@ import Loading from "../components/Loading";
 import BottomNavigation from "../components/BottomNavigation";
 
 function Subscription(props) {
+  const { subscriptions, setSubscriptions } = useContext(AuthContext);
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -21,18 +23,20 @@ function Subscription(props) {
     });
   };
   const [data, setData] = React.useState([]);
-  try {
-    props.client
-      .query({
-        query: gql(serviceByUser),
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.serviceByUser.items);
-      });
-  } catch (e) {
-    console.log("query error", e);
+
+  async function callServiceByUser() {
+    const subscriptionData = await API.graphql({
+      query: serviceByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
+
+  useEffect(() => {
+    callServiceByUser();
+  }, []);
   const [value, setValue] = React.useState(1);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
@@ -68,7 +72,7 @@ function Subscription(props) {
               alignContent: "center",
             }}
           >
-            <Main list={data} />
+            <Main list={subscriptions} />
           </div>
         </PullToRefresh>
       </div>
