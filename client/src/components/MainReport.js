@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 
-import { AuthContext } from "../context/auth";
+import { SubscriptionContext } from "../context/subscriptions";
 import ListCard2 from "./ListCard7";
 import ListCard from "./ListCard6";
 import { Link } from "react-router-dom";
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Subscribe() {
-  const { subscriptions } = useContext(AuthContext);
+  const { subscriptions } = useContext(SubscriptionContext);
+  console.log(subscriptions);
   const today = new Date();
 
   function get_date(today, day) {

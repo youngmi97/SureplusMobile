@@ -1,68 +1,27 @@
 import React, { useContext, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
-import gql from "graphql-tag";
 
-import {
-  serviceByUser,
-  serviceByUserAccount,
-  accountByUser,
-} from "../graphql/queries";
+import { serviceByUser } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
-import { AuthContext } from "../context/auth";
+import { SubscriptionContext } from "../context/subscriptions";
 
-import {
-  onCreateSubscriptionServices,
-  onUpdateSubscriptionServices,
-} from "../graphql/subscriptions";
+import { onCreateSubscriptionServices } from "../graphql/subscriptions";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
 import Main2 from "../components/MainReport2";
 import Typography from "@material-ui/core/Typography";
 
+import { useStyles } from "../styles/Report.style";
 import { Link, useLocation } from "react-router-dom";
-import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
-//import { AuthContext } from "../context/auth";
-
-import Loading from "../components/Loading";
 import FirstLinkDrawer from "../components/FirstLinkDrawer";
-
-const drawerWidth = "75vw";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawer: {
-    width: drawerWidth,
-    maxHeight: "100vh",
-    overflow: "hidden",
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    maxHeight: "100vh",
-    overflow: "hidden",
-  },
-}));
+import Loading from "../components/Loading";
 
 export function Report(props) {
-  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const { subscriptions, setSubscriptions } = useContext(SubscriptionContext);
   const location = useLocation();
 
   var num = 0;
@@ -85,10 +44,6 @@ export function Report(props) {
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
-  const [data1, setData1] = React.useState([]);
-
-  //const context = useContext(AuthContext);
-  //props.userData.sub --> userID used for query
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -141,7 +96,6 @@ export function Report(props) {
           position="absolute"
           style={{
             width: "100%",
-            height: "5.73vh",
           }}
         >
           <div style={{ width: "100%" }}>
@@ -233,7 +187,7 @@ export function Report(props) {
             >
               {(() => {
                 if (ind == 0) {
-                  return <Main list={data} />;
+                  return <Main list={subscriptions} />;
                 } else {
                   return (
                     <Main2 client={props.client} userData={props.userData} />
@@ -328,7 +282,6 @@ export function Report(props) {
           style={{
             margin: 0,
             padding: 0,
-
             display: "flex",
             flexDirection: "row",
             alignItems: "center",

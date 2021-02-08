@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AuthProvider, AuthContext } from "./context/auth";
+import { SubscriptionProvider, UserProvider, AuthProvider } from "./context/";
 
 //import gql from "graphql-tag";
 import AWSAppSyncClient, { AUTH_TYPE } from "aws-appsync";
@@ -37,15 +37,19 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <AuthProvider>
-    <ApolloProvider client={client}>
-      <MuiThemeProvider theme={theme}>
-        <div style={{ paddingTop: 10 }}>
-          <Router>
-            <App />
-          </Router>
-        </div>
-      </MuiThemeProvider>
-    </ApolloProvider>
+    <UserProvider>
+      <SubscriptionProvider>
+        <ApolloProvider client={client}>
+          <MuiThemeProvider theme={theme}>
+            <div style={{ paddingTop: 10 }}>
+              <Router>
+                <App />
+              </Router>
+            </div>
+          </MuiThemeProvider>
+        </ApolloProvider>
+      </SubscriptionProvider>
+    </UserProvider>
   </AuthProvider>,
   document.getElementById("root")
 );

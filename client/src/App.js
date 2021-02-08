@@ -1,13 +1,12 @@
-import "./App.css";
 import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Route } from "react-router-dom";
 import Report from "./Page/Report";
 
 //import { Toast } from "react-bootstrap";
 //import "bootstrap/dist/css/bootstrap.min.css";
 
 import { API, graphqlOperation } from "aws-amplify";
-import { UpdateUserNotification, updateUser } from "./graphql/mutations";
+import { updateUser } from "./graphql/mutations";
 import { getUser } from "./graphql/queries";
 
 import Subscription from "./Page/Subscription";
@@ -26,7 +25,6 @@ import WalletActivity from "./Page/WalletActivity";
 import OneSub from "./Page/OneSub";
 import Customersupport from "./Page/CustomerSupport";
 import AllSubscription from "./Page/Allsubscription";
-import PrivacyPolicy from "./Page/PrivacyPolicy";
 
 import BottomNavigation from "./components/BottomNavigation";
 
@@ -34,21 +32,22 @@ import firebase from "./firebase";
 
 import {
   AmplifyAuthenticator,
-  AmplifySignOut,
   AmplifySignUp,
   AmplifySignIn,
+  AmplifySignOut,
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
-import { AuthProvider, AuthContext } from "./context/auth";
-import { Link, useLocation } from "react-router-dom";
+import { UserContext, AuthContext } from "./context/";
+import { useLocation } from "react-router-dom";
 import TermofService from "./Page/TermofService";
 
 const AuthStateApp = (props) => {
-  const [user, setUser] = useState();
+  const { user, setUser } = useContext(UserContext);
+  const { authState, setAuthState } = useContext(AuthContext);
+
   const location = useLocation();
   const path = location.pathname;
-  const [authState, setAuthState] = useState();
   const [value, setValue] = React.useState(0);
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [show, setShow] = useState(false);
@@ -78,14 +77,10 @@ const AuthStateApp = (props) => {
   }
 
   useEffect(() => {
-    const messaging = firebase.messaging();
-
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
       setUser(authData);
-
-      //check firebase.messaging.isSupported();
-
+      const messaging = firebase.messaging();
       messaging
         .getToken()
         .then((token) => {
@@ -95,20 +90,20 @@ const AuthStateApp = (props) => {
         .catch(() => {
           console.log("error occured");
         });
-    });
 
-    new Promise((resolve) => {
-      messaging.onMessage((payload) => {
-        console.log("payload", payload);
-        setShow(true);
-        setNotification({
-          title: payload.notification.title,
-          body: payload.notification.body,
+      new Promise((resolve) => {
+        messaging.onMessage((payload) => {
+          console.log("payload", payload);
+          setShow(true);
+          setNotification({
+            title: payload.notification.title,
+            body: payload.notification.body,
+          });
+          resolve(payload);
         });
-        resolve(payload);
       });
     });
-  }, []);
+  }, [user, authState]);
 
   return authState == AuthState.SignedIn && user ? (
     <div style={{ backgroundColor: "#f1f2f4" }}>
@@ -139,110 +134,53 @@ const AuthStateApp = (props) => {
       </Toast> */}
 
       <div>
-        <Route
-          exact
-          path="/"
-          component={() => <Report userData={user.attributes} param1={null} />}
-        />
-        <Route
-          exact
-          path="/Profile"
-          component={() => <Profile userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Wallet"
-          component={() => <Wallet userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Allsubs"
-          component={() => <AllSubscription userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Accounts"
-          component={() => <Accounts userData={user.attributes} />}
-        />
-        {/* <Route exact path="/Home" component={Home} /> */}
-        <Route
-          exact
-          path="/Transaction"
-          component={() => <Transaction userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Notification"
-          component={() => <Notification userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Subscription"
-          component={() => <Subscription userData={user.attributes} />}
-        />
+        <Route exact path="/" component={() => <Report />} />
+        <Route exact path="/Profile" component={() => <Profile />} />
+        <Route exact path="/Wallet" component={() => <Wallet />} />
+        <Route exact path="/Allsubs" component={() => <AllSubscription />} />
+        <Route exact path="/Accounts" component={() => <Accounts />} />
+        <Route exact path="/Transaction" component={() => <Transaction />} />
+        <Route exact path="/Notification" component={() => <Notification />} />
+        <Route exact path="/Subscription" component={() => <Subscription />} />
         <Route
           exact
           path="/Subscription2"
-          component={() => <Subscription2 userData={user.attributes} />}
+          component={() => <Subscription2 />}
         />
-        <Route
-          exact
-          path="/Crew"
-          component={() => <Crew userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Crew2"
-          component={() => <Crew2 userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/OneSub"
-          component={() => <OneSub userData={user.attributes} />}
-        />
+        <Route exact path="/Crew" component={() => <Crew />} />
+        <Route exact path="/Crew2" component={() => <Crew2 />} />
+        <Route exact path="/OneSub" component={() => <OneSub />} />
         <Route
           exact
           path="/WalletActivity"
-          component={() => <WalletActivity userData={user.attributes} />}
+          component={() => <WalletActivity />}
         />
-        <Route
-          exact
-          path="/Onboarding"
-          component={() => <Onboarding userData={user.attributes} />}
-        />
+        <Route exact path="/Onboarding" component={() => <Onboarding />} />
         <Route
           exact
           path="/TermofService"
-          component={() => <TermofService userData={user.attributes} />}
+          component={() => <TermofService />}
         />
-        <Route
-          exact
-          path="/UsePhone"
-          component={() => <UsePhone userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/UsePhoneCode"
-          component={() => <UsePhoneCode userData={user.attributes} />}
-        />
+        <Route exact path="/UsePhone" component={() => <UsePhone />} />
+        <Route exact path="/UsePhoneCode" component={() => <UsePhoneCode />} />
         <Route
           exact
           path="/Customersupport"
-          component={() => <Customersupport userData={user.attributes} />}
+          component={() => <Customersupport />}
         />
         {/* <Route
 
 							exact
 							path="/Following"
 							component={() => (
-								<Following userData={user.attributes} client={props.client} />
+								<Following   client={props.client} />
 							)}
 						/>
 						<Route
 							exact
 							path="/Followers"
 							component={() => (
-								<Followers userData={user.attributes} client={props.client} />
+								<Followers   client={props.client} />
 							)}
 						/> */}
         {/* Component with no routes are sent to signout prompt */}
@@ -257,7 +195,7 @@ const AuthStateApp = (props) => {
             return <BottomNavigation value={value} setValue={setValue} />;
           }
         })()}
-        {/* <AmplifySignOut /> */}
+        <AmplifySignOut />
       </div>
     </div>
   ) : (
