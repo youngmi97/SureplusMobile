@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
@@ -30,7 +30,7 @@ import PrivacyPolicy from "./Page/PrivacyPolicy";
 
 import BottomNavigation from "./components/BottomNavigation";
 
-import firebase from "./firebase";
+// import firebase from "./firebase";
 
 import {
   AmplifyAuthenticator,
@@ -67,7 +67,7 @@ const AuthStateApp = (props) => {
       firebaseTokenList.push(token);
     }
 
-    const updateFirebaseToken = await API.graphql(
+    const updateNotificationToken = await API.graphql(
       graphqlOperation(updateUser, {
         input: {
           id: authData.attributes.sub,
@@ -78,7 +78,7 @@ const AuthStateApp = (props) => {
   }
 
   useEffect(() => {
-    const messaging = firebase.messaging();
+    // const messaging = firebase.messaging();
 
     onAuthUIStateChange((nextAuthState, authData) => {
       setAuthState(nextAuthState);
@@ -86,58 +86,31 @@ const AuthStateApp = (props) => {
 
       //check firebase.messaging.isSupported();
 
-      messaging
-        .getToken()
-        .then((token) => {
-          console.log("Token: ", token);
-          updateFirebaseToken(authData, token);
-        })
-        .catch(() => {
-          console.log("error occured");
-        });
+      // messaging
+      //   .getToken()
+      //   .then((token) => {
+      //     console.log("Token: ", token);
+      //     updateFirebaseToken(authData, token);
+      //   })
+      //   .catch(() => {
+      //     console.log("error occured");
+      //   });
     });
 
-    new Promise((resolve) => {
-      messaging.onMessage((payload) => {
-        console.log("payload", payload);
-        setShow(true);
-        setNotification({
-          title: payload.notification.title,
-          body: payload.notification.body,
-        });
-        resolve(payload);
-      });
-    });
+    // new Promise((resolve) => {
+    //   messaging.onMessage((payload) => {
+    //     console.log("payload", payload);
+    //     setShow(true);
+    //     setNotification({
+    //       title: payload.notification.title,
+    //       body: payload.notification.body,
+    //     });
+    //     resolve(payload);
+    //   });
   }, []);
 
   return authState == AuthState.SignedIn && user ? (
     <div style={{ backgroundColor: "#f1f2f4" }}>
-      {/* <Toast
-        onClose={() => setShow(false)}
-        show={show}
-        delay={3000}
-        autohide
-        animation
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          minWidth: 200,
-        }}
-      >
-        <Toast.Header>
-          <img
-            src="images/SureplusFavicon.png"
-            className="rounded mr-2"
-            style={{ width: "10px", height: "10px" }}
-            alt=""
-          />
-          <strong className="mr-auto">{notification.title}</strong>
-          <small>just now</small>
-        </Toast.Header>
-        <Toast.Body>{notification.body}</Toast.Body>
-      </Toast> */}
-
       <div>
         <Route
           exact
