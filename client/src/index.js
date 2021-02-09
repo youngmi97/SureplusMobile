@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { AuthProvider, AuthContext } from "./context/auth";
 
 //import gql from "graphql-tag";
 import AWSAppSyncClient, { AUTH_TYPE } from "aws-appsync";
@@ -14,7 +15,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { ApolloProvider } from "react-apollo";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
+// import { Rehydrated } from "aws-appsync-react";
 //import { withAuthenticator } from 'aws-amplify-react';
 Amplify.configure(AppSyncConfig);
 
@@ -35,13 +36,17 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <MuiThemeProvider theme={theme}>
-      <Router>
-        <App client={client} />
-      </Router>
-    </MuiThemeProvider>
-  </ApolloProvider>,
+  <AuthProvider>
+    <ApolloProvider client={client}>
+      <MuiThemeProvider theme={theme}>
+        <div style={{ paddingTop: 10 }}>
+          <Router>
+            <App />
+          </Router>
+        </div>
+      </MuiThemeProvider>
+    </ApolloProvider>
+  </AuthProvider>,
   document.getElementById("root")
 );
 

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
-
+import { API, graphqlOperation } from "aws-amplify";
 import gql from "graphql-tag";
 
 import {
@@ -10,6 +10,12 @@ import {
   accountByUser,
 } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
+import { AuthContext } from "../context/auth";
+
+import {
+  onCreateSubscriptionServices,
+  onUpdateSubscriptionServices,
+} from "../graphql/subscriptions";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -23,6 +29,7 @@ import { Box, Button } from "@material-ui/core";
 //import { AuthContext } from "../context/auth";
 
 import Loading from "../components/Loading";
+import FirstLinkDrawer from "../components/FirstLinkDrawer";
 
 const drawerWidth = "75vw";
 
@@ -55,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Report(props) {
+  const { subscriptions, setSubscriptions } = useContext(AuthContext);
   const location = useLocation();
 
   var num = 0;
@@ -66,10 +74,14 @@ export function Report(props) {
     op = true;
   }
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
   //console.log("Report Client", props.client);
 
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
   const [data, setData] = React.useState([]);
@@ -77,23 +89,6 @@ export function Report(props) {
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
-
-  try {
-    props.client
-      .query({
-        query: gql(serviceByUser),
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.serviceByUser.items);
-      });
-  } catch (e) {
-    console.log("query error", e);
-  }
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -106,36 +101,41 @@ export function Report(props) {
     setOpen(open);
   };
 
-  const callServiceByUser = () => {
-    try {
-      console.log("sub", props.userData);
-      props.client
-        .query({
-          query: gql(serviceByUser),
-          fetchPolicy: "network-only",
-          variables: { userID: props.userData.sub },
-        })
-        .then(({ data }) => {
-          console.log("data", data);
-          setData(data.serviceByUser.items);
-        });
-    } catch (e) {
-      console.log("query error", e);
-    }
-  };
+  // Listen to Service Creation Event
+  async function waitCreateSubs() {
+    const serviceCreated = await API.graphql(
+      graphqlOperation(onCreateSubscriptionServices)
+    ).subscribe({
+      next: (serviceData) => {
+        console.log("CREATED", serviceData);
+      },
+    });
+  }
+
+  async function callServiceByUser() {
+    const subscriptionData = await API.graphql({
+      query: serviceByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setSubscriptions(subscriptionData.data.serviceByUser.items);
+  }
 
   useEffect(() => {
     callServiceByUser();
+    waitCreateSubs();
   }, []);
 
   const onRefresh = () => {
+    console.log("refreshed");
     return Promise.all([
       new Promise((resolve) => setTimeout(resolve, 2000)),
     ]).then(callServiceByUser());
   };
 
   return (
-    <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
+    <div>
       <div>
         <div
           position="absolute"
@@ -437,8 +437,42 @@ export function Report(props) {
           </Typography>
         </Button>
 
+        <Button
+          component={Link}
+          to="/PrivacyPolicy"
+          style={{
+            margin: 0,
+            padding: 0,
+
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            marginTop: 6,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 12,
+            paddingBottom: 12,
+            height: 48,
+            textTransform: "none",
+          }}
+        >
+          <Typography
+            style={{
+              margin: 0,
+              padding: 0,
+              fontWeight: 500,
+              fontSize: 17,
+              alignItems: "center",
+            }}
+          >
+            Privacy Policy
+          </Typography>
+        </Button>
+
         {/* Customer Support */}
       </Drawer>
+      <FirstLinkDrawer userData={props.userData} />
     </div>
   );
 }

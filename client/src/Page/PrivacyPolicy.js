@@ -13,7 +13,7 @@ import React from "react";
 import "../App.css";
 
 import AppBar from "../components/AppbarTran";
-import Main from "../components/MainTermofService";
+import Main from "../components/MainPrivacyPolicy";
 
 function TermofService(props) {
   return (
@@ -32,7 +32,7 @@ function TermofService(props) {
           backgroundColor: "white",
         }}
       >
-        <AppBar name={"Term of Service"} link={"/"} />
+        <AppBar name={"Privacy Policy"} link={"/"} />
       </div>
       <div
         style={{

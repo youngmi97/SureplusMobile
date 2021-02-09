@@ -1,6 +1,42 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateUserNotification = /* GraphQL */ `
+  subscription OnCreateUserNotification {
+    onCreateUserNotification {
+      id
+      userID
+      serviceName
+      createdAt
+      type
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserNotification = /* GraphQL */ `
+  subscription OnUpdateUserNotification {
+    onUpdateUserNotification {
+      id
+      userID
+      serviceName
+      createdAt
+      type
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserNotification = /* GraphQL */ `
+  subscription OnDeleteUserNotification {
+    onDeleteUserNotification {
+      id
+      userID
+      serviceName
+      createdAt
+      type
+      updatedAt
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
@@ -8,6 +44,7 @@ export const onCreateUser = /* GraphQL */ `
       name
       phone_number
       plaidToken
+      firebaseToken
       createdAt
       type
       updatedAt
@@ -21,6 +58,7 @@ export const onUpdateUser = /* GraphQL */ `
       name
       phone_number
       plaidToken
+      firebaseToken
       createdAt
       type
       updatedAt
@@ -34,6 +72,7 @@ export const onDeleteUser = /* GraphQL */ `
       name
       phone_number
       plaidToken
+      firebaseToken
       createdAt
       type
       updatedAt

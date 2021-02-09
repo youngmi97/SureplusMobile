@@ -2,48 +2,76 @@ import React, { useReducer, createContext } from "react";
 
 const AuthContext = createContext({
   user: null,
-  login: (userData) => {},
-  logout: () => {},
+  authState: null,
+  subscriptions: [],
 });
 
 function authReducer(state, action) {
   switch (action.type) {
-    case "LOGIN":
+    case "SET_USER":
       return {
         ...state,
         user: action.payload,
       };
-    case "LOGOUT":
+    case "SET_AUTHSTATE":
       return {
         ...state,
-        user: null,
+        authState: action.payload,
       };
+    case "SET_SUBSCRIPTIONS":
+      return {
+        ...state,
+        subscriptions: action.payload,
+      };
+
     default:
       return state;
   }
 }
 
 function AuthProvider(props) {
-  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const [state, dispatch] = useReducer(authReducer, {
+    user: null,
+    authState: null,
+    subscriptions: [],
+  });
 
-  // authReducer will listen to any dispatch actions
-  // passes down to component tree
-  function login(userData) {
+  function setUser(user) {
+    console.log("Setting User");
     dispatch({
-      type: "LOGIN",
-      payload: userData,
+      type: "SET_USER",
+      payload: user,
     });
   }
 
-  // dispatches an action with type LOGOUT
-  function logout() {
-    dispatch({ type: "LOGOUT" });
+  function setAuthState(authState) {
+    console.log("Setting auth state");
+    dispatch({
+      type: "SET_AUTHSTATE",
+      payload: authState,
+    });
+  }
+
+  // authReducer will listen to any dispatch actions
+  // passes down to component tree
+  function setSubscriptions(subscriptions) {
+    dispatch({
+      type: "SET_SUBSCRIPTIONS",
+      payload: subscriptions,
+    });
   }
 
   //value is what will be passed down to components under the following context provider
   return (
     <AuthContext.Provider
-      value={{ user: state.user, login, logout }}
+      value={{
+        user: state.user,
+        setUser,
+        subscriptions: state.subscriptions,
+        setSubscriptions,
+        authState: state.authState,
+        setAuthState,
+      }}
       {...props}
     />
   );
