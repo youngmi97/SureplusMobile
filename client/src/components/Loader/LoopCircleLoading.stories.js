@@ -1,15 +1,15 @@
-// YourComponent.stories.js
+// LoopCircleLoading.stories.js
 
 import React from "react";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingCircle from "./LoopCircleLoading";
 
 // This default export determines where your story goes in the story list
 export default {
-  title: "LoadingSpinner",
-  component: LoadingSpinner,
+  title: "Loader/Loading Circle",
+  component: LoadingCircle,
 };
 
-const Template = (args) => <LoadingSpinner />;
+const Template = (args) => <LoadingCircle />;
 
 export const FirstStory = Template.bind({});
 
