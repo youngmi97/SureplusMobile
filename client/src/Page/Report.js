@@ -4,11 +4,7 @@ import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
 import gql from "graphql-tag";
 
-import {
-  serviceByUser,
-  serviceByUserAccount,
-  accountByUser,
-} from "../graphql/queries";
+import { serviceByUser, getUser } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { AuthContext } from "../context/auth";
 
@@ -84,6 +80,8 @@ export function Report(props) {
 
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
+  const [openbottom, setOpenbottom] = React.useState(true);
+  const [link, setLink] = React.useState(false);
   const [data, setData] = React.useState([]);
   const [data1, setData1] = React.useState([]);
 
@@ -101,6 +99,11 @@ export function Report(props) {
     setOpen(open);
   };
 
+  const check_empty = (str) => {
+    if (str == "") {
+      setLink(true);
+    }
+  };
   // Listen to Service Creation Event
   async function waitCreateSubs() {
     const serviceCreated = await API.graphql(
@@ -122,9 +125,22 @@ export function Report(props) {
     setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
 
+  async function callgetUser() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: props.userData.sub,
+      },
+    });
+    console.log("data", linkData);
+    check_empty(linkData.data.getUser.plaidToken);
+  }
+
   useEffect(() => {
+    // callgetUser();
     callServiceByUser();
     waitCreateSubs();
+    setLink(true);
   }, []);
 
   const onRefresh = () => {
@@ -233,9 +249,23 @@ export function Report(props) {
             >
               {(() => {
                 if (ind == 0) {
-                  return <Main list={subscriptions} />;
+                  return (
+                    <Main
+                      list={subscriptions}
+                      empty={link}
+                      open={openbottom}
+                      setOpen={setOpenbottom}
+                    />
+                  );
                 } else {
-                  return <Main2 userData={props.userData} />;
+                  return (
+                    <Main2
+                      userData={props.userData}
+                      empty={link}
+                      open={openbottom}
+                      setOpen={setOpenbottom}
+                    />
+                  );
                 }
               })()}
             </div>
@@ -469,7 +499,11 @@ export function Report(props) {
 
         {/* Customer Support */}
       </Drawer>
-      <FirstLinkDrawer userData={props.userData} />
+      <FirstLinkDrawer
+        userData={props.userData}
+        open={openbottom}
+        setOpen={setOpenbottom}
+      />
     </div>
   );
 }

@@ -66,7 +66,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function FirstLinkDrawer(props) {
-  const [open, setOpen] = React.useState(true);
+  const open = props.open;
+  const setOpen = props.setOpen;
+
   const [state, setState] = React.useState(0);
 
   const handleClose = () => {
