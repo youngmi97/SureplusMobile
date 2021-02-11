@@ -45,6 +45,8 @@
     "semver": "^7.3.4",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
+    "workbox-webpack-plugin": "^6.1.0"
+
   },
   "scripts": {
     "start": "react-scripts start",
