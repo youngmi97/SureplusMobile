@@ -1,5 +1,7 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+
+import "./scss_ex.scss";
+import React, { useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
