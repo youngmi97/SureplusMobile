@@ -297,6 +297,7 @@ export function Report(props) {
             src="ProfileIcon.png"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
+          
           <Typography
             style={{
               margin: 0,
