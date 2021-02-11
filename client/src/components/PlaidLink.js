@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
 import axios from "axios";
 import "../App.css";
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 import { withRouter } from "react-router-dom";
 
 const useStyles = (theme) => ({
@@ -96,7 +96,7 @@ class PlaidLogin extends Component {
   // 2. Have to call the updateAccessToken function in one of the events --> not working well
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
       <PlaidLink
         clientName="React Plaid Setup"
