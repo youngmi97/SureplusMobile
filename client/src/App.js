@@ -1,10 +1,9 @@
 import "./App.css";
-<<<<<<< HEAD
+
+
 import "./scss_ex.scss";
 import React, { useEffect, useState, useContext } from "react";
-=======
-import React, { useEffect, useState } from "react";
->>>>>>> 39caf9d1517e9e2f0adbd637a914c68515a5f1bc
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Report from "./Page/Report";
 
