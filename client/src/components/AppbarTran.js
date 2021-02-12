@@ -14,24 +14,33 @@ function Appbar1(props) {
         alignItems="center"
         style={{ margin: 0, padding: 0, height: "5.72vh" }}
       >
-        <Box
-          Button
-          p={1}
-          style={{
-            position: "absolute",
-            margin: 0,
-            padding: 0,
-            left: "2.13vw",
-          }}
-          component={Link}
-          to={props.link}
-        >
-          <img
-            alt="name"
-            src="Back.svg"
-            style={{ width: "4.16vh", height: "4.16vh" }}
-          ></img>
-        </Box>
+        {(() => {
+          if (props.back == false) {
+            return <div></div>;
+          } else {
+            return (
+              <Box
+                Button
+                p={1}
+                style={{
+                  position: "absolute",
+                  margin: 0,
+                  padding: 0,
+                  left: "2.13vw",
+                }}
+                component={Link}
+                to={props.link}
+              >
+                <img
+                  alt="name"
+                  src="Back.svg"
+                  style={{ width: "4.16vh", height: "4.16vh" }}
+                ></img>
+              </Box>
+            );
+          }
+        })()}
+
         <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
           <Typography
             style={{
