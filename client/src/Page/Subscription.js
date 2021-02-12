@@ -8,7 +8,7 @@ import Main from "../components/MainSubscribe";
 
 import gql from "graphql-tag";
 
-import { serviceByUser } from "../graphql/queries";
+import { serviceByUser, getUser } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import BottomNavigation from "../components/BottomNavigation";
@@ -16,6 +16,26 @@ import Loading from "../components/Loading";
 
 function Subscription(props) {
   const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const [link, setLink] = React.useState(false);
+  props.setValue(1);
+
+  const check_empty = (str) => {
+    if (str == "") {
+      setLink(true);
+    }
+  };
+
+  async function callgetUser() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: props.userData.sub,
+      },
+    });
+    console.log("data", linkData);
+    check_empty(linkData.data.getUser.plaidToken);
+  }
+
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -36,6 +56,7 @@ function Subscription(props) {
   }
 
   useEffect(() => {
+    callgetUser();
     callServiceByUser();
   }, []);
   const [value, setValue] = React.useState(1);
@@ -81,7 +102,7 @@ function Subscription(props) {
               alignContent: "center",
             }}
           >
-            <Main list={subscriptions} />
+            <Main list={subscriptions} empty={link} />
           </div>
         </PullToRefresh>
       </div>

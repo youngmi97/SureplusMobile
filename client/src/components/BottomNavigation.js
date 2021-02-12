@@ -25,11 +25,11 @@ export default function BottomNav(props) {
       src="Property 1=Subscriptions.svg"
     ></img>
   );
-  const group = (
+  const tab = (
     <img
       alt="name"
       style={{ width: "3.92vh", height: "3.92vh" }}
-      src="Property 1=Group.svg"
+      src="Property 1=Tab.svg"
     ></img>
   );
 
@@ -136,26 +136,26 @@ export default function BottomNav(props) {
           return (
             <BottomNavigationAction
               component={Link}
-              to="/Crew"
+              to="/Notification"
               showLabel={true}
               label={
                 <Typography style={{ color: "black", fontSize: 12 }}>
-                  Groups
+                  Notifications
                 </Typography>
               }
               style={{ margin: 0, padding: 0, minWidth: "auto" }}
-              icon={group}
+              icon={tab}
             />
           );
         } else {
           return (
             <BottomNavigationAction
               component={Link}
-              to="/Crew"
+              to="/Notification"
               showLabel={true}
               label={
                 <Typography style={{ color: "black", fontSize: 12 }}>
-                  Groups
+                  Notifications
                 </Typography>
               }
               style={{
@@ -164,7 +164,7 @@ export default function BottomNav(props) {
                 minWidth: "auto",
                 opacity: 0.3,
               }}
-              icon={group}
+              icon={tab}
             />
           );
         }

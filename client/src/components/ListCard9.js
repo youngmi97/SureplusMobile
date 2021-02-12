@@ -6,41 +6,32 @@ import "../App.css";
 function ListCard2(props) {
   return (
     <div style={{ width: "100%", alignContent: "center" }}>
-      <Button
+      <div
         style={{
-          padding: 0,
-          marginTop: 16,
+          padding: "20px 16px 20px 16px",
           backgroundColor: "white",
           borderTopLeftRadius: props.r1,
           borderTopRightRadius: props.r2,
           borderBottomLeftRadius: props.r3,
           borderBottomRightRadius: props.r4,
           backdropFilter: "blur(28.14px)",
-          width: "100%",
-          height: "12.76vh",
           textTransform: "none",
+          marginTop: 10,
         }}
       >
         <Box
           display="flex"
           p={1}
-          alignItems="center"
           style={{
             margin: 0,
             padding: 0,
             width: "100%",
-            height: "12.76vh",
           }}
         >
-          <Box
-            p={1}
-            flexGrow={1}
-            style={{ margin: 0, padding: 0, marginLeft: 20 }}
-          >
+          <Box p={1} flexGrow={1} style={{ margin: 0, padding: 0 }}>
             <Box
               display="flex"
               p={1}
-              alignItems="center"
               style={{
                 margin: 0,
                 padding: 0,
@@ -48,7 +39,7 @@ function ListCard2(props) {
                 height: "100%",
               }}
             >
-              <Box p={1} style={{ margin: 0, padding: 0, marginRight: 16 }}>
+              <Box p={1} style={{ margin: 0, padding: 0, marginRight: "16px" }}>
                 <div
                   style={{
                     justifyContent: "center",
@@ -60,17 +51,19 @@ function ListCard2(props) {
                     alt="name"
                     src={props.src}
                     style={{
-                      width: "5.21vh",
-                      height: "5.21vh",
+                      width: "40px",
+                      height: "40px",
                       margin: 0,
                       padding: 0,
-                      borderRadius: "100%",
-                      paddingBottom: 16,
                     }}
                   ></img>
                 </div>
               </Box>
-              <Box p={1} style={{ margin: 0, padding: 0 }}>
+              <Box
+                p={1}
+                flexGrow={1}
+                style={{ margin: 0, padding: 0, width: "55%" }}
+              >
                 <Typography
                   style={{
                     fontSize: "14px",
@@ -87,17 +80,20 @@ function ListCard2(props) {
                     fontWeight: 400,
                     textAlign: "left",
                     color: "#000000",
-                    width: "65vw",
-                    marginTop: 5,
                   }}
                 >
                   {props.plan}
                 </Typography>
               </Box>
+              <Box>
+                <Typography style={{ fontSize: "10px", fontWeight: 400 }}>
+                  {props.day + "d ago"}
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Box>
-      </Button>
+      </div>
     </div>
   );
 }
