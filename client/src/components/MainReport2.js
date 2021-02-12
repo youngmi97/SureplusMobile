@@ -34,14 +34,11 @@ function Subscribe(props) {
   const [subscriptions, setSubscriptions] = React.useState([]);
   const [data1, setData1] = React.useState([]);
   const [num, setNum] = React.useState("");
-<<<<<<< HEAD
 
   const { user } = useContext(AuthContext);
 
-=======
   const open = props.open;
   const setOpen = props.setOpen;
->>>>>>> fb83dc23a9c49a7c3204559186d9b8e0841161e9
   async function callaccountByUser() {
     const subscriptionData = await API.graphql({
       query: accountByUser,
