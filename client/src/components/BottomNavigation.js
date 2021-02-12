@@ -46,7 +46,7 @@ export default function BottomNav(props) {
         height: "9.5vh",
         borderTopLeftRadius: "12px",
         borderTopRightRadius: "12px",
-        "& .MuiBottomNavigationAction-root": {
+        "& .MuiBottomNavigationActionRoot": {
           "@media (max-width: 768px)": {
             minWidth: "auto",
             padding: "0px",
