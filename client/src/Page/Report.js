@@ -233,11 +233,9 @@ export function Report(props) {
             >
               {(() => {
                 if (ind == 0) {
-                  return <Main list={data} />;
+                  return <Main list={subscriptions} />;
                 } else {
-                  return (
-                    <Main2 client={props.client} userData={props.userData} />
-                  );
+                  return <Main2 userData={props.userData} />;
                 }
               })()}
             </div>

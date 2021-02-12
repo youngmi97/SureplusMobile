@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
+import { API, graphqlOperation } from "aws-amplify";
 
 import "../App.css";
 import "../index.css";
@@ -9,42 +11,37 @@ import Main from "../components/MainWallet";
 import BottomNavigation from "../components/BottomNavigation";
 import { Link, useLocation } from "react-router-dom";
 import { serviceByUserAccount, accountByUser } from "../graphql/queries";
+import { a } from "aws-amplify";
 
 function Wallet(props) {
   const location = useLocation();
-  const [Name, setName] = React.useState("");
-  try {
-    props.client
-      .query({
-        query: gql(accountByUser),
-
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setName(data.accountByUser.items[location.param1].name);
-        try {
-          props.client
-            .query({
-              query: gql(serviceByUserAccount),
-
-              variables: {
-                accountID: data.accountByUser.items[location.param1].id,
-              },
-            })
-            .then(({ data }) => {
-              setData1(data.serviceByUserAccount.items);
-            });
-        } catch (e) {
-          console.log("query error", e);
-        }
-      });
-  } catch (e) {
-    console.log("query error", e);
-  }
-
   const [data1, setData1] = React.useState([]);
 
   const [value, setValue] = React.useState(location.param1);
+
+  const [Name, setName] = React.useState("");
+
+  async function callaccountByUser() {
+    const accountData = await API.graphql({
+      query: accountByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setName(accountData.data.serviceByUser.items[location.param1].name);
+    const subData = await API.graphql({
+      query: serviceByUserAccount,
+      variables: {
+        userID: accountData.data.serviceByUser.items[location.param1].id,
+      },
+    });
+    setData1(subData.serviceByUserAccount.items);
+  }
+
+  useEffect(() => {
+    callaccountByUser();
+  }, []);
+
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       {/* Wallet */}
