@@ -5,8 +5,8 @@ import AppBar from "../components/Appbar3";
 import Main from "../components/MainCrew2";
 import BottomNavigation from "../components/BottomNavigation";
 
-function Crew2() {
-  const [value, setValue] = React.useState(2);
+function Crew2(props) {
+  props.setValue(2);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       <div

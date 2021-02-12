@@ -4,8 +4,11 @@ import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
 import axios from "axios";
 import "../App.css";
+import { API, graphqlOperation } from "aws-amplify";
 import { Button, Typography } from "@material-ui/core";
-import gql from "graphql-tag";
+
+import { updateUser } from "../graphql/mutations";
+
 import { withRouter } from "react-router-dom";
 
 const useStyles = (theme) => ({
@@ -65,7 +68,21 @@ class PlaidLogin extends Component {
           userData: this.props.userData.sub,
         }
       )
-      .then((response) =>
+      .then(async (response) => {
+        console.log("access token", response.data.access_token);
+
+        const plaidTokenUpdated = await API.graphql(
+          graphqlOperation(updateUser, {
+            input: {
+              id: this.props.userData.sub,
+              plaidToken: response.data.access_token,
+            },
+          })
+        );
+        console.log("plaidTokenUpdated", plaidTokenUpdated);
+
+        //API.graphql(graphqlOperation(createTodo, { input: todo }));
+
         axios
           .get(
             "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/transactions"
@@ -77,8 +94,8 @@ class PlaidLogin extends Component {
             console.log("accountsCount", this.state.accounts.length);
             console.log("accounts", this.state.accounts);
             console.log("transactionsCount", this.state.transactions.length);
-          })
-      );
+          });
+      });
     console.log("handleOnSuccess");
   }
 

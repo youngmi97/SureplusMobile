@@ -66,7 +66,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function FirstLinkDrawer(props) {
-  const [open, setOpen] = React.useState(true);
+  const open = props.open;
+  const setOpen = props.setOpen;
+
   const [state, setState] = React.useState(0);
 
   const handleClose = () => {
@@ -223,7 +225,7 @@ function FirstLinkDrawer(props) {
                 >
                   <img
                     alt="name"
-                    src="Done.gif"
+                    src="Done.svg"
                     style={{ width: "16.27vh", height: "16.27vh" }}
                   ></img>
                   <Typography

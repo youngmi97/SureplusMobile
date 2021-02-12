@@ -96,6 +96,7 @@ class PlaidLogin extends Component {
 
   render() {
     const { classes } = this.props;
+
     return (
       <PlaidLink
         clientName="React Plaid Setup"

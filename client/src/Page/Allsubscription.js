@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
+import { API, graphqlOperation } from "aws-amplify";
 
 import "../App.css";
 
@@ -11,20 +13,23 @@ import Main from "../components/Mainallsubs";
 import BottomNavigation from "../components/BottomNavigation";
 
 function Wallet(props) {
+  const { subscriptions, setSubscriptions } = useContext(AuthContext);
   const [data, setData] = React.useState([]);
   const [value, setValue] = React.useState(0);
-  try {
-    props.client
-      .query({
-        query: gql(serviceByUser),
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.serviceByUser.items);
-      });
-  } catch (e) {
-    console.log("query error", e);
+
+  async function callServiceByUser() {
+    const subscriptionData = await API.graphql({
+      query: serviceByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
+
+  useEffect(() => {
+    callServiceByUser();
+  }, []);
 
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
@@ -45,7 +50,7 @@ function Wallet(props) {
           alignContent: "center",
         }}
       >
-        <Main list={data} />
+        <Main list={subscriptions} />
       </div>
       <BottomNavigation value={value} setValue={setValue} />
     </div>

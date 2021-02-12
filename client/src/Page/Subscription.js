@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
+import { API, graphqlOperation } from "aws-amplify";
 
 import "../App.css";
 import AppBar from "../components/Appbar3";
@@ -6,13 +8,34 @@ import Main from "../components/MainSubscribe";
 
 import gql from "graphql-tag";
 
-import { serviceByUser } from "../graphql/queries";
+import { serviceByUser, getUser } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 
 import BottomNavigation from "../components/BottomNavigation";
 import Loading from "../components/Loading";
 
 function Subscription(props) {
+  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const [link, setLink] = React.useState(false);
+  props.setValue(1);
+
+  const check_empty = (str) => {
+    if (str == "") {
+      setLink(true);
+    }
+  };
+
+  async function callgetUser() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: props.userData.sub,
+      },
+    });
+    console.log("data", linkData);
+    check_empty(linkData.data.getUser.plaidToken);
+  }
+
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -21,18 +44,21 @@ function Subscription(props) {
     });
   };
   const [data, setData] = React.useState([]);
-  try {
-    props.client
-      .query({
-        query: gql(serviceByUser),
-        variables: { userID: props.userData.sub },
-      })
-      .then(({ data }) => {
-        setData(data.serviceByUser.items);
-      });
-  } catch (e) {
-    console.log("query error", e);
+
+  async function callServiceByUser() {
+    const subscriptionData = await API.graphql({
+      query: serviceByUser,
+      variables: {
+        userID: props.userData.sub,
+      },
+    });
+    setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
+
+  useEffect(() => {
+    callgetUser();
+    callServiceByUser();
+  }, []);
   const [value, setValue] = React.useState(1);
   return (
     <div
@@ -76,7 +102,7 @@ function Subscription(props) {
               alignContent: "center",
             }}
           >
-            <Main list={data} />
+            <Main list={subscriptions} empty={link} />
           </div>
         </PullToRefresh>
       </div>

@@ -20,6 +20,7 @@
     "aws-appsync-react": "^4.0.2",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "css-loader": "^5.0.2",
     "date-fns": "^2.16.1",
     "firebase": "^8.2.6",
     "framer-motion": "^3.2.2-rc.1",

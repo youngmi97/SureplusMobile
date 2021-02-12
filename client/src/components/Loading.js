@@ -43,9 +43,11 @@ const loadingCircleVariants = {
   },
 };
 
+//yoyo loop and flip -> repeat, repeatType
+//currently changed yoyo to repeat --> is this correct?
 const loadingCircleTransition = {
   duration: 0.4,
-  yoyo: Infinity,
+  repeat: Infinity,
   ease: "easeInOut",
 };
 
