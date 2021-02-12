@@ -13,7 +13,6 @@ import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
 import Transaction from "./Page/Transaction";
 import Notification from "./Page/Notification";
-import Crew from "./Page/Crew";
 
 import Profile from "./Page/Profile";
 import Onboarding from "./Page/Onboarding";
