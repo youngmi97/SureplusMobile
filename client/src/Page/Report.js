@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 export function Report(props) {
   const { subscriptions, setSubscriptions } = useContext(AuthContext);
   const location = useLocation();
+  props.setValue(0);
 
   var num = 0;
   if (location.param1 != null) {
@@ -140,7 +141,7 @@ export function Report(props) {
     // callgetUser();
     callServiceByUser();
     waitCreateSubs();
-    setLink(true);
+    callgetUser();
   }, []);
 
   const onRefresh = () => {
@@ -297,7 +298,7 @@ export function Report(props) {
             src="ProfileIcon.png"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
-          
+
           <Typography
             style={{
               margin: 0,
@@ -351,7 +352,7 @@ export function Report(props) {
             Profile
           </Typography>
         </Button>
-        <Button
+        {/* <Button
           component={Link}
           to="/Notification"
           style={{
@@ -388,7 +389,7 @@ export function Report(props) {
           >
             Notice
           </Typography>
-        </Button>
+        </Button> */}
         <Button
           component={Link}
           to="/Customersupport"

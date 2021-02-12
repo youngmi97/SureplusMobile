@@ -15,6 +15,7 @@ import BottomNavigation from "../components/BottomNavigation";
 
 function Subscription(props) {
   const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  props.setValue(1);
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
