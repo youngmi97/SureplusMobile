@@ -136,7 +136,7 @@ export default function BottomNav(props) {
           return (
             <BottomNavigationAction
               component={Link}
-              to="/Crew"
+              to="/Notification"
               showLabel={true}
               label={
                 <Typography style={{ color: "black", fontSize: 12 }}>
@@ -151,7 +151,7 @@ export default function BottomNav(props) {
           return (
             <BottomNavigationAction
               component={Link}
-              to="/Crew"
+              to="/Notification"
               showLabel={true}
               label={
                 <Typography style={{ color: "black", fontSize: 12 }}>

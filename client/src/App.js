@@ -100,7 +100,13 @@ const AuthStateApp = (props) => {
         <Route
           exact
           path="/Notification"
-          component={() => <Notification userData={user.attributes} />}
+          component={() => (
+            <Notification
+              userData={user.attributes}
+              value={value}
+              setValue={setValue}
+            />
+          )}
         />
         <Route
           exact
@@ -124,7 +130,7 @@ const AuthStateApp = (props) => {
             />
           )}
         />
-        <Route
+        {/* <Route
           exact
           path="/Crew"
           component={() => (
@@ -145,7 +151,7 @@ const AuthStateApp = (props) => {
               setValue={setValue}
             />
           )}
-        />
+        /> */}
         <Route
           exact
           path="/OneSub"
@@ -202,8 +208,7 @@ const AuthStateApp = (props) => {
             (path == "/") |
             (path == "/Subscription") |
             (path == "/Subscription2") |
-            (path == "/Crew") |
-            (path == "/Crew2")
+            (path == "/Notification")
           ) {
             return <BottomNavigation value={value} setValue={setValue} />;
           }

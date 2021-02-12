@@ -191,7 +191,7 @@ export function Report(props) {
                 </Button>
               </Box>
 
-              <Box
+              {/* <Box
                 p={1}
                 style={{
                   margin: 0,
@@ -215,7 +215,7 @@ export function Report(props) {
                     style={{ width: "4.16vh", height: "4.16vh" }}
                   ></img>
                 </Button>
-              </Box>
+              </Box> */}
             </Box>
           </div>
         </div>

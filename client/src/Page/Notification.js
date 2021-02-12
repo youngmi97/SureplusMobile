@@ -6,8 +6,8 @@ import AppBar from "../components/AppbarTran";
 import Main from "../components/MainNotification";
 import BottomNavigation from "../components/BottomNavigation";
 
-function Wallet() {
-  const [value, setValue] = React.useState(0);
+function Wallet(props) {
+  props.setValue(2);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
       <div
@@ -17,7 +17,7 @@ function Wallet() {
           backgroundColor: "white",
         }}
       >
-        <AppBar name={"Notification"} link={"/"} />
+        <AppBar name={"Notification"} link={"/"} back={false} />
       </div>
       <div
         style={{
@@ -27,7 +27,6 @@ function Wallet() {
       >
         <Main />
       </div>
-      <BottomNavigation value={value} setValue={setValue} />
     </div>
   );
 }

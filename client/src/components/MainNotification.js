@@ -31,8 +31,6 @@ function Subscribe() {
       }}
     >
       <div style={{ paddingLeft: 16, paddingRight: 16 }}>
-        <Typography className={classes.ListItemSize2}>Today</Typography>
-
         <ListCard
           r1="12px"
           r2="12px"
@@ -45,7 +43,6 @@ function Subscribe() {
           plan="Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
           price="$ 5.9"
         ></ListCard>
-        <Typography className={classes.ListItemSize2}>Yesterday</Typography>
 
         <ListCard
           r1="12px"
@@ -54,10 +51,9 @@ function Subscribe() {
           r4="12px"
           month="Mar"
           day="4"
-          src="/Img/Aaptiv/[32].svg"
-          name="Upcoming Payment"
-          plan="Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-          price="$ 5.9"
+          src="Ellipse 77.svg"
+          name="Welcome to Sureplus"
+          plan="Welcome to Sureplus Jinjae! Link your bank to manage subscriptions."
         ></ListCard>
       </div>
     </div>
