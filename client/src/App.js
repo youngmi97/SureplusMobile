@@ -14,7 +14,7 @@ import Accounts from "./Page/Accounts";
 import Transaction from "./Page/Transaction";
 import Notification from "./Page/Notification";
 import Crew from "./Page/Crew";
-import Crew2 from "./Page/Crew2";
+
 import Profile from "./Page/Profile";
 import Onboarding from "./Page/Onboarding";
 import UsePhone from "./Page/UsePhone";
