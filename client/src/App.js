@@ -1,16 +1,12 @@
 import "./App.css";
 
 import "./scss_ex.scss";
-import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route } from "react-router-dom";
 import Report from "./Page/Report";
 
 //import { Toast } from "react-bootstrap";
 //import "bootstrap/dist/css/bootstrap.min.css";
-
-import { API, graphqlOperation } from "aws-amplify";
-import { UpdateUserNotification, updateUser } from "./graphql/mutations";
-import { getUser } from "./graphql/queries";
 
 import Subscription from "./Page/Subscription";
 import Subscription2 from "./Page/Subscription2";
@@ -40,7 +36,6 @@ import {
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 
-import { AuthProvider, AuthContext } from "./context/auth";
 import { Link, useLocation } from "react-router-dom";
 import TermofService from "./Page/TermofService";
 
@@ -50,8 +45,8 @@ const AuthStateApp = (props) => {
   const path = location.pathname;
   const [authState, setAuthState] = useState();
   const [value, setValue] = React.useState(0);
-  const [notification, setNotification] = useState({ title: "", body: "" });
-  const [show, setShow] = useState(false);
+  // const [notification, setNotification] = useState({ title: "", body: "" });
+  // const [show, setShow] = useState(false)
 
   useEffect(() => {
     onAuthUIStateChange((nextAuthState, authData) => {

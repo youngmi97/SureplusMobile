@@ -2,20 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
-import gql from "graphql-tag";
 
-import {
-  serviceByUser,
-  serviceByUserAccount,
-  accountByUser,
-} from "../graphql/queries";
+import { serviceByUser } from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { AuthContext } from "../context/auth";
 
-import {
-  onCreateSubscriptionServices,
-  onUpdateSubscriptionServices,
-} from "../graphql/subscriptions";
+import { onCreateSubscriptionServices } from "../graphql/subscriptions";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -23,7 +15,7 @@ import Main2 from "../components/MainReport2";
 import Typography from "@material-ui/core/Typography";
 
 import { Link, useLocation } from "react-router-dom";
-import clsx from "clsx";
+
 import Drawer from "@material-ui/core/Drawer";
 import { Box, Button } from "@material-ui/core";
 //import { AuthContext } from "../context/auth";
@@ -62,8 +54,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Report(props) {
-  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   const location = useLocation();
+
+  useEffect(() => {
+    setUser(props.userData);
+    console.log("context user", user);
+  }, []);
 
   var num = 0;
   if (location.param1 != null) {
@@ -267,7 +266,7 @@ export function Report(props) {
             src="ProfileIcon.png"
             style={{ width: "4.16vh", height: "4.16vh" }}
           ></img>
-          
+
           <Typography
             style={{
               margin: 0,
