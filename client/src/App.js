@@ -1,7 +1,8 @@
 import "./App.css";
 
 import "./scss_ex.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "./context/auth";
 import { Route } from "react-router-dom";
 import Report from "./Page/Report";
 
@@ -42,10 +43,12 @@ import TermofService from "./Page/TermofService";
 const AuthStateApp = (props) => {
   const [user, setUser] = useState();
   const location = useLocation();
+
   const path = location.pathname;
-  const [loading, setLoading] = useState(true);
+
   const [authState, setAuthState] = useState();
   const [value, setValue] = React.useState(0);
+
   // const [notification, setNotification] = useState({ title: "", body: "" });
   // const [show, setShow] = useState(false)
 
@@ -67,8 +70,6 @@ const AuthStateApp = (props) => {
               param1={null}
               value={value}
               setValue={setValue}
-              loading={loading}
-              setLoading={setLoading}
               userData={user.attributes}
             />
           )}
@@ -121,11 +122,10 @@ const AuthStateApp = (props) => {
 
         {(() => {
           if (
-            ((path == "/") |
-              (path == "/Subscription") |
-              (path == "/Subscription2") |
-              (path == "/Notification")) &
-            (loading == false)
+            (path == "/") |
+            (path == "/Subscription") |
+            (path == "/Subscription2") |
+            (path == "/Notification")
           ) {
             return <BottomNavigation value={value} setValue={setValue} />;
           }
