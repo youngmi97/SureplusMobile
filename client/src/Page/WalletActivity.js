@@ -12,7 +12,9 @@ import Main from "../components/MainTransactions";
 import BottomNavigation from "../components/BottomNavigation";
 
 function Wallet(props) {
-  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   const [data, setData] = React.useState([]);
   const [value, setValue] = React.useState(0);
 
@@ -20,7 +22,7 @@ function Wallet(props) {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);

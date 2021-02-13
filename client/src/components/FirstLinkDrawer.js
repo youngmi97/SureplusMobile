@@ -1,6 +1,7 @@
 //Home, Report, Upcoming Subscriptions, List
 
 import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Typography, Dialog } from "@material-ui/core";
 import Slide from "@material-ui/core/Slide";
@@ -68,7 +69,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function FirstLinkDrawer(props) {
   const open = props.open;
   const setOpen = props.setOpen;
-
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   const [state, setState] = React.useState(0);
 
   const handleClose = () => {
@@ -129,10 +132,7 @@ function FirstLinkDrawer(props) {
                   >
                     Link your Bank to view your subscriptions!a
                   </Typography>
-                  <PlaidLinkFirst
-                    userData={props.userData}
-                    setState={loadingSucc}
-                  />
+                  <PlaidLinkFirst userData={user} setState={loadingSucc} />
                 </div>
               </div>
             </Dialog>
@@ -269,7 +269,7 @@ function FirstLinkDrawer(props) {
                     </Typography>
                   </Button>
                   <PlaidLinkSecond
-                    userData={props.userData}
+                    userData={user}
                     setState={loadingSucc}
                   ></PlaidLinkSecond>
                 </div>

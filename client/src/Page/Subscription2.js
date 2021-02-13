@@ -14,7 +14,9 @@ import Loading from "../components/Loading";
 import BottomNavigation from "../components/BottomNavigation";
 
 function Subscription(props) {
-  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   props.setValue(1);
   const onRefresh = () => {
     return new Promise((resolve, reject) => {
@@ -29,7 +31,7 @@ function Subscription(props) {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);

@@ -31,11 +31,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Subscribe(props) {
   const classes = useStyles();
-  const [subscriptions, setSubscriptions] = React.useState([]);
+
   const [data1, setData1] = React.useState([]);
   const [num, setNum] = React.useState("");
 
-  const { user } = useContext(AuthContext);
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
 
   const open = props.open;
   const setOpen = props.setOpen;
@@ -43,7 +45,7 @@ function Subscribe(props) {
     const subscriptionData = await API.graphql({
       query: accountByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.accountByUser.items);
