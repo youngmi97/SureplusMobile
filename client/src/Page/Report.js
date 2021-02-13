@@ -379,7 +379,7 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="/[24]/Type=CustomerSupport.svg"
+            src="/Icons/[24]/Type=CustomerSupport.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
@@ -468,11 +468,12 @@ export function Report(props) {
 
         {/* Customer Support */}
       </Drawer>
-      {/* <FirstLinkDrawer
+      <FirstLinkDrawer
         userData={props.userData}
         open={openbottom}
         setOpen={setOpenbottom}
-      /> */}
+      />
+
     </div>
   ) : (
     <div
