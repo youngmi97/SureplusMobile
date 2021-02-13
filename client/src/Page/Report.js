@@ -106,6 +106,7 @@ export function Report(props) {
   useEffect(() => {
     setUser(props.userData);
     if (user) {
+      console.log("user", user);
       callServiceByUser();
       waitCreateSubs();
       callgetUser();
@@ -473,7 +474,6 @@ export function Report(props) {
         open={openbottom}
         setOpen={setOpenbottom}
       />
-
     </div>
   ) : (
     <div
