@@ -85,7 +85,7 @@ export function Report(props) {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);
@@ -95,7 +95,7 @@ export function Report(props) {
     const linkData = await API.graphql({
       query: getUser,
       variables: {
-        id: props.userData.sub,
+        id: user.sub,
       },
     });
     console.log("data", linkData);
@@ -105,10 +105,12 @@ export function Report(props) {
 
   useEffect(() => {
     setUser(props.userData);
-    callServiceByUser();
-    waitCreateSubs();
-    callgetUser();
-  }, []);
+    if (user) {
+      callServiceByUser();
+      waitCreateSubs();
+      callgetUser();
+    }
+  }, [user]);
 
   const onRefresh = () => {
     console.log("refreshed");
@@ -117,7 +119,7 @@ export function Report(props) {
     ]).then(callServiceByUser());
   };
 
-  return loading == false ? (
+  return loading === false && user ? (
     <div>
       <div>
         <div
@@ -226,7 +228,7 @@ export function Report(props) {
                 } else {
                   return (
                     <Main2
-                      userData={props.userData}
+                      userData={user}
                       empty={link}
                       open={openbottom}
                       setOpen={setOpenbottom}
@@ -274,7 +276,7 @@ export function Report(props) {
               alignItems: "center",
             }}
           >
-            {props.userData.name}
+            {user.name}
           </Typography>
         </div>
         {/* Notice List */}
