@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 import gql from "graphql-tag";
 
-import { serviceByUserAccount, accountByUser } from "../graphql/queries";
+import { accountByUser } from "../graphql/queries";
 import ListCard2 from "./ListCard7";
 import ListCard3 from "./ListCard8";
 import { Link } from "react-router-dom";
@@ -34,6 +34,9 @@ function Subscribe(props) {
   const [subscriptions, setSubscriptions] = React.useState([]);
   const [data1, setData1] = React.useState([]);
   const [num, setNum] = React.useState("");
+
+  const { user } = useContext(AuthContext);
+
   const open = props.open;
   const setOpen = props.setOpen;
   async function callaccountByUser() {
@@ -49,6 +52,7 @@ function Subscribe(props) {
   }
 
   useEffect(() => {
+    console.log("user", user);
     callaccountByUser();
   }, []);
 
