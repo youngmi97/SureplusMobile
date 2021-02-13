@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useStyles } from "../styles/Report.style";
 import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
@@ -47,10 +47,11 @@ export function Report(props) {
 
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
-
   const [link, setLink] = React.useState(false);
   const [openbottom, setOpenbottom] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const loading = props.loading;
+  const setLoading = props.setLoading;
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
@@ -100,24 +101,45 @@ export function Report(props) {
         id: props.userData.sub,
       },
     });
-    // setData(linkData);
+    console.log("checkckckckck");
     check_empty(linkData.data.getUser.plaidToken);
-    setLoading(false);
   }
+  // const onRefreshUser = () => {
+  //   return Promise.all([
+  //     new Promise((resolve) => setTimeout(resolve, 2000)),
+  //   ]).then(() => {
+  //     return Promise.all([new Promise(() => callgetUser())]).then(() => {
+  //       return Promise.all([new Promise(() => callServiceByUser())]).then(
+  //         () => {
+  //           console.log("refreshed");
+  //           setLoading(false);
+  //         }
+  //       );
+  //     });
+  //   });
+  // };
 
-  useEffect(() => {
-    callServiceByUser();
-    waitCreateSubs();
-    callgetUser();
-  }, []);
+  const onRefreshUser = () => {
+    return Promise.all([new Promise((resolve) => setTimeout(resolve, 2000))])
+      .then(() => {
+        callgetUser();
+      })
+      .then(() => {
+        console.log("refreshed");
+        setLoading(false);
+      });
+  };
 
-  console.log("data", data);
   const onRefresh = () => {
-    console.log("refreshed");
     return Promise.all([
       new Promise((resolve) => setTimeout(resolve, 2000)),
     ]).then(callServiceByUser());
   };
+
+  useEffect(() => {
+    onRefreshUser();
+    waitCreateSubs();
+  }, []);
 
   return loading == false ? (
     <div>
@@ -468,11 +490,11 @@ export function Report(props) {
 
         {/* Customer Support */}
       </Drawer>
-      {/* <FirstLinkDrawer
+      <FirstLinkDrawer
         userData={props.userData}
         open={openbottom}
         setOpen={setOpenbottom}
-      /> */}
+      />
     </div>
   ) : (
     <div
