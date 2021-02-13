@@ -379,7 +379,7 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="/Icons/[24]/Type=CustomerSupport.svg"
+            src="/Icons[24]/Type=CustomerSupport.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
