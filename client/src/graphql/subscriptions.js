@@ -8,8 +8,10 @@ export const onCreateUserNotification = /* GraphQL */ `
       userID
       serviceName
       createdAt
-      type
       updatedAt
+      type
+      content
+      title
     }
   }
 `;
@@ -20,8 +22,10 @@ export const onUpdateUserNotification = /* GraphQL */ `
       userID
       serviceName
       createdAt
-      type
       updatedAt
+      type
+      content
+      title
     }
   }
 `;
@@ -32,8 +36,10 @@ export const onDeleteUserNotification = /* GraphQL */ `
       userID
       serviceName
       createdAt
-      type
       updatedAt
+      type
+      content
+      title
     }
   }
 `;

@@ -28,7 +28,10 @@ type UserNotification
   userID: String
   serviceName: String
   createdAt: String
+  updatedAt: String
   type: String
+  content: String
+  title: String
 }
 
 type User
@@ -41,6 +44,7 @@ type User
   firebaseToken: [String]
   createdAt: String
   type: String
+  updatedAt: String
 }
 
 type UserCards
