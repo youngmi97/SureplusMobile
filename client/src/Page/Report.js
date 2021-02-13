@@ -111,7 +111,7 @@ export function Report(props) {
       console.log("user", user);
       callServiceByUser();
       waitCreateSubs();
-      callgetUser();
+      onRefreshUser();
     }
   }, [user]);
 
