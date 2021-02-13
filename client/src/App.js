@@ -27,7 +27,6 @@ import AllSubscription from "./Page/Allsubscription";
 import PrivacyPolicy from "./Page/PrivacyPolicy";
 
 import BottomNavigation from "./components/BottomNavigation";
-
 import {
   AmplifyAuthenticator,
   AmplifySignOut,

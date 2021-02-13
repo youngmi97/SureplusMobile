@@ -19,6 +19,8 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 //import { withAuthenticator } from 'aws-amplify-react';
 Amplify.configure(AppSyncConfig);
 
+// import { SnackbarProvider } from "notistack";
+
 const client = new AWSAppSyncClient({
   url: AppSyncConfig.aws_appsync_graphqlEndpoint,
   region: AppSyncConfig.aws_appsync_region,
@@ -40,7 +42,9 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <MuiThemeProvider theme={theme}>
         <Router>
+          {/* <SnackbarProvider> */}
           <App />
+          {/* </SnackbarProvider> */}
         </Router>
       </MuiThemeProvider>
     </ApolloProvider>

@@ -1,10 +1,11 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
-import Banner from "../components/Banner";
+import Banner from "../components/Banner/Banner.js";
 
 export default {
   title: "Design System/Banner",
   component: Banner,
 };
 
-export const InternetConnectionStatus = () => <Banner>Hello Button</Banner>;
+export const InternetConnectionStatus = () => (
+  <Banner>Internet Connection Lost</Banner>
+);
