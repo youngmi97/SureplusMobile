@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
 import "../App.css";
 import "../index.css";
 
@@ -7,6 +8,9 @@ import Main from "../components/MainAccounts";
 import BottomNavigation from "../components/BottomNavigation";
 
 function Wallet(props) {
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   const [value, setValue] = React.useState(0);
   return (
     <div style={{ width: "100%", alignContent: "center", height: "100vh" }}>
@@ -17,7 +21,7 @@ function Wallet(props) {
           backgroundColor: "white",
         }}
       >
-        <AppBar name={"Linked Accounts"} userData={props.userData} />
+        <AppBar name={"Linked Accounts"} userData={user} />
       </div>
       <div
         style={{

@@ -4,6 +4,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Switch from "@material-ui/core/Switch";
 
 import Button from "@material-ui/core/Button";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/auth";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 // import AppBar from "@material-ui/core/AppBar";
 
@@ -15,7 +17,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import { Link, useLocation } from "react-router-dom";
-import React from "react";
+
 import { Typography, Box } from "@material-ui/core";
 //Sort
 
@@ -307,10 +309,9 @@ const shortmonth = [
   "Dec",
 ];
 export default function Subscription(props) {
-  const location = useLocation();
+  const { setOnesub, onesub, backlink, setBacklink } = useContext(AuthContext);
 
-  const li = location.list;
-  console.log(li);
+  const li = onesub;
   const classes = useStyles();
 
   const handleChangeSwitch = (event) => {

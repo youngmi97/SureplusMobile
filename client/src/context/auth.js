@@ -4,6 +4,8 @@ const AuthContext = createContext({
   user: null,
   authState: null,
   subscriptions: [],
+  onesub: null,
+  backlink: null,
 });
 
 function authReducer(state, action) {
@@ -23,6 +25,16 @@ function authReducer(state, action) {
         ...state,
         subscriptions: action.payload,
       };
+    case "SET_ONESUB":
+      return {
+        ...state,
+        onesub: action.payload,
+      };
+    case "SET_BACKLINK":
+      return {
+        ...state,
+        backlink: action.payload,
+      };
 
     default:
       return state;
@@ -34,6 +46,8 @@ function AuthProvider(props) {
     user: null,
     authState: null,
     subscriptions: [],
+    onesub: null,
+    backlink: null,
   });
 
   function setUser(user) {
@@ -60,6 +74,18 @@ function AuthProvider(props) {
       payload: subscriptions,
     });
   }
+  function setOnesub(onesub) {
+    dispatch({
+      type: "SET_ONESUB",
+      payload: onesub,
+    });
+  }
+  function setBacklink(backlink) {
+    dispatch({
+      type: "SET_BACKLINK",
+      payload: backlink,
+    });
+  }
 
   //value is what will be passed down to components under the following context provider
   return (
@@ -71,6 +97,10 @@ function AuthProvider(props) {
         setSubscriptions,
         authState: state.authState,
         setAuthState,
+        onesub: state.onesub,
+        setOnesub,
+        backlink: state.backlink,
+        setBacklink,
       }}
       {...props}
     />

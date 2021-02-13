@@ -1,9 +1,10 @@
 //Home, Report
 import React, { useContext } from "react";
+import { AuthContext } from "../context/auth";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
 
-import { AuthContext } from "../context/auth";
 import ListCard2 from "./ListCard7";
 import ListCard from "./ListCard6";
 
@@ -28,7 +29,13 @@ const useStyles = makeStyles((theme) => ({
 function Subscribe(props) {
   const open = props.open;
   const setOpen = props.setOpen;
-  const { subscriptions } = useContext(AuthContext);
+  const {
+    setOnesub,
+    onesub,
+    backlink,
+    setBacklink,
+    subscriptions,
+  } = useContext(AuthContext);
   const today = new Date();
 
   function get_date(today, day) {
@@ -156,7 +163,11 @@ function Subscribe(props) {
                         <Button
                           component={Link}
                           style={{ margin: 0, padding: 0, width: "100%" }}
-                          to={{ pathname: "/OneSub", list: array, link: "/" }}
+                          onClick={() => {
+                            setBacklink("/");
+                            setOnesub(array);
+                          }}
+                          to={{ pathname: "/OneSub" }}
                         >
                           <ListCard
                             r1="0px"

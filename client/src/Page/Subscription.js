@@ -15,7 +15,9 @@ import BottomNavigation from "../components/BottomNavigation";
 import Loading from "../components/Loading";
 
 function Subscription(props) {
-  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   const [link, setLink] = React.useState(false);
   props.setValue(1);
 
@@ -29,7 +31,7 @@ function Subscription(props) {
     const linkData = await API.graphql({
       query: getUser,
       variables: {
-        id: props.userData.sub,
+        id: user.sub,
       },
     });
     console.log("data", linkData);
@@ -49,7 +51,7 @@ function Subscription(props) {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);

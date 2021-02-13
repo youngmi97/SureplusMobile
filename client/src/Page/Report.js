@@ -480,7 +480,7 @@ export function Report(props) {
         {/* Customer Support */}
       </Drawer>
       <FirstLinkDrawer
-        userData={props.userData}
+        userData={user}
         open={openbottom}
         setOpen={setOpenbottom}
       />
