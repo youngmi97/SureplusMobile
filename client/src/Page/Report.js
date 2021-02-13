@@ -67,7 +67,7 @@ export function Report(props) {
   };
 
   const check_empty = (str) => {
-    if (str == "") {
+    if (str === "" || !str) {
       setLink(true);
       setOpenbottom(true);
     }

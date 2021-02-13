@@ -55,7 +55,7 @@ const AuthStateApp = (props) => {
     });
   }, []);
 
-  return authState == AuthState.SignedIn && user ? (
+  return authState === AuthState.SignedIn && user ? (
     <div style={{ backgroundColor: "#f1f2f4" }}>
       <div>
         <Route
