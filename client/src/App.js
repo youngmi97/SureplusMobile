@@ -13,12 +13,8 @@ import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
 import Transaction from "./Page/Transaction";
 import Notification from "./Page/Notification";
-<<<<<<< HEAD
-
-=======
 // import Crew from "./Page/Crew";
 // import Crew2 from "./Page/Crew2";
->>>>>>> 9f72d81f3dc8c48c2672e6daf6836f46437a23e1
 import Profile from "./Page/Profile";
 import Onboarding from "./Page/Onboarding";
 import UsePhone from "./Page/UsePhone";
