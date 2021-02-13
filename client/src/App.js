@@ -174,6 +174,11 @@ const AuthStateApp = (props) => {
         />
         <Route
           exact
+          path="/PrivacyPolicy"
+          component={() => <PrivacyPolicy userData={user.attributes} />}
+        />
+        <Route
+          exact
           path="/UsePhone"
           component={() => <UsePhone userData={user.attributes} />}
         />

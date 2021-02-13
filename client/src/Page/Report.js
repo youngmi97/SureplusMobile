@@ -81,10 +81,10 @@ export function Report(props) {
 
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
-  const [openbottom, setOpenbottom] = React.useState(true);
+
   const [link, setLink] = React.useState(false);
+  const [openbottom, setOpenbottom] = React.useState(false);
   const [data, setData] = React.useState([]);
-  const [data1, setData1] = React.useState([]);
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
@@ -103,6 +103,7 @@ export function Report(props) {
   const check_empty = (str) => {
     if (str == "") {
       setLink(true);
+      setOpenbottom(true);
     }
   };
   // Listen to Service Creation Event
@@ -133,17 +134,17 @@ export function Report(props) {
         id: props.userData.sub,
       },
     });
-    console.log("data", linkData);
+    // setData(linkData);
     check_empty(linkData.data.getUser.plaidToken);
   }
 
   useEffect(() => {
-    // callgetUser();
     callServiceByUser();
     waitCreateSubs();
     callgetUser();
   }, []);
 
+  console.log("data", data);
   const onRefresh = () => {
     console.log("refreshed");
     return Promise.all([
