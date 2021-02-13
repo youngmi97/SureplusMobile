@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useStyles } from "../styles/Report.style";
 import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
@@ -45,11 +45,13 @@ export function Report(props) {
 
   const classes = useStyles();
 
-  const [ind, setIndex] = useState(num);
-  const [open, setOpen] = useState(op);
-  const [openbottom, setOpenbottom] = useState(true);
-  const [link, setLink] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [ind, setIndex] = React.useState(num);
+  const [open, setOpen] = React.useState(op);
+  const [link, setLink] = React.useState(false);
+  const [openbottom, setOpenbottom] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const loading = props.loading;
+  const setLoading = props.setLoading;
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
@@ -68,6 +70,7 @@ export function Report(props) {
   const check_empty = (str) => {
     if (str === "" || !str) {
       setLink(true);
+      setOpenbottom(true);
     }
   };
   // Listen to Service Creation Event
@@ -98,9 +101,8 @@ export function Report(props) {
         id: user.sub,
       },
     });
-    console.log("data", linkData);
+    console.log("checkckckckck");
     check_empty(linkData.data.getUser.plaidToken);
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -113,12 +115,21 @@ export function Report(props) {
   }, [user]);
 
   const onRefresh = () => {
-    console.log("refreshed");
     return Promise.all([
       new Promise((resolve) => setTimeout(resolve, 2000)),
     ]).then(callServiceByUser());
   };
 
+  const onRefreshUser = () => {
+    return Promise.all([new Promise((resolve) => setTimeout(resolve, 2000))])
+      .then(() => {
+        callgetUser();
+      })
+      .then(() => {
+        console.log("refreshed");
+        setLoading(false);
+      });
+  };
   return loading === false && user ? (
     <div>
       <div>
@@ -379,7 +390,7 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="/Icons/[24]/Type=CustomerSupport.svg"
+            src="/Icons[24]/Type=CustomerSupport.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
@@ -473,7 +484,6 @@ export function Report(props) {
         open={openbottom}
         setOpen={setOpenbottom}
       />
-
     </div>
   ) : (
     <div

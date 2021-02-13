@@ -43,6 +43,7 @@ const AuthStateApp = (props) => {
   const [user, setUser] = useState();
   const location = useLocation();
   const path = location.pathname;
+  const [loading, setLoading] = useState(true);
   const [authState, setAuthState] = useState();
   const [value, setValue] = React.useState(0);
   // const [notification, setNotification] = useState({ title: "", body: "" });
@@ -67,6 +68,8 @@ const AuthStateApp = (props) => {
               param1={null}
               value={value}
               setValue={setValue}
+              loading={loading}
+              setLoading={setLoading}
             />
           )}
         />
@@ -151,6 +154,11 @@ const AuthStateApp = (props) => {
         />
         <Route
           exact
+          path="/PrivacyPolicy"
+          component={() => <PrivacyPolicy userData={user.attributes} />}
+        />
+        <Route
+          exact
           path="/UsePhone"
           component={() => <UsePhone userData={user.attributes} />}
         />
@@ -167,10 +175,11 @@ const AuthStateApp = (props) => {
 
         {(() => {
           if (
-            (path == "/") |
-            (path == "/Subscription") |
-            (path == "/Subscription2") |
-            (path == "/Notification")
+            ((path == "/") |
+              (path == "/Subscription") |
+              (path == "/Subscription2") |
+              (path == "/Notification")) &
+            (loading == false)
           ) {
             return <BottomNavigation value={value} setValue={setValue} />;
           }
