@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext, useEffect, useState } from "react";
+import { useStyles } from "../styles/Report.style";
 import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
 
@@ -23,47 +23,12 @@ import { Box, Button } from "@material-ui/core";
 import Loading from "../components/Loading";
 import FirstLinkDrawer from "../components/FirstLinkDrawer";
 
-const drawerWidth = "75vw";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawer: {
-    width: drawerWidth,
-    maxHeight: "100vh",
-    overflow: "hidden",
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    maxHeight: "100vh",
-    overflow: "hidden",
-  },
-}));
-
 export function Report(props) {
   const { user, setUser, subscriptions, setSubscriptions } = useContext(
     AuthContext
   );
   const location = useLocation();
   props.setValue(0);
-
-  useEffect(() => {
-    setUser(props.userData);
-    console.log("context user", user);
-  }, []);
 
   var num = 0;
   if (location.param1 != null) {
@@ -78,16 +43,13 @@ export function Report(props) {
     setOpen(true);
   };
 
-  //console.log("Report Client", props.client);
-
   const classes = useStyles();
 
-  const [ind, setIndex] = React.useState(num);
-  const [open, setOpen] = React.useState(op);
-  const [openbottom, setOpenbottom] = React.useState(true);
-  const [link, setLink] = React.useState(false);
-  const [data, setData] = React.useState([]);
-  const [data1, setData1] = React.useState([]);
+  const [ind, setIndex] = useState(num);
+  const [open, setOpen] = useState(op);
+  const [openbottom, setOpenbottom] = useState(true);
+  const [link, setLink] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
@@ -138,10 +100,11 @@ export function Report(props) {
     });
     console.log("data", linkData);
     check_empty(linkData.data.getUser.plaidToken);
+    setLoading(false);
   }
 
   useEffect(() => {
-    // callgetUser();
+    setUser(props.userData);
     callServiceByUser();
     waitCreateSubs();
     callgetUser();
@@ -154,7 +117,7 @@ export function Report(props) {
     ]).then(callServiceByUser());
   };
 
-  return (
+  return loading == false ? (
     <div>
       <div>
         <div
@@ -167,7 +130,6 @@ export function Report(props) {
           <div style={{ width: "100%" }}>
             <Box
               display="flex"
-              // p={1}
               alignItems="center"
               style={{
                 margin: 0,
@@ -415,7 +377,7 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="/Icons[24]/Type=CustomerSupport.svg"
+            src="/[24]/Type=CustomerSupport.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
@@ -504,11 +466,24 @@ export function Report(props) {
 
         {/* Customer Support */}
       </Drawer>
-      <FirstLinkDrawer
+      {/* <FirstLinkDrawer
         userData={props.userData}
         open={openbottom}
         setOpen={setOpenbottom}
-      />
+      /> */}
+    </div>
+  ) : (
+    <div
+      style={{
+        backgroundImage: "linear-gradient(90deg, #8610EB, #430985)",
+        height: "100vh",
+        display: "flex",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <img alt="logo" src="/images/logo.png" style={{ height: 50 }}></img>
     </div>
   );
 }
