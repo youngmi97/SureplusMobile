@@ -1,18 +1,18 @@
 // LoopCircleLoading.stories.js
 
 import React from "react";
-import LoadingCircle from "./LoopCircleLoading";
+import LoadingCircle from "../components/Loader/LoopCircleLoading";
 
 // This default export determines where your story goes in the story list
 export default {
-  title: "Loader/Loading Circle",
+  title: "Design System/Loader/Loading Circle",
   component: LoadingCircle,
 };
 
 const Template = (args) => <LoadingCircle />;
 
-export const FirstStory = Template.bind({});
+export const Primary = Template.bind({});
 
-FirstStory.args = {
+Primary.args = {
   /* the args you need here will depend on your component */
 };

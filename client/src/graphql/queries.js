@@ -8,8 +8,10 @@ export const getUserNotification = /* GraphQL */ `
       userID
       serviceName
       createdAt
-      type
       updatedAt
+      type
+      content
+      title
     }
   }
 `;
@@ -29,8 +31,10 @@ export const listUserNotifications = /* GraphQL */ `
         userID
         serviceName
         createdAt
-        type
         updatedAt
+        type
+        content
+        title
       }
       nextToken
     }
@@ -173,8 +177,10 @@ export const notificationsByUser = /* GraphQL */ `
         userID
         serviceName
         createdAt
-        type
         updatedAt
+        type
+        content
+        title
       }
       nextToken
     }

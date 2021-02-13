@@ -1,10 +1,10 @@
 //FadingSpinnerLoading.stories.js
 
 import React from "react";
-import FadingSpinner from "./FadingSpinnerLoading";
+import FadingSpinner from "../components/Loader/FadingSpinnerLoading";
 
 export default {
-  title: "Loader/Fading Spinner",
+  title: "Design System/Loader/Fading Spinner",
   component: FadingSpinner,
 };
 

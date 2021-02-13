@@ -13,7 +13,12 @@ import Subscription2 from "./Page/Subscription2";
 import Accounts from "./Page/Accounts";
 import Transaction from "./Page/Transaction";
 import Notification from "./Page/Notification";
+<<<<<<< HEAD
 
+=======
+// import Crew from "./Page/Crew";
+// import Crew2 from "./Page/Crew2";
+>>>>>>> 9f72d81f3dc8c48c2672e6daf6836f46437a23e1
 import Profile from "./Page/Profile";
 import Onboarding from "./Page/Onboarding";
 import UsePhone from "./Page/UsePhone";
@@ -54,7 +59,7 @@ const AuthStateApp = (props) => {
     });
   }, []);
 
-  return authState == AuthState.SignedIn && user ? (
+  return authState === AuthState.SignedIn && user ? (
     <div style={{ backgroundColor: "#f1f2f4" }}>
       <div>
         <Route
@@ -128,28 +133,6 @@ const AuthStateApp = (props) => {
             />
           )}
         />
-        {/* <Route
-          exact
-          path="/Crew"
-          component={() => (
-            <Crew
-              userData={user.attributes}
-              value={value}
-              setValue={setValue}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/Crew2"
-          component={() => (
-            <Crew2
-              userData={user.attributes}
-              value={value}
-              setValue={setValue}
-            />
-          )}
-        /> */}
         <Route
           exact
           path="/OneSub"
@@ -185,22 +168,7 @@ const AuthStateApp = (props) => {
           path="/Customersupport"
           component={() => <Customersupport userData={user.attributes} />}
         />
-        {/* <Route
 
-							exact
-							path="/Following"
-							component={() => (
-								<Following userData={user.attributes} client={props.client} />
-							)}
-						/>
-						<Route
-							exact
-							path="/Followers"
-							component={() => (
-								<Followers userData={user.attributes} client={props.client} />
-							)}
-						/> */}
-        {/* Component with no routes are sent to signout prompt */}
         {(() => {
           if (
             (path == "/") |
@@ -211,7 +179,7 @@ const AuthStateApp = (props) => {
             return <BottomNavigation value={value} setValue={setValue} />;
           }
         })()}
-        {/* <AmplifySignOut /> */}
+        <AmplifySignOut />
       </div>
     </div>
   ) : (
