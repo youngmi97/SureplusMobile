@@ -110,7 +110,7 @@ export function Report(props) {
     if (user) {
       callServiceByUser();
       waitCreateSubs();
-      callgetUser();
+      onRefreshUser();
     }
   }, [user]);
 
