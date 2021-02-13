@@ -88,7 +88,7 @@ export function Report(props) {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);
@@ -98,26 +98,27 @@ export function Report(props) {
     const linkData = await API.graphql({
       query: getUser,
       variables: {
-        id: props.userData.sub,
+        id: user.sub,
       },
     });
     console.log("checkckckckck");
     check_empty(linkData.data.getUser.plaidToken);
   }
-  // const onRefreshUser = () => {
-  //   return Promise.all([
-  //     new Promise((resolve) => setTimeout(resolve, 2000)),
-  //   ]).then(() => {
-  //     return Promise.all([new Promise(() => callgetUser())]).then(() => {
-  //       return Promise.all([new Promise(() => callServiceByUser())]).then(
-  //         () => {
-  //           console.log("refreshed");
-  //           setLoading(false);
-  //         }
-  //       );
-  //     });
-  //   });
-  // };
+
+  useEffect(() => {
+    setUser(props.userData);
+    if (user) {
+      callServiceByUser();
+      waitCreateSubs();
+      callgetUser();
+    }
+  }, [user]);
+
+  const onRefresh = () => {
+    return Promise.all([
+      new Promise((resolve) => setTimeout(resolve, 2000)),
+    ]).then(callServiceByUser());
+  };
 
   const onRefreshUser = () => {
     return Promise.all([new Promise((resolve) => setTimeout(resolve, 2000))])
@@ -129,19 +130,7 @@ export function Report(props) {
         setLoading(false);
       });
   };
-
-  const onRefresh = () => {
-    return Promise.all([
-      new Promise((resolve) => setTimeout(resolve, 2000)),
-    ]).then(callServiceByUser());
-  };
-
-  useEffect(() => {
-    onRefreshUser();
-    waitCreateSubs();
-  }, []);
-
-  return loading == false ? (
+  return loading === false && user ? (
     <div>
       <div>
         <div
@@ -250,7 +239,7 @@ export function Report(props) {
                 } else {
                   return (
                     <Main2
-                      userData={props.userData}
+                      userData={user}
                       empty={link}
                       open={openbottom}
                       setOpen={setOpenbottom}
@@ -298,7 +287,7 @@ export function Report(props) {
               alignItems: "center",
             }}
           >
-            {props.userData.name}
+            {user.name}
           </Typography>
         </div>
         {/* Notice List */}
@@ -401,7 +390,7 @@ export function Report(props) {
         >
           <img
             alt="name"
-            src="/[24]/Type=CustomerSupport.svg"
+            src="/Icons[24]/Type=CustomerSupport.svg"
             style={{ width: "3.125vh", height: "3.125vh" }}
           ></img>
           <Typography
