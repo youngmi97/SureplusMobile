@@ -6,6 +6,9 @@ const AuthContext = createContext({
   subscriptions: [],
   onesub: null,
   backlink: null,
+  loading: true,
+  link: false,
+  openbottom: false,
 });
 
 function authReducer(state, action) {
@@ -14,6 +17,11 @@ function authReducer(state, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
       };
     case "SET_AUTHSTATE":
       return {
@@ -35,6 +43,16 @@ function authReducer(state, action) {
         ...state,
         backlink: action.payload,
       };
+    case "SET_LINK":
+      return {
+        ...state,
+        link: action.payload,
+      };
+    case "SET_OPENBOTTOM":
+      return {
+        ...state,
+        openbottom: action.payload,
+      };
 
     default:
       return state;
@@ -47,7 +65,10 @@ function AuthProvider(props) {
     authState: null,
     subscriptions: [],
     onesub: null,
+    loading: true,
     backlink: null,
+    link: false,
+    openbottom: false,
   });
 
   function setUser(user) {
@@ -55,6 +76,13 @@ function AuthProvider(props) {
     dispatch({
       type: "SET_USER",
       payload: user,
+    });
+  }
+  function setLoading(loading) {
+    console.log("Setting User");
+    dispatch({
+      type: "SET_LOADING",
+      payload: loading,
     });
   }
 
@@ -86,6 +114,18 @@ function AuthProvider(props) {
       payload: backlink,
     });
   }
+  function setLink(link) {
+    dispatch({
+      type: "SET_LINK",
+      payload: link,
+    });
+  }
+  function setOpenbottom(openbottom) {
+    dispatch({
+      type: "SET_OPENBOTTOM",
+      payload: openbottom,
+    });
+  }
 
   //value is what will be passed down to components under the following context provider
   return (
@@ -101,6 +141,12 @@ function AuthProvider(props) {
         setOnesub,
         backlink: state.backlink,
         setBacklink,
+        loading: state.loading,
+        setLoading,
+        link: state.link,
+        setLink,
+        openbottom: state.openbottom,
+        setOpenbottom,
       }}
       {...props}
     />

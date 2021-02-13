@@ -15,10 +15,15 @@ import BottomNavigation from "../components/BottomNavigation";
 import Loading from "../components/Loading";
 
 function Subscription(props) {
-  const { user, setUser, subscriptions, setSubscriptions } = useContext(
-    AuthContext
-  );
-  const [link, setLink] = React.useState(false);
+  const {
+    user,
+    setUser,
+    subscriptions,
+    setSubscriptions,
+    link,
+    setLink,
+  } = useContext(AuthContext);
+
   props.setValue(1);
 
   const check_empty = (str) => {

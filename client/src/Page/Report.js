@@ -24,9 +24,18 @@ import Loading from "../components/Loading";
 import FirstLinkDrawer from "../components/FirstLinkDrawer";
 
 export function Report(props) {
-  const { user, setUser, subscriptions, setSubscriptions } = useContext(
-    AuthContext
-  );
+  const {
+    user,
+    setUser,
+    subscriptions,
+    setSubscriptions,
+    loading,
+    setLoading,
+    link,
+    setLink,
+    openbottom,
+    setOpenbottom,
+  } = useContext(AuthContext);
   const location = useLocation();
   props.setValue(0);
 
@@ -47,11 +56,6 @@ export function Report(props) {
 
   const [ind, setIndex] = React.useState(num);
   const [open, setOpen] = React.useState(op);
-  const [link, setLink] = React.useState(false);
-  const [openbottom, setOpenbottom] = React.useState(false);
-  const [data, setData] = React.useState([]);
-  const loading = props.loading;
-  const setLoading = props.setLoading;
 
   //const context = useContext(AuthContext);
   //props.userData.sub --> userID used for query
@@ -67,10 +71,12 @@ export function Report(props) {
     setOpen(open);
   };
 
-  const check_empty = (str) => {
-    if (str === "" || !str) {
-      setLink(true);
+  const check_empty = async (str) => {
+    console.log("check_empty");
+    if (str == "" || !str) {
       setOpenbottom(true);
+      setLink(true);
+    } else {
     }
   };
   // Listen to Service Creation Event
@@ -91,6 +97,7 @@ export function Report(props) {
         userID: user.sub,
       },
     });
+
     setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
 
@@ -101,16 +108,17 @@ export function Report(props) {
         id: user.sub,
       },
     });
-    console.log("checkckckckck");
+
     check_empty(linkData.data.getUser.plaidToken);
   }
 
   useEffect(() => {
     setUser(props.userData);
+
     if (user) {
+      onRefreshUser();
       callServiceByUser();
       waitCreateSubs();
-      onRefreshUser();
     }
   }, [user]);
 
@@ -120,16 +128,15 @@ export function Report(props) {
     ]).then(callServiceByUser());
   };
 
-  const onRefreshUser = () => {
-    return Promise.all([new Promise((resolve) => setTimeout(resolve, 2000))])
-      .then(() => {
-        callgetUser();
-      })
-      .then(() => {
-        console.log("refreshed");
-        setLoading(false);
-      });
+  const _sleep = (delay) =>
+    new Promise((resolve) => setTimeout(resolve, delay));
+
+  const onRefreshUser = async () => {
+    await callgetUser();
+    await _sleep(2000);
+    await setLoading(false);
   };
+
   return loading === false && user ? (
     <div>
       <div>
