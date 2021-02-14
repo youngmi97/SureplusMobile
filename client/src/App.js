@@ -1,7 +1,8 @@
 import "./App.css";
 
 import "./scss_ex.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "./context/auth";
 import { Route } from "react-router-dom";
 import Report from "./Page/Report";
 
@@ -42,10 +43,12 @@ import TermofService from "./Page/TermofService";
 const AuthStateApp = (props) => {
   const [user, setUser] = useState();
   const location = useLocation();
+
   const path = location.pathname;
-  const [loading, setLoading] = useState(true);
+
   const [authState, setAuthState] = useState();
   const [value, setValue] = React.useState(0);
+
   // const [notification, setNotification] = useState({ title: "", body: "" });
   // const [show, setShow] = useState(false)
 
@@ -64,122 +67,65 @@ const AuthStateApp = (props) => {
           path="/"
           component={() => (
             <Report
-              userData={user.attributes}
               param1={null}
               value={value}
               setValue={setValue}
-              loading={loading}
-              setLoading={setLoading}
+              userData={user.attributes}
             />
           )}
         />
-        <Route
-          exact
-          path="/Profile"
-          component={() => <Profile userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Wallet"
-          component={() => <Wallet userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Allsubs"
-          component={() => <AllSubscription userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/Accounts"
-          component={() => <Accounts userData={user.attributes} />}
-        />
+        <Route exact path="/Profile" component={() => <Profile />} />
+        <Route exact path="/Wallet" component={() => <Wallet />} />
+        <Route exact path="/Allsubs" component={() => <AllSubscription />} />
+        <Route exact path="/Accounts" component={() => <Accounts />} />
         {/* <Route exact path="/Home" component={Home} /> */}
-        <Route
-          exact
-          path="/Transaction"
-          component={() => <Transaction userData={user.attributes} />}
-        />
+        <Route exact path="/Transaction" component={() => <Transaction />} />
         <Route
           exact
           path="/Notification"
-          component={() => (
-            <Notification
-              userData={user.attributes}
-              value={value}
-              setValue={setValue}
-            />
-          )}
+          component={() => <Notification value={value} setValue={setValue} />}
         />
         <Route
           exact
           path="/Subscription"
-          component={() => (
-            <Subscription
-              userData={user.attributes}
-              value={value}
-              setValue={setValue}
-            />
-          )}
+          component={() => <Subscription value={value} setValue={setValue} />}
         />
         <Route
           exact
           path="/Subscription2"
-          component={() => (
-            <Subscription2
-              userData={user.attributes}
-              value={value}
-              setValue={setValue}
-            />
-          )}
+          component={() => <Subscription2 value={value} setValue={setValue} />}
         />
-        <Route
-          exact
-          path="/OneSub"
-          component={() => <OneSub userData={user.attributes} />}
-        />
+        <Route exact path="/OneSub" component={() => <OneSub />} />
         <Route
           exact
           path="/WalletActivity"
-          component={() => <WalletActivity userData={user.attributes} />}
+          component={() => <WalletActivity />}
         />
-        <Route
-          exact
-          path="/Onboarding"
-          component={() => <Onboarding userData={user.attributes} />}
-        />
+        <Route exact path="/Onboarding" component={() => <Onboarding />} />
         <Route
           exact
           path="/TermofService"
-          component={() => <TermofService userData={user.attributes} />}
+          component={() => <TermofService />}
         />
         <Route
           exact
           path="/PrivacyPolicy"
-          component={() => <PrivacyPolicy userData={user.attributes} />}
+          component={() => <PrivacyPolicy />}
         />
-        <Route
-          exact
-          path="/UsePhone"
-          component={() => <UsePhone userData={user.attributes} />}
-        />
-        <Route
-          exact
-          path="/UsePhoneCode"
-          component={() => <UsePhoneCode userData={user.attributes} />}
-        />
+        <Route exact path="/UsePhone" component={() => <UsePhone />} />
+        <Route exact path="/UsePhoneCode" component={() => <UsePhoneCode />} />
         <Route
           exact
           path="/Customersupport"
-          component={() => <Customersupport userData={user.attributes} />}
+          component={() => <Customersupport />}
         />
 
         {(() => {
           if (
-            ((path == "/") |
-              (path == "/Subscription") |
-              (path == "/Subscription2") |
-              (path == "/Notification")) &
-            (loading == false)
+            (path == "/") |
+            (path == "/Subscription") |
+            (path == "/Subscription2") |
+            (path == "/Notification")
           ) {
             return <BottomNavigation value={value} setValue={setValue} />;
           }

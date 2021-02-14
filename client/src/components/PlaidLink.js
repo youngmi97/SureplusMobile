@@ -4,8 +4,13 @@ import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
 import axios from "axios";
 import "../App.css";
-// import gql from "graphql-tag";
+import { API, graphqlOperation } from "aws-amplify";
+import { Button, Typography } from "@material-ui/core";
+
+import { updateUser } from "../graphql/mutations";
 import { withRouter } from "react-router-dom";
+
+//plaid iframe id: plaid-link-iframe-1
 
 const useStyles = (theme) => ({
   root: {
@@ -55,6 +60,7 @@ class PlaidLogin extends Component {
   //axios local base url : http://localhost:5000
 
   handleOnSuccess(public_token, metadata) {
+    this.props.setState();
     axios
       .post(
         "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/auth/public_token",
@@ -63,9 +69,21 @@ class PlaidLogin extends Component {
           userData: this.props.userData.sub,
         }
       )
-      .then((response) => {
+      .then(async (response) => {
         console.log("access token", response.data.access_token);
-        // add the plaidToken from response.data.access_token
+
+        const plaidTokenUpdated = await API.graphql(
+          graphqlOperation(updateUser, {
+            input: {
+              id: this.props.userData.sub,
+              plaidToken: response.data.access_token,
+            },
+          })
+        );
+        console.log("plaidTokenUpdated", plaidTokenUpdated);
+
+        //API.graphql(graphqlOperation(createTodo, { input: todo }));
+
         axios
           .get(
             "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/transactions"
@@ -74,7 +92,6 @@ class PlaidLogin extends Component {
             this.setState({ transactions: res.data.transactions.transactions });
             this.setState({ accounts: res.data.transactions.accounts });
 
-            //this.props.history.push("/Accounts");
             console.log("accountsCount", this.state.accounts.length);
             console.log("accounts", this.state.accounts);
             console.log("transactionsCount", this.state.transactions.length);
@@ -96,7 +113,7 @@ class PlaidLogin extends Component {
   // 2. Have to call the updateAccessToken function in one of the events --> not working well
 
   render() {
-    // const { classes } = this.props;
+    const { classes } = this.props;
     return (
       <PlaidLink
         clientName="React Plaid Setup"

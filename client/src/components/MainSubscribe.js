@@ -1,5 +1,6 @@
 //List View
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/auth";
 
 import { Box, Button, Typography } from "@material-ui/core";
 import ListCard from "./ListCard3";
@@ -7,6 +8,7 @@ import { Link } from "react-router-dom";
 import "../App.css";
 
 function Subscribe(props) {
+  const { setOnesub, onesub, backlink, setBacklink } = useContext(AuthContext);
   const shortmonth = [
     "Jan",
     "Feb",
@@ -140,10 +142,12 @@ function Subscribe(props) {
                         <Button
                           component={Link}
                           style={{ margin: 0, padding: 0, width: "100%" }}
+                          onClick={() => {
+                            setBacklink("/Subscription");
+                            setOnesub(array1);
+                          }}
                           to={{
                             pathname: "/OneSub",
-                            list: array1,
-                            link: "/Subscription",
                           }}
                         >
                           <ListCard

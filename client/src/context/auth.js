@@ -4,6 +4,11 @@ const AuthContext = createContext({
   user: null,
   authState: null,
   subscriptions: [],
+  onesub: null,
+  backlink: null,
+  loading: true,
+  link: false,
+  openbottom: false,
 });
 
 function authReducer(state, action) {
@@ -12,6 +17,11 @@ function authReducer(state, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
       };
     case "SET_AUTHSTATE":
       return {
@@ -22,6 +32,26 @@ function authReducer(state, action) {
       return {
         ...state,
         subscriptions: action.payload,
+      };
+    case "SET_ONESUB":
+      return {
+        ...state,
+        onesub: action.payload,
+      };
+    case "SET_BACKLINK":
+      return {
+        ...state,
+        backlink: action.payload,
+      };
+    case "SET_LINK":
+      return {
+        ...state,
+        link: action.payload,
+      };
+    case "SET_OPENBOTTOM":
+      return {
+        ...state,
+        openbottom: action.payload,
       };
 
     default:
@@ -34,6 +64,11 @@ function AuthProvider(props) {
     user: null,
     authState: null,
     subscriptions: [],
+    onesub: null,
+    loading: true,
+    backlink: null,
+    link: false,
+    openbottom: false,
   });
 
   function setUser(user) {
@@ -41,6 +76,13 @@ function AuthProvider(props) {
     dispatch({
       type: "SET_USER",
       payload: user,
+    });
+  }
+  function setLoading(loading) {
+    console.log("Setting User");
+    dispatch({
+      type: "SET_LOADING",
+      payload: loading,
     });
   }
 
@@ -60,6 +102,30 @@ function AuthProvider(props) {
       payload: subscriptions,
     });
   }
+  function setOnesub(onesub) {
+    dispatch({
+      type: "SET_ONESUB",
+      payload: onesub,
+    });
+  }
+  function setBacklink(backlink) {
+    dispatch({
+      type: "SET_BACKLINK",
+      payload: backlink,
+    });
+  }
+  function setLink(link) {
+    dispatch({
+      type: "SET_LINK",
+      payload: link,
+    });
+  }
+  function setOpenbottom(openbottom) {
+    dispatch({
+      type: "SET_OPENBOTTOM",
+      payload: openbottom,
+    });
+  }
 
   //value is what will be passed down to components under the following context provider
   return (
@@ -71,6 +137,16 @@ function AuthProvider(props) {
         setSubscriptions,
         authState: state.authState,
         setAuthState,
+        onesub: state.onesub,
+        setOnesub,
+        backlink: state.backlink,
+        setBacklink,
+        loading: state.loading,
+        setLoading,
+        link: state.link,
+        setLink,
+        openbottom: state.openbottom,
+        setOpenbottom,
       }}
       {...props}
     />

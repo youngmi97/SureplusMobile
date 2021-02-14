@@ -11,13 +11,15 @@ import Main from "../components/MainProfile";
 import BottomNavigation from "../components/BottomNavigation";
 
 function Wallet(props) {
-  const { subscriptions, setSubscriptions } = useContext(AuthContext);
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
 
   async function callServiceByUser() {
     const subscriptionData = await API.graphql({
       query: serviceByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setSubscriptions(subscriptionData.data.serviceByUser.items);
@@ -44,7 +46,7 @@ function Wallet(props) {
           backgroundColor: "white",
         }}
       >
-        <AppBar name={props.userData.name} />
+        <AppBar name={user.name} />
       </div>
       <div
         style={{

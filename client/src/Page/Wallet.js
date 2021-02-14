@@ -14,6 +14,9 @@ import { serviceByUserAccount, accountByUser } from "../graphql/queries";
 import { a } from "aws-amplify";
 
 function Wallet(props) {
+  const { user, setUser, subscriptions, setSubscriptions } = useContext(
+    AuthContext
+  );
   const location = useLocation();
   const [data1, setData1] = React.useState([]);
 
@@ -25,7 +28,7 @@ function Wallet(props) {
     const accountData = await API.graphql({
       query: accountByUser,
       variables: {
-        userID: props.userData.sub,
+        userID: user.sub,
       },
     });
     setName(accountData.data.serviceByUser.items[location.param1].name);
