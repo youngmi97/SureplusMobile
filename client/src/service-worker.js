@@ -23,6 +23,7 @@ clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 
 // precacheAndRoute([
+//   { url: "/index.html" },
 //   { url: "/static/js/3.47a19fb8.chunk.js", revision: null },
 //   { url: "/static/js/main.e9e14c79.chunk.js", revision: null },
 //   { url: "/static/js/6.31997dda.chunk.js", revision: null },
