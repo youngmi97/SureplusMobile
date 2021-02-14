@@ -503,7 +503,7 @@ export function Report(props) {
         alignItems: "center",
       }}
     >
-      <img alt="logo" src="/images/logo.png" style={{ height: 50 }}></img>
+      <img alt="logo" src="/images/logo.png" style={{ maxHeight: 40 }}></img>
     </div>
   );
 }
