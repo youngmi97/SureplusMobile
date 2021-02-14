@@ -110,6 +110,7 @@ export function Report(props) {
     });
 
     check_empty(linkData.data.getUser.plaidToken);
+    return linkData;
   }
 
   useEffect(() => {
