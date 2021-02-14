@@ -101,8 +101,9 @@ export function Report(props) {
         id: user.sub,
       },
     });
-    console.log("checkckckckck");
+
     check_empty(linkData.data.getUser.plaidToken);
+    return linkData;
   }
 
   useEffect(() => {
@@ -131,6 +132,7 @@ export function Report(props) {
         setLoading(false);
       });
   };
+
   return loading === false && user ? (
     <div>
       <div>
