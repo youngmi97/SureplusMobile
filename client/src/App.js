@@ -130,7 +130,7 @@ const AuthStateApp = (props) => {
             return <BottomNavigation value={value} setValue={setValue} />;
           }
         })()}
-        <AmplifySignOut />
+        {/* <AmplifySignOut /> */}
       </div>
     </div>
   ) : (

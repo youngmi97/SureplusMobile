@@ -130,7 +130,7 @@ function FirstLinkDrawer(props) {
                       alignItems: "center",
                     }}
                   >
-                    Link your Bank to view your subscriptions!a
+                    Link your Bank to view your subscriptions!
                   </Typography>
                   <PlaidLinkFirst userData={user} setState={loadingSucc} />
                 </div>
