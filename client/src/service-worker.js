@@ -22,16 +22,16 @@ clientsClaim();
 
 precacheAndRoute(self.__WB_MANIFEST);
 
-precacheAndRoute([
-  { url: "/static/js/3.47a19fb8.chunk.js", revision: null },
-  { url: "/static/js/main.e9e14c79.chunk.js", revision: null },
-  { url: "/static/js/6.31997dda.chunk.js", revision: null },
-  { url: "/static/js/5.eedab53b.chunk.js", revision: null },
-  { url: "/static/css/3.0440f8c5.chunk.css", revision: null },
-  { url: "/static/css/main.e031456a.chunk.css", revision: null },
-  { url: "/images/logo.png", revision: null },
-  { url: "/link.svg", revision: null },
-]);
+// precacheAndRoute([
+//   { url: "/static/js/3.47a19fb8.chunk.js", revision: null },
+//   { url: "/static/js/main.e9e14c79.chunk.js", revision: null },
+//   { url: "/static/js/6.31997dda.chunk.js", revision: null },
+//   { url: "/static/js/5.eedab53b.chunk.js", revision: null },
+//   { url: "/static/css/3.0440f8c5.chunk.css", revision: null },
+//   { url: "/static/css/main.e031456a.chunk.css", revision: null },
+//   { url: "/images/logo.png", revision: null },
+//   { url: "/link.svg", revision: null },
+// ]);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
