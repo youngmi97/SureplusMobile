@@ -35,7 +35,7 @@
 				window.addEventListener("load", function () {
 					navigator.serviceWorker
 						//worker.js vs serviceWorker.js
-						.register("/worker.js")
+						.register("/service-worker.js")
 						.then(
 							function (registration) {
 								console.log(
