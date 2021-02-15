@@ -60,6 +60,7 @@ class PlaidLogin extends Component {
   //axios local base url : http://localhost:5000
 
   handleOnSuccess(public_token, metadata) {
+    // this.props.setState();
     axios
       .post(
         "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/auth/public_token",
