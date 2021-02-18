@@ -80,7 +80,7 @@ function Subscribe(props) {
           ></ListCard1> */}
 
           {props.list.map((array, index) => {
-            return (
+            return get_date(today, new Date(array.lastDate)) > 0 ? (
               <div>
                 <div
                   style={{
@@ -114,6 +114,8 @@ function Subscribe(props) {
                   </Button>
                 </div>
               </div>
+            ) : (
+              <div></div>
             );
           })}
         </div>
