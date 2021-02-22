@@ -495,11 +495,7 @@ export function Report(props) {
 
         {/* Customer Support */}
       </Drawer>
-      <FirstLinkDrawer
-        userData={user}
-        open={openbottom}
-        setOpen={setOpenbottom}
-      />
+      <FirstLinkDrawer userData={user} open={op} setOpen={setOpenbottom} />
     </div>
   ) : (
     <div
