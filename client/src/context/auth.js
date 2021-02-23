@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useEffect } from "react";
 
 const AuthContext = createContext({
   user: null,
@@ -10,6 +10,16 @@ const AuthContext = createContext({
   link: false,
   openbottom: false,
 });
+
+const localState = JSON.parse(localStorage.getItem("info"));
+
+// let reducer = (info, newInfo) => {
+//   if (newInfo === null) {
+//     localStorage.removeItem("info");
+//     return initialState;
+//   }
+//   return { ...info, ...newInfo };
+// };
 
 function authReducer(state, action) {
   switch (action.type) {
@@ -60,16 +70,19 @@ function authReducer(state, action) {
 }
 
 function AuthProvider(props) {
-  const [state, dispatch] = useReducer(authReducer, {
-    user: null,
-    authState: null,
-    subscriptions: [],
-    onesub: null,
-    loading: true,
-    backlink: null,
-    link: false,
-    openbottom: false,
-  });
+  const [state, dispatch] = useReducer(
+    authReducer,
+    localState || {
+      user: null,
+      authState: null,
+      subscriptions: [],
+      onesub: null,
+      loading: true,
+      backlink: null,
+      link: false,
+      openbottom: false,
+    }
+  );
 
   function setUser(user) {
     console.log("Setting User");
@@ -126,6 +139,9 @@ function AuthProvider(props) {
       payload: openbottom,
     });
   }
+  useEffect(() => {
+    localStorage.setItem("info", JSON.stringify(state));
+  }, [state]);
 
   //value is what will be passed down to components under the following context provider
   return (

@@ -66,7 +66,7 @@ function Subscription(props) {
     callgetUser();
     callServiceByUser();
   }, []);
-  const [value, setValue] = React.useState(1);
+
   return (
     <div
       style={{

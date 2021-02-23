@@ -158,7 +158,7 @@ function Subscribe(props) {
               return (
                 <div>
                   {subscriptions.slice(0, 2).map((array, index) => {
-                    return (
+                    return get_date(today, new Date(array.lastDate)) > 0 ? (
                       <div>
                         <Button
                           component={Link}
@@ -181,6 +181,8 @@ function Subscribe(props) {
                           ></ListCard>
                         </Button>
                       </div>
+                    ) : (
+                      <div></div>
                     );
                   })}
                   <Button

@@ -156,6 +156,15 @@ function Subscribe(props) {
               return (
                 <div style={{ paddingBottom: "20px" }}>
                   <Typography className={classes.ListItemSize2}>
+                    Linked Accounts
+                  </Typography>
+                  <Typography className={classes.ListItemSize2}>
+                    No accounts connected yet.
+                  </Typography>
+                  <Typography
+                    className={classes.ListItemSize2}
+                    style={{ paddingTop: 0 }}
+                  >
                     To track your upcoming subscriptions,
                   </Typography>
                   <Typography
@@ -209,7 +218,7 @@ function Subscribe(props) {
               return (
                 <div>
                   <Typography className={classes.ListItemSize2}>
-                    Linked Accounts 3
+                    Linked Accounts
                   </Typography>
                   <ListCard3
                     r1="0px"

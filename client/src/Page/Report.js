@@ -3,7 +3,11 @@ import { useStyles } from "../styles/Report.style";
 import "../App.css";
 import { API, graphqlOperation } from "aws-amplify";
 
-import { serviceByUser, getUser } from "../graphql/queries";
+import {
+  serviceByUser,
+  getUser,
+  notificationsByUser,
+} from "../graphql/queries";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { AuthContext } from "../context/auth";
 
@@ -117,8 +121,12 @@ export function Report(props) {
     setUser(props.userData);
 
     if (user) {
-      onRefreshUser();
+      if (loading) {
+        onRefreshUser();
+      }
+
       callServiceByUser();
+
       waitCreateSubs();
     }
   }, [user]);
@@ -487,11 +495,7 @@ export function Report(props) {
 
         {/* Customer Support */}
       </Drawer>
-      <FirstLinkDrawer
-        userData={user}
-        open={openbottom}
-        setOpen={setOpenbottom}
-      />
+      <FirstLinkDrawer userData={user} open={op} setOpen={setOpenbottom} />
     </div>
   ) : (
     <div
