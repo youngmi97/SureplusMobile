@@ -20,16 +20,20 @@ function Subscribe(props) {
   const classes = useStyles();
   const data = props.data;
   const today = new Date();
+  const real_li = [];
   const readlist = props.readlist;
-  const real_readlist = () => {
-    const result = [];
-    for (let index = 0; index < readlist.length; index++) {
-      const element = readlist[index].id;
-      result.push(element);
-    }
-    return result;
-  };
-  const real_li = real_readlist();
+  if (readlist) {
+    const real_readlist = () => {
+      const result = [];
+      for (let index = 0; index < readlist.length; index++) {
+        const element = readlist[index].id;
+        result.push(element);
+      }
+      return result;
+    };
+    const real_li = real_readlist();
+  }
+
   console.log(real_li);
   function get_date(today, day) {
     day.setMonth(day.getMonth() + 1);
