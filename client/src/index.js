@@ -20,45 +20,45 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 Amplify.configure(AppSyncConfig);
 
 const client = new AWSAppSyncClient({
-  url: AppSyncConfig.aws_appsync_graphqlEndpoint,
-  region: AppSyncConfig.aws_appsync_region,
-  auth: {
-    type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
-    jwtToken: async () =>
-      (await Auth.currentSession()).getIdToken().getJwtToken(),
-  },
+	url: AppSyncConfig.aws_appsync_graphqlEndpoint,
+	region: AppSyncConfig.aws_appsync_region,
+	auth: {
+		type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
+		jwtToken: async () =>
+			(await Auth.currentSession()).getIdToken().getJwtToken(),
+	},
 });
 
 const theme = createMuiTheme({
-  typography: {
-    fontFamily: '"Avenir Next", serif',
-  },
+	typography: {
+		fontFamily: '"Avenir Next", serif',
+	},
 });
 
-const isIos = () => {
-  const userAgent = window.navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod/.test(userAgent);
-};
-// Detects if device is in standalone mode
-const isInStandaloneMode = () =>
-  "standalone" in window.navigator && window.navigator.standalone;
+// const isIos = () => {
+//   const userAgent = window.navigator.userAgent.toLowerCase();
+//   return /iphone|ipad|ipod/.test(userAgent);
+// };
+// // Detects if device is in standalone mode
+// const isInStandaloneMode = () =>
+//   "standalone" in window.navigator && window.navigator.standalone;
 
-// Checks if should display install popup notification:
-if (isIos() && !isInStandaloneMode()) {
-  this.setState({ showInstallMessage: true });
-}
+// // Checks if should display install popup notification:
+// if (isIos() && !isInStandaloneMode()) {
+//   this.setState({ showInstallMessage: true });
+// }
 
 ReactDOM.render(
-  <AuthProvider>
-    <ApolloProvider client={client}>
-      <MuiThemeProvider theme={theme}>
-        <Router>
-          <App />
-        </Router>
-      </MuiThemeProvider>
-    </ApolloProvider>
-  </AuthProvider>,
-  document.getElementById("root")
+	<AuthProvider>
+		<ApolloProvider client={client}>
+			<MuiThemeProvider theme={theme}>
+				<Router>
+					<App />
+				</Router>
+			</MuiThemeProvider>
+		</ApolloProvider>
+	</AuthProvider>,
+	document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
