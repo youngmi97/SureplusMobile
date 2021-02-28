@@ -63,10 +63,13 @@ class PlaidLogin extends Component {
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
     axios
-      .post("http://localhost:5000/dev/auth/public_token", {
-        public_token: public_token,
-        userData: this.props.userData.sub,
-      })
+      .post(
+        "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/auth/public_token",
+        {
+          public_token: public_token,
+          userData: this.props.userData.sub,
+        }
+      )
       .then(async (response) => {
         console.log("access token", response.data.access_token);
 
@@ -82,14 +85,18 @@ class PlaidLogin extends Component {
 
         //API.graphql(graphqlOperation(createTodo, { input: todo }));
 
-        axios.get("http://localhost:5000/dev/transactions").then((res) => {
-          this.setState({ transactions: res.data.transactions.transactions });
-          this.setState({ accounts: res.data.transactions.accounts });
+        axios
+          .get(
+            "https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev/transactions"
+          )
+          .then((res) => {
+            this.setState({ transactions: res.data.transactions.transactions });
+            this.setState({ accounts: res.data.transactions.accounts });
 
-          console.log("accountsCount", this.state.accounts.length);
-          console.log("accounts", this.state.accounts);
-          console.log("transactionsCount", this.state.transactions.length);
-        });
+            console.log("accountsCount", this.state.accounts.length);
+            console.log("accounts", this.state.accounts);
+            console.log("transactionsCount", this.state.transactions.length);
+          });
       });
     console.log("handleOnSuccess");
   }
