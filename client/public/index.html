@@ -1,21 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%PUBLIC_URL%/images/SureplusFavicon.png" />
-		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'  />
-		<meta name="theme-color" content="#000000" />
-		<meta name="description" content="Your all-in-one subscription manager" />
-		<link
-			rel="apple-touch-icon"
-			href="%PUBLIC_URL%/images/SureplusFavicon.png"
-		/>
-		<!--
+  <head>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- iPhone Xs Max (1242px x 2688px) -->
+    <link
+      rel="apple-touch-startup-image"
+      size="1170x2532"
+      href="%PUBLIC_URL%/Splash/1242_2208.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+      href="%PUBLIC_URL%/Splash/1242_2208.png"
+    />
+    <!-- iPhone Xr (828px x 1792px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+      href="%PUBLIC_URL%/Splash/750_1334.png"
+    />
+    <!-- iPhone X, Xs (1125px x 2436px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+      href="%PUBLIC_URL%/Splash/1125_2436.png"
+    />
+    <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+      href="%PUBLIC_URL%/Splash/1242_2208.png"
+    />
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+      href="%PUBLIC_URL%/Splash/750_1334.png"
+    />
+    <!-- iPad Pro 12.9" (2048px x 2732px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+      href="%PUBLIC_URL%/Splash/2048_2732.png"
+    />
+    <!-- iPad Pro 11” (1668px x 2388px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+      href="%PUBLIC_URL%/Splash/1668_2224.png"
+    />
+    <!-- iPad Pro 10.5" (1668px x 2224px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+      href="%PUBLIC_URL%/Splash/1668_2224.png"
+    />
+    <!-- iPad Mini, Air (1536px x 2048px) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+      href="%PUBLIC_URL%/Splash/1536_2048.png"
+    />
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/images/SureplusFavicon.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Your all-in-one subscription manager" />
+    <link
+      rel="apple-touch-icon"
+      href="%PUBLIC_URL%/images/SureplusFavicon.png"
+    />
+
+    <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-		<!--
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,37 +88,37 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-		<title>Sureplus</title>
-	</head>
-	<body>
-		<noscript>You need to enable JavaScript to run this app.</noscript>
-		<div id="root"></div>
-		
-		<script>
-			if ("serviceWorker" in navigator) {
-				window.addEventListener("load", function () {
-					navigator.serviceWorker
-						//worker.js vs serviceWorker.js
-						.register("/service-worker.js")
-						.then(
-							function (registration) {
-								console.log(
-									"Worker registration successful",
-									registration.scope
-								);
-							},
-							function (err) {
-								console.log("Worker registration failed", err);
-							}
-						)
-						.catch(function (err) {
-							console.log(err);
-						});
-				});
-			} else {
-				console.log("Service Worker is not supported by browser.");
-			}
-		</script>
+    <title>Sureplus</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
 
-	</body>
+    <button class="add-button">Add to home screen</button>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker
+            //worker.js vs serviceWorker.js
+            .register("/service-worker.js")
+            .then(
+              function (registration) {
+                console.log(
+                  "Worker registration successful",
+                  registration.scope
+                );
+              },
+              function (err) {
+                console.log("Worker registration failed", err);
+              }
+            )
+            .catch(function (err) {
+              console.log(err);
+            });
+        });
+      } else {
+        console.log("Service Worker is not supported by browser.");
+      }
+    </script>
+  </body>
 </html>
