@@ -72,6 +72,7 @@ function FirstLinkDrawer(props) {
   const { user, setUser, subscriptions, setSubscriptions } = useContext(
     AuthContext
   );
+  // state = what is shown in the bottom drawer
   const [state, setState] = React.useState(0);
 
   const handleClose = () => {
