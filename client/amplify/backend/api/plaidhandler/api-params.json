@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/plaid",
+            "lambdaFunction": "plaidhandler",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/plaid"
+        }
+    ],
+    "resourceName": "plaidhandler",
+    "apiName": "plaidhandler",
+    "functionArns": [
+        {
+            "lambdaFunction": "plaidhandler"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-sureplusamplify-dev-115817-authRole",
+        "unAuthRoleName": "amplify-sureplusamplify-dev-115817-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "plaidhandler",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

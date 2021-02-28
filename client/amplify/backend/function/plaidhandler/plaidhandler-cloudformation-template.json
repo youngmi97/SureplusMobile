@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-sureplusamplify-dev-115817-deployment",
-          "S3Key": "amplify-builds/plaidhandler-59464c6939574a4e6a4e-build.zip"
+          "S3Key": "amplify-builds/plaidhandler-6d44672f7258536b642f-build.zip"
         }
       }
     },
@@ -79,12 +79,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sureplusamplifyLambdaRolef5c30e9e",
+            "sureplusamplifyLambdaRole5289be46",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sureplusamplifyLambdaRolef5c30e9e",
+                  "sureplusamplifyLambdaRole5289be46",
                   "-",
                   {
                     "Ref": "env"
