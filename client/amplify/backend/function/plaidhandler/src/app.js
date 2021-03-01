@@ -78,7 +78,7 @@ app.post("/plaid/*", function (req, res) {
 
 var userId = "";
 
-app.post("/auth/publictoken", async (req, res) => {
+app.post("/auth/publictoken", function (req, res) {
   let PUBLIC_TOKEN = req.body.public_token;
   userId = req.body.userData;
 
@@ -99,7 +99,7 @@ app.post("/auth/publictoken", async (req, res) => {
   });
 });
 
-app.get("/transactions", async (req, res) => {
+app.get("/transactions", function (req, res) {
   // Pull transactions for the last 30 days
   let startDate = moment().subtract(365, "days").format("YYYY-MM-DD");
   let endDate = moment().format("YYYY-MM-DD");

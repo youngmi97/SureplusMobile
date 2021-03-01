@@ -56,36 +56,37 @@ class PlaidLogin extends Component {
     this.handleOnExit = this.handleOnExit.bind(this);
   }
 
-  //axios base url : https://j99vqavepi.execute-api.us-east-2.amazonaws.com/dev
-  //axios local base url : http://localhost:5000
-  //serverless invocation :  http://localhost:6000/dev
-
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
+    console.log("API", API);
     API.post("plaidhandler", "/auth/publictoken", {
       public_token: public_token,
       userData: this.props.userData.sub,
-    }).then(async (response) => {
-      const plaidTokenUpdated = await API.graphql(
-        graphqlOperation(updateUser, {
-          input: {
-            id: this.props.userData.sub,
-            plaidToken: response.data.access_token,
-          },
-        })
-      );
+    })
+      .then(async (response) => {
+        const plaidTokenUpdated = await API.graphql(
+          graphqlOperation(updateUser, {
+            input: {
+              id: this.props.userData.sub,
+              plaidToken: response.data.access_token,
+            },
+          })
+        );
 
-      console.log("plaidTokenUpdated", plaidTokenUpdated);
+        console.log("plaidTokenUpdated", plaidTokenUpdated);
 
-      API.get("plaidhandler", "/transactions", {}).then((res) => {
-        this.setState({ transactions: res.data.transactions.transactions });
-        this.setState({ accounts: res.data.transactions.accounts });
+        API.get("plaidhandler", "/transactions", {}).then((res) => {
+          this.setState({ transactions: res.data.transactions.transactions });
+          this.setState({ accounts: res.data.transactions.accounts });
 
-        console.log("accountsCount", this.state.accounts.length);
-        console.log("accounts", this.state.accounts);
-        console.log("transactionsCount", this.state.transactions.length);
+          console.log("accountsCount", this.state.accounts.length);
+          console.log("accounts", this.state.accounts);
+          console.log("transactionsCount", this.state.transactions.length);
+        });
+      })
+      .catch((err) => {
+        console.log("auth err", err);
       });
-    });
     console.log("handleOnSuccess");
   }
 
