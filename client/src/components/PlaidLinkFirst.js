@@ -58,7 +58,7 @@ class PlaidLogin extends Component {
 
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
-    console.log("API", API);
+
     API.post("plaidhandler", "/auth/publictoken", {
       public_token: public_token,
       userData: this.props.userData.sub,

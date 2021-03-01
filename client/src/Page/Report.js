@@ -127,12 +127,11 @@ export function Report(props) {
     //   console.log(err);
     // });
     //   console.log("API", result);
-    console.log("API", API);
   }
 
   useEffect(() => {
     console.log("amplity good");
-    testApi();
+    //testApi();
     setUser(props.userData);
 
     if (user) {
