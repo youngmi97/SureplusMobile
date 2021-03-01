@@ -25,9 +25,9 @@ const { v4: uuidv4 } = require("uuid");
 
 const region = "us-east-2";
 AWS.config.update({ region: region });
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+var ddb = new AWS.DynamoDB.DocumentClient();
+var transactionDdb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "UserBankTransactions";
 // if (process.env.ENV && process.env.ENV !== "NONE") {
 //   tableName = tableName + "-" + process.env.ENV;
 // }
@@ -41,35 +41,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 
-//Enable CORS for all methods
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "*");
-//   res.header(
-//     "Access-Control-Allow-Methods",
-//     "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"
-//   );
-//   next();
-// });
-
-// app.use(function (request, response, next) {
-//   response.header("Access-Control-Allow-Origin", "*");
-//   response.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-
-app.get("/api/info", function (req, res) {
-  res.send({
-    application: process.env.PLAID_CLIENT_ID,
-    version: "1",
-  });
-});
-
 /****************************
- * Plaid Token Exchnage and Transaction Save *
+ * TestFlight API calls *
  ****************************/
 
 const client = new plaid.Client({
@@ -82,6 +55,13 @@ var PUBLIC_TOKEN = null;
 var ACCESS_TOKEN = null;
 var ITEM_ID = null;
 
+app.get("/api/info", function (req, res) {
+  res.send({
+    application: process.env.PLAID_CLIENT_ID,
+    version: "1",
+  });
+});
+
 app.post("/plaid", function (req, res) {
   // Add your code here
   res.json({ success: "post call succeed!", url: req.url, body: req.body });
@@ -90,6 +70,138 @@ app.post("/plaid", function (req, res) {
 app.post("/plaid/*", function (req, res) {
   // Add your code here
   res.json({ success: "post call succeed!", url: req.url, body: req.body });
+});
+
+/****************************
+ * Plaid Token Exchnage and Transaction Save *
+ ****************************/
+
+var userId = "";
+
+app.post("/auth/publictoken", async (req, res) => {
+  let PUBLIC_TOKEN = req.body.public_token;
+  userId = req.body.userData;
+
+  console.log("called /auth/publictoken");
+
+  client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse) {
+    console.log("called exchangePublicToken");
+
+    ACCESS_TOKEN = tokenResponse.access_token;
+    ITEM_ID = tokenResponse.item_id;
+    console.log("ACCESS_TOKEN", ACCESS_TOKEN);
+    //res.header("Access-Control-Allow-Headers", "*");
+
+    res.json({
+      access_token: ACCESS_TOKEN,
+      item_id: ITEM_ID,
+    });
+  });
+});
+
+app.get("/transactions", async (req, res) => {
+  // Pull transactions for the last 30 days
+  let startDate = moment().subtract(365, "days").format("YYYY-MM-DD");
+  let endDate = moment().format("YYYY-MM-DD");
+  console.log("made it past variables");
+
+  console.log("called /transactions");
+  client.getTransactions(
+    ACCESS_TOKEN,
+    startDate,
+    endDate,
+    {
+      count: 400,
+      offset: 0,
+    },
+    function (error, transactionsResponse) {
+      res.json({ transactions: transactionsResponse });
+
+      const tableName = "UserCards-jzofihw23vdc5jdrwrs2rhgw5a-dev";
+      const transactionTableName = "UserBankTransactions";
+
+      var filteredAccounts = transactionsResponse["accounts"].filter(
+        (account) => {
+          var key = "credit" || "other";
+          return account.type == key;
+        }
+      );
+
+      var filteredTransactions = transactionsResponse["transactions"].filter(
+        (transaction) =>
+          filteredAccounts.every((account) => {
+            var key = account.account_id;
+            return transaction.account_id == key;
+          })
+      );
+
+      // Save relevant accounts to DB
+      if (filteredAccounts.length > 0) {
+        filteredAccounts.forEach((account) => {
+          let ddbParams = {
+            Item: {
+              // '__typename': {S: 'User'},
+              id: account.account_id.toString(),
+              userID: userId,
+              name: account.name.toString(),
+              balance: account.balances.current.toString(),
+            },
+            TableName: tableName,
+          };
+
+          // Call DynamoDB
+          try {
+            //ddb.put(ddbParams).promise();
+            ddb.put(ddbParams, function (err, data) {
+              if (err) {
+                console.log("DB Error", err);
+              } else {
+                console.log("DB Success", data);
+              }
+            });
+            console.log("Success");
+          } catch (err) {
+            console.log("Error", err);
+          }
+        });
+      }
+
+      //Save relevant Transactions to DB
+      if (filteredTransactions.length > 0) {
+        filteredTransactions.forEach((transaction) => {
+          //console.log("transaction", transaction);
+          let ddbParams = {
+            Item: {
+              // '__typename': {S: 'User'},
+              id: transaction.transaction_id.toString(),
+              userID: userId,
+              acoountId: transaction.account_id.toString(),
+              amount: transaction.amount.toString(),
+              date: transaction.date.toString(),
+              merchantName: transaction.merchant_name || "",
+              transactionName: transaction.name || "",
+              paymentChannel: transaction.payment_channel || "",
+              transactionType: transaction.transaction_type || "",
+            },
+            TableName: transactionTableName,
+          };
+
+          try {
+            //ddb.put(ddbParams).promise();
+            transactionDdb.put(ddbParams, function (err, data) {
+              if (err) {
+                console.log("DB Error", err);
+              } else {
+                console.log("DB Success", data);
+              }
+            });
+          } catch (err) {
+            console.log("Error", err);
+          }
+        });
+      }
+    }
+  );
 });
 
 app.listen(3000, function () {

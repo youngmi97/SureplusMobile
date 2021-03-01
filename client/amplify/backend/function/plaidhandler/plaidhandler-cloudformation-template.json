@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-sureplusamplify-dev-115817-deployment",
-          "S3Key": "amplify-builds/plaidhandler-77304a4561716c31477a-build.zip"
+          "S3Key": "amplify-builds/plaidhandler-6d324539522f4555704e-build.zip"
         }
       }
     },
