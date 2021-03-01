@@ -11,43 +11,67 @@ See the License for the specific language governing permissions and limitations 
 	REGION
 Amplify Params - DO NOT EDIT */
 
+const AWS = require("aws-sdk");
+
 var express = require("express");
 var bodyParser = require("body-parser");
+const plaid = require("plaid");
+var moment = require("moment");
+
 var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
 
 const { v4: uuidv4 } = require("uuid");
+
+const region = "us-east-2";
+AWS.config.update({ region: region });
+const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+let tableName = "UserBankTransactions";
+// if (process.env.ENV && process.env.ENV !== "NONE") {
+//   tableName = tableName + "-" + process.env.ENV;
+// }
 
 // declare a new express app
 var app = express();
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 
-console.log("ENV", process.env.PLAID_ENV);
-
 // Enable CORS for all methods
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   next();
+// });
+
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
-/**********************
- * Example get method *
- **********************/
-
-app.get("/plaid", function (req, res) {
-  // Add your code here
-  res.json({ success: "get call succeed!", url: req.url });
-});
-
-app.get("/plaid/*", function (req, res) {
-  // Add your code here
-  res.json({ success: "get call succeed!", url: req.url });
+app.get("/api/info", (req, res) => {
+  res.send({
+    application: process.env.PLAID_CLIENT_ID,
+    version: "1",
+  });
 });
 
 /****************************
- * Example post method *
+ * Plaid Token Exchnage and Transaction Save *
  ****************************/
+
+const client = new plaid.Client({
+  clientID: process.env.PLAID_CLIENT_ID,
+  secret: process.env.PLAID_SECRET,
+  env: plaid.environments.sandbox,
+});
+
+var PUBLIC_TOKEN = null;
+var ACCESS_TOKEN = null;
+var ITEM_ID = null;
 
 app.post("/plaid", function (req, res) {
   // Add your code here
@@ -57,34 +81,6 @@ app.post("/plaid", function (req, res) {
 app.post("/plaid/*", function (req, res) {
   // Add your code here
   res.json({ success: "post call succeed!", url: req.url, body: req.body });
-});
-
-/****************************
- * Example put method *
- ****************************/
-
-app.put("/plaid", function (req, res) {
-  // Add your code here
-  res.json({ success: "put call succeed!", url: req.url, body: req.body });
-});
-
-app.put("/plaid/*", function (req, res) {
-  // Add your code here
-  res.json({ success: "put call succeed!", url: req.url, body: req.body });
-});
-
-/****************************
- * Example delete method *
- ****************************/
-
-app.delete("/plaid", function (req, res) {
-  // Add your code here
-  res.json({ success: "delete call succeed!", url: req.url });
-});
-
-app.delete("/plaid/*", function (req, res) {
-  // Add your code here
-  res.json({ success: "delete call succeed!", url: req.url });
 });
 
 app.listen(3000, function () {

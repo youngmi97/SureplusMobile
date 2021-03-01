@@ -117,8 +117,22 @@ export function Report(props) {
     return linkData;
   }
 
+  async function testApi() {
+    const result = await API.post("plaidhandler", "/plaid", "TEST");
+    API.get("plaidhandler", "/api/info", {})
+      .then((result) => {
+        const testData = JSON.parse(result.body);
+        console.log("testData", testData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log("API", result);
+  }
+
   useEffect(() => {
     console.log("amplity good");
+    testApi();
     setUser(props.userData);
 
     if (user) {
