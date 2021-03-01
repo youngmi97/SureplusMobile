@@ -15,6 +15,7 @@ const AWS = require("aws-sdk");
 
 var express = require("express");
 var bodyParser = require("body-parser");
+const cors = require("cors");
 const plaid = require("plaid");
 var moment = require("moment");
 
@@ -33,19 +34,23 @@ let tableName = "UserBankTransactions";
 
 // declare a new express app
 var app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 
 //Enable CORS for all methods
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   res.header(
+//     "Access-Control-Allow-Methods",
+//     "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"
+//   );
+//   next();
+// });
 
 // app.use(function (request, response, next) {
 //   response.header("Access-Control-Allow-Origin", "*");
