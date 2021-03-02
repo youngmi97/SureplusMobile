@@ -239,7 +239,7 @@ function FirstLinkDrawer(props) {
                       alignItems: "center",
                     }}
                   >
-                    14 Subscriptions Found
+                    6 Subscriptions Found
                   </Typography>
                   <Button
                     onClick={() => setOpen(false)}
