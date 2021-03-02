@@ -41,7 +41,7 @@ class PlaidLogin extends Component {
   constructor(props, context) {
     super(props, context);
 
-    console.log("props", props.userData);
+    // console.log("props", props.userData);
 
     this.state = {
       transactions: [],
@@ -57,14 +57,16 @@ class PlaidLogin extends Component {
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
     API.post("plaidhandler", "/auth/publictoken", {
-      public_token: public_token,
-      userData: this.props.userData.sub,
+      body: {
+        public_token: public_token,
+        userData: this.props.userData.sub,
+      },
     }).then(async (response) => {
       const plaidTokenUpdated = await API.graphql(
         graphqlOperation(updateUser, {
           input: {
             id: this.props.userData.sub,
-            plaidToken: response.data.access_token,
+            plaidToken: response.access_token,
           },
         })
       );
@@ -72,12 +74,8 @@ class PlaidLogin extends Component {
       console.log("plaidTokenUpdated", plaidTokenUpdated);
 
       API.get("plaidhandler", "/transactions", {}).then((res) => {
-        this.setState({ transactions: res.data.transactions.transactions });
-        this.setState({ accounts: res.data.transactions.accounts });
-
-        console.log("accountsCount", this.state.accounts.length);
-        console.log("accounts", this.state.accounts);
-        console.log("transactionsCount", this.state.transactions.length);
+        this.setState({ transactions: res.transactions.transactions });
+        this.setState({ accounts: res.transactions.accounts });
       });
     });
     console.log("handleOnSuccess");
