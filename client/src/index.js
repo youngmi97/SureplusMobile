@@ -41,7 +41,6 @@ ReactDOM.render(
       <MuiThemeProvider theme={theme}>
         <Router>
           <App />
-          <button class="add-button">AHAHAHAHAHAHAH</button>
         </Router>
       </MuiThemeProvider>
     </ApolloProvider>
