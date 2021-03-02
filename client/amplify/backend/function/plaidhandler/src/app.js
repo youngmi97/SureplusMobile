@@ -85,6 +85,7 @@ app.post("/auth/publictoken", function (req, res) {
   console.log("called /auth/publictoken");
 
   client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse) {
+    console.log("error", error);
     console.log("tokenResponse", tokenResponse);
 
     ACCESS_TOKEN = tokenResponse.access_token;
