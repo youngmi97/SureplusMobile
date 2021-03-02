@@ -3,11 +3,7 @@
   <head>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!-- iPhone Xs Max (1242px x 2688px) -->
-    <link
-      rel="apple-touch-startup-image"
-      size="1170x2532"
-      href="%PUBLIC_URL%/Splash/1242_2208.png"
-    />
+
     <link
       rel="apple-touch-startup-image"
       media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
@@ -93,8 +89,22 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <button class="add-button">AHAHAHAHAHAHAH</button>
 
-    <script></script>
+    <script>
+      const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+      };
+      // Detects if device is in standalone mode
+      const isInStandaloneMode = () =>
+        "standalone" in window.navigator && window.navigator.standalone;
+
+      // Checks if should display install popup notification:
+      if (isIos() && !isInStandaloneMode()) {
+        this.setState({ showInstallMessage: true });
+      }
+    </script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
