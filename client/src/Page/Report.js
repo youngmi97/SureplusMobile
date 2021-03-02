@@ -118,20 +118,22 @@ export function Report(props) {
   }
 
   async function testApi() {
-    //   const result = await API.post("plaidhandler", "/plaid", "TEST");
-    //   API.get("plaidhandler", "/api/info", {})
-    //     .then((result) => {
-    //       console.log("testData", result);
-    //     })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
-    //   console.log("API", result);
+    API.put("plaidhandler", "/extract/subscriptions", {
+      body: {
+        userID: user.sub,
+      },
+    })
+      .then((result) => {
+        console.log("testData", result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
     console.log("amplity good");
-    //testApi();
+    testApi();
     setUser(props.userData);
 
     if (user) {

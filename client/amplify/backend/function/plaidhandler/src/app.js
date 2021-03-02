@@ -49,7 +49,7 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
-  env: plaid.environments.sandbox,
+  env: plaid.environments.development,
 });
 
 var PUBLIC_TOKEN = null;
@@ -206,14 +206,55 @@ app.get("/transactions", function (req, res) {
   );
 });
 
-/****************************
+/*********************************
  * Subscription Service Extractor *
  * save services from transaction records
- ****************************/
+ ********************************/
 
 app.put("/extract/subscriptions", function (req, res) {
   const userID = req.body.userID;
   //servicesDdb, transactionsDdb
+
+  /*
+  1. Find transactions under "userID"
+  2. Group the transactions by transactionName
+  3. Check if the transactionName is in serviceNameList
+  4. Sort by date
+  5. Write to DB
+  6. count number of writes and pass res.json
+  */
+
+  const serviceNameList = [
+    "Netflix",
+    "Creative Cloud",
+    "Opal",
+    "ExpressVPN",
+    "Blinkist",
+    "Hulu",
+    "Disney",
+    "Notion",
+    "Notability",
+    "ESPN plus",
+    "Spotify",
+    "Superhuman",
+  ];
+
+  // var params = {
+  //   TableName: "Movies",
+  //   KeyConditionExpression: "#user = :yyyy",
+  //   ExpressionAttributeNames: {
+  //     "#user": "userID",
+  //   },
+  //   ExpressionAttributeValues: {
+  //     ":yyyy": 1985,
+  //   },
+  // };
+
+  res.json({
+    data: {
+      total: 5,
+    },
+  });
 });
 
 app.listen(3000, function () {

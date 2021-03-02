@@ -49,6 +49,20 @@
                     "/PATCH"
                 ]
             }
+        },
+        {
+            "name": "/extract/subscriptions",
+            "lambdaFunction": "plaidhandler",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
         }
     ],
     "resourceName": "plaidhandler",
@@ -59,7 +73,7 @@
         }
     ],
     "privacy": {
-        "auth": 4,
+        "auth": 5,
         "unauth": 0,
         "authRoleName": "amplify-sureplusamplify-dev-115817-authRole",
         "unAuthRoleName": "amplify-sureplusamplify-dev-115817-unauthRole"
@@ -74,5 +88,5 @@
             ]
         }
     ],
-    "uuid": "6f8554f5"
+    "uuid": "bd08a511"
 }
