@@ -88,39 +88,3 @@ serviceWorkerRegistration.register();
 // });
 
 // Initialize deferredPrompt for use later to show browser install prompt.
-let deferredPrompt;
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-});
-
-const btnInstallApp = document.querySelector(".add-button");
-
-if (btnInstallApp) {
-  btnInstallApp.addEventListener("click", (e) => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("user accepted A2HS prompt");
-        } else {
-          console.log("user dismissed A2HS prompt");
-        }
-        deferredPrompt = null;
-      });
-    }
-  });
-}
-
-const isIos = () => {
-  const userAgent = window.navigator.userAgent.toLowerCase();
-  return /iphone|ipad|ipod/.test(userAgent);
-};
-// Detects if device is in standalone mode
-const isInStandaloneMode = () =>
-  "standalone" in window.navigator && window.navigator.standalone;
-
-// Checks if should display install popup notification:
-if (isIos() && !isInStandaloneMode()) {
-  this.setState({ showInstallMessage: true });
-}
