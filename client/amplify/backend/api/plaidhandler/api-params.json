@@ -13,6 +13,42 @@
                 ]
             },
             "policyResourceName": "/plaid"
+        },
+        {
+            "name": "/api/info",
+            "lambdaFunction": "plaidhandler",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/GET"
+                ]
+            }
+        },
+        {
+            "name": "/auth/publictoken",
+            "lambdaFunction": "plaidhandler",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            }
+        },
+        {
+            "name": "/transactions",
+            "lambdaFunction": "plaidhandler",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            }
         }
     ],
     "resourceName": "plaidhandler",
@@ -23,7 +59,7 @@
         }
     ],
     "privacy": {
-        "auth": 1,
+        "auth": 4,
         "unauth": 0,
         "authRoleName": "amplify-sureplusamplify-dev-115817-authRole",
         "unAuthRoleName": "amplify-sureplusamplify-dev-115817-unauthRole"
@@ -37,5 +73,6 @@
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "6f8554f5"
 }
