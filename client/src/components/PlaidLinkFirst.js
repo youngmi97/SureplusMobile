@@ -80,6 +80,14 @@ class PlaidLogin extends Component {
         API.get("plaidhandler", "/transactions", {}).then((res) => {
           this.setState({ transactions: res.transactions.transactions });
           this.setState({ accounts: res.transactions.accounts });
+
+          console.log("Transactions Update Successful!");
+
+          // call an updater function that will update the services from recently extracted transactions
+          // type: PUT
+          // params: userID
+          // process: gql mutation createSubscriptionServices
+          // return: total # of subscriptions
         });
       })
       .catch((err) => {

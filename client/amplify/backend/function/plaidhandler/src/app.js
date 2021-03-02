@@ -27,6 +27,7 @@ const region = "us-east-2";
 AWS.config.update({ region: region });
 var ddb = new AWS.DynamoDB.DocumentClient();
 var transactionDdb = new AWS.DynamoDB.DocumentClient();
+var servicesDdb = new AWS.DynamoDB.DocumentClient();
 
 // if (process.env.ENV && process.env.ENV !== "NONE") {
 //   tableName = tableName + "-" + process.env.ENV;
@@ -203,6 +204,16 @@ app.get("/transactions", function (req, res) {
       }
     }
   );
+});
+
+/****************************
+ * Subscription Service Extractor *
+ * save services from transaction records
+ ****************************/
+
+app.put("/extract/subscriptions", function (req, res) {
+  const userID = req.body.userID;
+  //servicesDdb, transactionsDdb
 });
 
 app.listen(3000, function () {

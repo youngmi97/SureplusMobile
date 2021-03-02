@@ -76,6 +76,8 @@ class PlaidLogin extends Component {
       API.get("plaidhandler", "/transactions", {}).then((res) => {
         this.setState({ transactions: res.transactions.transactions });
         this.setState({ accounts: res.transactions.accounts });
+
+        console.log("Transactions Update Successful!");
       });
     });
     console.log("handleOnSuccess");
