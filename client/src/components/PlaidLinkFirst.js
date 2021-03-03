@@ -50,12 +50,24 @@ class PlaidLogin extends Component {
       transactions: [],
       accounts: [],
       userData: props.userData,
+      currentUser: {},
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleOnSuccess = this.handleOnSuccess.bind(this);
     this.handleOnExit = this.handleOnExit.bind(this);
     this.callgetUser = this.callgetUser.bind(this);
+  }
+
+  async componentDidMount() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: this.props.userData.sub,
+      },
+    });
+
+    this.setState({ currentUser: linkData.data.getUser });
   }
 
   async callgetUser() {
@@ -72,8 +84,11 @@ class PlaidLogin extends Component {
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
 
-    const currentUser = this.callgetUser();
-    if (currentUser.plaidToken === "" || !currentUser.plaidToken) {
+    console.log("currentUser", this.state.currentUser);
+    if (
+      this.state.currentUser.plaidToken === "" ||
+      this.state.currentUser.plaidToken === null
+    ) {
       API.post("plaidhandler", "/auth/publictoken", {
         body: {
           public_token: public_token,
@@ -92,7 +107,11 @@ class PlaidLogin extends Component {
 
           console.log("plaidTokenUpdated", plaidTokenUpdated);
 
-          API.get("plaidhandler", "/transactions", {}).then((res) => {
+          API.get("plaidhandler", "/transactions", {
+            body: {
+              token: null,
+            },
+          }).then((res) => {
             this.setState({ transactions: res.transactions.transactions });
             this.setState({ accounts: res.transactions.accounts });
 
@@ -113,7 +132,7 @@ class PlaidLogin extends Component {
       //plaidToken alredy exists
       API.get("plaidhandler", "/transactions", {
         body: {
-          token: currentUser.plaidToken,
+          token: this.state.currentUser.plaidToken,
         },
       })
         .then((res) => {

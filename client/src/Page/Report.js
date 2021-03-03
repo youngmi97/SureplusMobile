@@ -133,7 +133,7 @@ export function Report(props) {
 
   useEffect(() => {
     console.log("amplity good");
-    testApi();
+    //testApi();
     setUser(props.userData);
 
     if (user) {
