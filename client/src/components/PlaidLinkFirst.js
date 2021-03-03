@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
 import axios from "axios";
 import "../App.css";
+import { getUser } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { Button, Typography } from "@material-ui/core";
 
@@ -54,30 +55,68 @@ class PlaidLogin extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleOnSuccess = this.handleOnSuccess.bind(this);
     this.handleOnExit = this.handleOnExit.bind(this);
+    this.callgetUser = this.callgetUser.bind(this);
+  }
+
+  async callgetUser() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: this.props.userData.sub,
+      },
+    });
+
+    return linkData.data.getUser;
   }
 
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
 
-    API.post("plaidhandler", "/auth/publictoken", {
-      body: {
-        public_token: public_token,
-        userData: this.props.userData.sub,
-      },
-    })
-      .then(async (response) => {
-        const plaidTokenUpdated = await API.graphql(
-          graphqlOperation(updateUser, {
-            input: {
-              id: this.props.userData.sub,
-              plaidToken: response.access_token,
-            },
-          })
-        );
+    const currentUser = this.callgetUser();
+    if (currentUser.plaidToken === "" || !currentUser.plaidToken) {
+      API.post("plaidhandler", "/auth/publictoken", {
+        body: {
+          public_token: public_token,
+          userData: this.props.userData.sub,
+        },
+      })
+        .then(async (response) => {
+          const plaidTokenUpdated = await API.graphql(
+            graphqlOperation(updateUser, {
+              input: {
+                id: this.props.userData.sub,
+                plaidToken: response.access_token,
+              },
+            })
+          );
 
-        console.log("plaidTokenUpdated", plaidTokenUpdated);
+          console.log("plaidTokenUpdated", plaidTokenUpdated);
 
-        API.get("plaidhandler", "/transactions", {}).then((res) => {
+          API.get("plaidhandler", "/transactions", {}).then((res) => {
+            this.setState({ transactions: res.transactions.transactions });
+            this.setState({ accounts: res.transactions.accounts });
+
+            console.log("Transactions Update Successful!");
+
+            // call an updater function that will update the services from recently extracted transactions
+            // type: PUT
+            // params: userID
+            // process: gql mutation createSubscriptionServices
+            // return: total # of subscriptions
+          });
+        })
+        .catch((err) => {
+          console.log("auth err", err);
+        });
+      console.log("handleOnSuccess NEW TOKEN");
+    } else {
+      //plaidToken alredy exists
+      API.get("plaidhandler", "/transactions", {
+        body: {
+          token: currentUser.plaidToken,
+        },
+      })
+        .then((res) => {
           this.setState({ transactions: res.transactions.transactions });
           this.setState({ accounts: res.transactions.accounts });
 
@@ -88,12 +127,12 @@ class PlaidLogin extends Component {
           // params: userID
           // process: gql mutation createSubscriptionServices
           // return: total # of subscriptions
+        })
+        .catch((err) => {
+          console.log("transaction err", err);
         });
-      })
-      .catch((err) => {
-        console.log("auth err", err);
-      });
-    console.log("handleOnSuccess");
+      console.log("handleOnSuccess EXISTING TOKEN");
+    }
   }
 
   handleOnExit() {
@@ -113,7 +152,7 @@ class PlaidLogin extends Component {
     return (
       <PlaidLink
         clientName="React Plaid Setup"
-        env="development"
+        env="sandbox"
         product={["auth", "transactions"]}
         publicKey="d74564d1fca97dd00ec3f9f421eae9"
         onExit={this.handleOnExit}

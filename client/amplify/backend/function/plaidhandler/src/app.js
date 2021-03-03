@@ -49,7 +49,7 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
-  env: plaid.environments.development,
+  env: plaid.environments.sandbox,
 });
 
 var PUBLIC_TOKEN = null;
@@ -105,9 +105,15 @@ app.get("/transactions", function (req, res) {
   // Pull transactions for the last 30 days
   let startDate = moment().subtract(365, "days").format("YYYY-MM-DD");
   let endDate = moment().format("YYYY-MM-DD");
-  console.log("made it past variables");
 
+  console.log("made it past variables");
   console.log("called /transactions");
+
+  if (req && req.body) {
+    console.log("TOKEN EXISTS", req.body.token);
+    ACCESS_TOKEN = req.body.token;
+  }
+
   client.getTransactions(
     ACCESS_TOKEN,
     startDate,
