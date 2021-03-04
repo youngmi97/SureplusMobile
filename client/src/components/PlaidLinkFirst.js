@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { PlaidLink } from "react-plaid-link";
 import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
-import axios from "axios";
 import "../App.css";
 import { getUser } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";

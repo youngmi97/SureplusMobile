@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { PlaidLink } from "react-plaid-link";
 import { withStyles } from "@material-ui/styles";
 //import Button from "@material-ui/core/Button";
-import axios from "axios";
 import "../App.css";
 import { Button, Typography } from "@material-ui/core";
-import gql from "graphql-tag";
+import { getUser } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { updateUser } from "../graphql/mutations";
 import { withRouter } from "react-router-dom";
@@ -41,46 +40,114 @@ class PlaidLogin extends Component {
   constructor(props, context) {
     super(props, context);
 
-    // console.log("props", props.userData);
+    console.log("props", props.userData);
 
     this.state = {
       transactions: [],
       accounts: [],
       userData: props.userData,
+      currentUser: {},
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleOnSuccess = this.handleOnSuccess.bind(this);
     this.handleOnExit = this.handleOnExit.bind(this);
+    this.callgetUser = this.callgetUser.bind(this);
+  }
+
+  async componentDidMount() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: this.props.userData.sub,
+      },
+    });
+
+    this.setState({ currentUser: linkData.data.getUser });
+  }
+
+  async callgetUser() {
+    const linkData = await API.graphql({
+      query: getUser,
+      variables: {
+        id: this.props.userData.sub,
+      },
+    });
+
+    return linkData.data.getUser;
   }
 
   handleOnSuccess(public_token, metadata) {
     this.props.setState();
-    API.post("plaidhandler", "/auth/publictoken", {
-      body: {
-        public_token: public_token,
-        userData: this.props.userData.sub,
-      },
-    }).then(async (response) => {
-      const plaidTokenUpdated = await API.graphql(
-        graphqlOperation(updateUser, {
-          input: {
-            id: this.props.userData.sub,
-            plaidToken: response.access_token,
-          },
+
+    console.log("currentUser", this.state.currentUser);
+    if (
+      this.state.currentUser.plaidToken === "" ||
+      this.state.currentUser.plaidToken === null
+    ) {
+      API.post("plaidhandler", "/auth/publictoken", {
+        body: {
+          public_token: public_token,
+          userData: this.props.userData.sub,
+        },
+      })
+        .then(async (response) => {
+          const plaidTokenUpdated = await API.graphql(
+            graphqlOperation(updateUser, {
+              input: {
+                id: this.props.userData.sub,
+                plaidToken: response.access_token,
+              },
+            })
+          );
+
+          console.log("plaidTokenUpdated", plaidTokenUpdated);
+
+          API.get("plaidhandler", "/transactions", {
+            body: {
+              token: null,
+            },
+          }).then((res) => {
+            this.setState({ transactions: res.transactions.transactions });
+            this.setState({ accounts: res.transactions.accounts });
+
+            console.log("Transactions Update Successful!");
+
+            // call an updater function that will update the services from recently extracted transactions
+            // type: PUT
+            // params: userID
+            // process: gql mutation createSubscriptionServices
+            // return: total # of subscriptions
+          });
         })
-      );
+        .catch((err) => {
+          console.log("auth err", err);
+        });
+      console.log("handleOnSuccess NEW TOKEN");
+    } else {
+      //plaidToken alredy exists
+      API.get("plaidhandler", "/transactions", {
+        body: {
+          token: this.state.currentUser.plaidToken,
+        },
+      })
+        .then((res) => {
+          this.setState({ transactions: res.transactions.transactions });
+          this.setState({ accounts: res.transactions.accounts });
 
-      console.log("plaidTokenUpdated", plaidTokenUpdated);
+          console.log("Transactions Update Successful!");
 
-      API.get("plaidhandler", "/transactions", {}).then((res) => {
-        this.setState({ transactions: res.transactions.transactions });
-        this.setState({ accounts: res.transactions.accounts });
-
-        console.log("Transactions Update Successful!");
-      });
-    });
-    console.log("handleOnSuccess");
+          // call an updater function that will update the services from recently extracted transactions
+          // type: PUT
+          // params: userID
+          // process: gql mutation createSubscriptionServices
+          // return: total # of subscriptions
+        })
+        .catch((err) => {
+          console.log("transaction err", err);
+        });
+      console.log("handleOnSuccess EXISTING TOKEN");
+    }
   }
 
   handleOnExit() {

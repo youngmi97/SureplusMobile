@@ -109,6 +109,7 @@ app.get("/transactions", function (req, res) {
   console.log("made it past variables");
   console.log("called /transactions");
 
+  //suddenly error occuring with GET request ??
   if (req.body.token !== null) {
     console.log("TOKEN EXISTS", req.body.token);
     ACCESS_TOKEN = req.body.token;
