@@ -16,7 +16,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import { Link, useLocation } from "react-router-dom";
 import React from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, Dialog } from "@material-ui/core";
 //Sort
 
 import InputBase from "@material-ui/core/InputBase";
@@ -60,14 +60,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
   },
-  Avatar1: {
-    backgroundColor: "#fafafa",
-    height: 183,
-  },
-  marginStyle: {
-    flexGrow: 1,
-    display: "block",
-  },
+
   dialogPaper: {
     margin: 0,
     width: "100vw",
@@ -75,157 +68,20 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     borderRadius: "15px",
   },
-  imageIcon: { width: "4.15vh", height: "4.15vh" },
-  search: {
-    position: "relative",
-    borderRadius: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
-    backgroundColor: "white",
-    marginRight: 2,
-    height: "4.69vh",
-    width: "100%",
-  },
 
-  selectEmpty: {
-    width: 384,
-  },
-  selectEmpty1: {
-    width: 150,
-  },
-  left: {
-    marginLeft: 32,
-    marginRight: 32,
-    marginTop: 20,
-    backgroundColor: "rgba(0, 0, 0, 0.04)",
-  },
-
-  searchIcon: {
-    padding: theme.spacing(0, 1),
-    height: "4.69vh",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: theme.palette.grey.main,
-  },
-  input: {
-    color: "#7610EB",
-    textAlign: "right",
-  },
-  inputRoot: {
-    alignItems: "center",
-    justifyItems: "center",
-    height: "100%",
-    width: "100%",
-    borderRadius: 18,
-  },
-  inputInput: {
-    padding: 0,
-    fontSize: 16,
-    backgroundColor: "#C8C7CC",
-    color: "black",
-    height: "4.69vh",
-    opacity: 0.5,
-    borderRadius: 18,
-    fontWeight: 300,
-
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-
-    width: "100%",
-    "&:hover": {
-      // backgroundColor: fade(theme.palette.common.white, 0.25),
-      // border: `1px solid ${theme.palette.primary.main}`,
-    },
-    "&:focus": {
-      width: "20ch",
-    },
-  },
-
-  inputInput1: {
-    padding: "10.5px 26px 10.5px 12px",
-    fontSize: "14px",
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "20ch",
-  },
-  dialogpaperScroll: {
-    marginTop: "7.2vh",
-    maxHeight: "92.8vh",
-  },
-  Switchstyle: {
-    height: "40px",
-  },
-  regularButton: {
-    padding: "9.5px",
-    height: "100%",
-    borderRadius: 8,
-    margin: theme.spacing(1),
-    // border: "1px solid #EFEFF4",
-    color: theme.palette.grey.main,
-    backgroundColor: "white",
-    "&:focus": {
-      boxShadow: "0 0 0 0.2rem rgba(239, 239, 244, 0.25)",
-    },
-  },
-
-  sortStyle: {
-    width: "fit-content",
-    borderRadius: 8,
-  },
-
-  menuItemStyle: {
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    backgroundColor: "#FFFFFF",
-  },
-  margins: {
-    marginTop: 24,
-  },
-  Title: {
-    fontSize: "24px",
-    flexGrow: 1,
-  },
-  Title1: {
-    fontSize: "14px",
-    color: "#666666",
-    flexGrow: 1,
-  },
-  closeButton: {
-    "&:hover, &:focus": {
-      backgroundColor: "#ffffff",
-      borderColor: "#ffffff",
-    },
-  },
-
-  ListItemSize4: {
-    fontSize: 11,
-    height: 32,
-    minWidth: "330px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  inputmargin: {
+  dialogPaper2: {
     margin: 0,
-    height: 40,
+    width: "70vw",
+    height: "100vh",
+    padding: 20,
+    borderRadius: "15px 15px 15px 15px",
+    backgroundColor: "#ECECEC",
   },
-  remind: {
-    fontSize: 16,
+  dialogpaperScroll2: {
+    maxWidth: "70vw",
+    maxHeight: "22vh",
   },
+
   List: {
     backgroundColor: "white",
     height: "7.29vh",
@@ -342,7 +198,17 @@ export default function Subscription(props) {
 
   const [value, setValue] = React.useState(null);
 
+  const [enable, setEnable] = React.useState(true);
   const [email, setEmail] = React.useState("");
+
+  const [text, setText] = React.useState("");
+  const onChange = (event) => {
+    if (event.target.value == "") {
+      setEnable(true);
+    } else {
+      setEnable(false);
+    }
+  };
 
   const handleEmail = (email) => {
     if (email == "") {
@@ -435,6 +301,7 @@ export default function Subscription(props) {
                     opacity: 1,
                   },
                 }}
+                onChange={onChange}
                 style={{
                   margin: 0,
                   padding: 0,
@@ -442,19 +309,124 @@ export default function Subscription(props) {
               />
             </div>
           </List>
+          {enable ? (
+            <Button
+              onClick={() => (handleEmail(value), handleClickOpen1())}
+              disabled
+              style={{
+                position: "absolute",
+                bottom: 24,
+                margin: 0,
+                padding: 0,
+                height: "48px",
+                borderRadius: "24px",
+                background: "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+                color: "white",
+                textTransform: "none",
+                width: "calc(100% - 48px)",
+              }}
+            >
+              <Typography
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  color: "#666666",
+
+                  fontWeight: 500,
+                  fontSize: "17px",
+                }}
+              >
+                Send
+              </Typography>
+            </Button>
+          ) : (
+            <Button
+              onClick={() => (handleEmail(value), handleClickOpen1())}
+              style={{
+                position: "absolute",
+                bottom: 24,
+                margin: 0,
+                padding: 0,
+                height: "48px",
+                borderRadius: "24px",
+                background: "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+                color: "white",
+                textTransform: "none",
+                width: "calc(100% - 48px)",
+              }}
+            >
+              <Typography
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  color: "white",
+
+                  fontWeight: 500,
+                  fontSize: "17px",
+                }}
+              >
+                Send
+              </Typography>
+            </Button>
+          )}
+        </div>
+      </div>
+      <Dialog
+        open={open1}
+        onClose={() => setOpen1(false)}
+        classes={{
+          paper: classes.dialogPaper2,
+          paperScrollPaper: classes.dialogpaperScroll2,
+        }}
+        style={{
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        <Typography
+          style={{
+            fontSize: 20,
+            color: "#333333",
+            margin: 0,
+            padding: 0,
+            fontWeight: 600,
+          }}
+        >
+          Your message has been sent!
+        </Typography>
+        <Typography
+          style={{
+            fontSize: 14,
+            color: "#333333",
+            margin: 0,
+            padding: 0,
+            marginTop: 12,
+            fontWeight: 500,
+          }}
+        >
+          Your message has been sent to our developers. We will get back to you
+          asap.
+        </Typography>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Button
-            onClick={() => handleEmail(value)}
             style={{
               position: "absolute",
-              bottom: 24,
               margin: 0,
+              bottom: 15,
               padding: 0,
-              height: "48px",
-              borderRadius: "24px",
-              background: "linear-gradient(90deg, #8610EB 0%, #430985 100%)",
+              height: "5.99vh",
+              borderRadius: "8px",
+              background: "#7610EB",
               color: "white",
               textTransform: "none",
-              width: "calc(100% - 48px)",
+              width: "90%",
             }}
           >
             <Typography
@@ -467,11 +439,11 @@ export default function Subscription(props) {
                 fontSize: "17px",
               }}
             >
-              Send
+              Got it 👍
             </Typography>
           </Button>
         </div>
-      </div>
+      </Dialog>
     </div>
   );
 }
