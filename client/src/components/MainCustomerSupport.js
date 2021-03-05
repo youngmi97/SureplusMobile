@@ -21,8 +21,6 @@ import { Typography, Box, Dialog } from "@material-ui/core";
 
 import InputBase from "@material-ui/core/InputBase";
 
-import EventRoundedIcon from "@material-ui/icons/EventRounded";
-import InputCalendar from "./InputCalendar";
 import "../App.css";
 import { set, get } from "idb-keyval";
 
@@ -428,6 +426,8 @@ export default function Subscription(props) {
               textTransform: "none",
               width: "90%",
             }}
+            component={Link}
+            to={{ pathname: "/" }}
           >
             <Typography
               style={{
