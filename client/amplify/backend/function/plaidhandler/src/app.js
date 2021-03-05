@@ -109,10 +109,10 @@ app.get("/transactions", function (req, res) {
   console.log("made it past variables");
   console.log("called /transactions");
 
-  //suddenly error occuring with GET request ??
-  if (req.body.token !== null) {
-    console.log("TOKEN EXISTS", req.body.token);
-    ACCESS_TOKEN = req.body.token;
+  if (req.query) {
+    ACCESS_TOKEN = req.query.token;
+    userId = req.query.userID;
+    console.log("CALLED queryString", userId + " " + ACCESS_TOKEN);
   }
 
   client.getTransactions(
@@ -124,15 +124,13 @@ app.get("/transactions", function (req, res) {
       offset: 0,
     },
     function (error, transactionsResponse) {
-      res.json({ transactions: transactionsResponse });
-
       const tableName = "UserCards-jzofihw23vdc5jdrwrs2rhgw5a-dev";
       const transactionTableName = "UserBankTransactions";
 
       var filteredAccounts = transactionsResponse["accounts"].filter(
         (account) => {
           var key = "credit" || "other";
-          return account.type == key;
+          return account.type === key || account.subtype.includes("card");
         }
       );
 
@@ -140,14 +138,16 @@ app.get("/transactions", function (req, res) {
         (transaction) =>
           filteredAccounts.every((account) => {
             var key = account.account_id;
-            return transaction.account_id == key;
+            return transaction.account_id === key;
           })
       );
 
       // Save relevant accounts to DB
       if (filteredAccounts.length > 0) {
-        filteredAccounts.forEach((account) => {
+        filteredAccounts.forEach(async (account) => {
+          //console.log("account", account);
           let ddbParams = {
+            TableName: tableName,
             Item: {
               // '__typename': {S: 'User'},
               id: account.account_id.toString(),
@@ -155,20 +155,19 @@ app.get("/transactions", function (req, res) {
               name: account.name.toString(),
               balance: account.balances.current.toString(),
             },
-            TableName: tableName,
           };
 
           // Call DynamoDB
           try {
-            //ddb.put(ddbParams).promise();
-            ddb.put(ddbParams, function (err, data) {
-              if (err) {
-                console.log("DB Error", err);
-              } else {
-                console.log("DB Success", data);
-              }
-            });
-            console.log("Success");
+            const db_result = await ddb.put(ddbParams).promise();
+            // ddb.put(ddbParams, function (err, data) {
+            //   if (err) {
+            //     console.log("DB Error", err);
+            //   } else {
+            //     console.log("DB Success", data);
+            //   }
+            // });
+            console.log("Success account add: ", db_result);
           } catch (err) {
             console.log("Error", err);
           }
@@ -176,10 +175,12 @@ app.get("/transactions", function (req, res) {
       }
 
       //Save relevant Transactions to DB
+      const transactionPromise = [];
       if (filteredTransactions.length > 0) {
-        filteredTransactions.forEach((transaction) => {
+        filteredTransactions.forEach(async (transaction) => {
           //console.log("transaction", transaction);
           let ddbParams = {
+            TableName: transactionTableName,
             Item: {
               // '__typename': {S: 'User'},
               id: transaction.transaction_id.toString(),
@@ -192,23 +193,31 @@ app.get("/transactions", function (req, res) {
               paymentChannel: transaction.payment_channel || "",
               transactionType: transaction.transaction_type || "",
             },
-            TableName: transactionTableName,
           };
 
           try {
             //ddb.put(ddbParams).promise();
-            transactionDdb.put(ddbParams, function (err, data) {
-              if (err) {
-                console.log("DB Error", err);
-              } else {
-                console.log("DB Success", data);
-              }
-            });
+            //console.log("TRY CALLED");
+            const db_result = await transactionDdb.put(ddbParams).promise();
+            transactionPromise.push(db_result);
+            // transactionDdb.put(ddbParams, function (err, data) {
+            //   if (err) {
+            //     console.log("DB Error", err);
+            //   } else {
+            //     console.log("DB Success", data);
+            //   }
+            // });
+            console.log("Success transaction add: ", db_result);
           } catch (err) {
             console.log("Error", err);
           }
         });
       }
+
+      Promise.all(transactionPromise).then((values) => {
+        console.log("values", values);
+        res.json({ transactions: transactionsResponse });
+      });
     }
   );
 });
@@ -217,11 +226,7 @@ app.get("/transactions", function (req, res) {
  * Subscription Service Extractor *
  * save services from transaction records
  ********************************/
-
-app.put("/extract/subscriptions", function (req, res) {
-  const userID = req.body.userID;
-  //servicesDdb, transactionsDdb
-
+app.post("/extract/subscriptions", function (req, res) {
   /*
   1. Find transactions under "userID"
   2. Group the transactions by transactionName
@@ -246,22 +251,7 @@ app.put("/extract/subscriptions", function (req, res) {
     "Superhuman",
   ];
 
-  // var params = {
-  //   TableName: "Movies",
-  //   KeyConditionExpression: "#user = :yyyy",
-  //   ExpressionAttributeNames: {
-  //     "#user": "userID",
-  //   },
-  //   ExpressionAttributeValues: {
-  //     ":yyyy": 1985,
-  //   },
-  // };
-
-  res.json({
-    data: {
-      total: 5,
-    },
-  });
+  const testServiceNameList = ["KFC"];
 });
 
 app.listen(3000, function () {

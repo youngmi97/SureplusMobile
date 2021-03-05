@@ -95,7 +95,7 @@ class PlaidLogin extends Component {
         },
       })
         .then(async (response) => {
-          const plaidTokenUpdated = await API.graphql(
+          API.graphql(
             graphqlOperation(updateUser, {
               input: {
                 id: this.props.userData.sub,
@@ -104,24 +104,23 @@ class PlaidLogin extends Component {
             })
           );
 
-          console.log("plaidTokenUpdated", plaidTokenUpdated);
+          await API.get("plaidhandler", "/transactions", {})
+            .then((res) => {
+              this.setState({ transactions: res.transactions.transactions });
+              this.setState({ accounts: res.transactions.accounts });
 
-          API.get("plaidhandler", "/transactions", {
-            body: {
-              token: null,
-            },
-          }).then((res) => {
-            this.setState({ transactions: res.transactions.transactions });
-            this.setState({ accounts: res.transactions.accounts });
+              console.log("Transactions Update Successful!");
 
-            console.log("Transactions Update Successful!");
-
-            // call an updater function that will update the services from recently extracted transactions
-            // type: PUT
-            // params: userID
-            // process: gql mutation createSubscriptionServices
-            // return: total # of subscriptions
-          });
+              // call an updater function that will update the services from recently extracted transactions
+              // type: PUT
+              // params: userID
+              // process: gql mutation createSubscriptionServices
+              // return: total # of subscriptions
+              console.log("transactions", res.transactions);
+            })
+            .catch((error) => {
+              console.log("transactions err", error);
+            });
         })
         .catch((err) => {
           console.log("auth err", err);
@@ -129,9 +128,11 @@ class PlaidLogin extends Component {
       console.log("handleOnSuccess NEW TOKEN");
     } else {
       //plaidToken alredy exists
+
       API.get("plaidhandler", "/transactions", {
-        body: {
+        queryStringParameters: {
           token: this.state.currentUser.plaidToken,
+          userID: this.props.userData.sub,
         },
       })
         .then((res) => {
@@ -145,6 +146,7 @@ class PlaidLogin extends Component {
           // params: userID
           // process: gql mutation createSubscriptionServices
           // return: total # of subscriptions
+          console.log("transactions", res.transactions);
         })
         .catch((err) => {
           console.log("transaction err", err);
