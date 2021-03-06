@@ -118,29 +118,20 @@ export function Report(props) {
   }
 
   async function testApi() {
-    API.get("plaidhandler", "/transactions", {
-      queryStringParameters: {
-        token: "access-development-0d3ce2c1-73f8-4fd1-8e49-774d4e107ad8",
-        userID: "abcc5b49-bca5-49fa-ac91-079269e9168d",
-      },
-    })
-      .then((res) => {
-        console.log("Transactions Update Successful!");
-
-        // call an updater function that will update the services from recently extracted transactions
-        // type: PUT
-        // params: userID
-        // process: gql mutation createSubscriptionServices
-        // return: total # of subscriptions
-        console.log("transactions", res.transactions);
-      })
-      .catch((err) => {
-        console.log("transaction err", err);
-      });
+    const testData = await API.post(
+      "transaction2service",
+      "/extract/subscription",
+      {
+        body: {
+          token: "testToken",
+        },
+      }
+    ).then(async (response) => {
+      console.log("transaction2service", response);
+    });
   }
 
   useEffect(() => {
-    console.log("amplity good");
     testApi();
     setUser(props.userData);
 

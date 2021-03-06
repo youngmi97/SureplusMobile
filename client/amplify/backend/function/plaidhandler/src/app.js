@@ -27,13 +27,7 @@ const region = "us-east-2";
 AWS.config.update({ region: region });
 var ddb = new AWS.DynamoDB.DocumentClient();
 var transactionDdb = new AWS.DynamoDB.DocumentClient();
-var servicesDdb = new AWS.DynamoDB.DocumentClient();
 
-// if (process.env.ENV && process.env.ENV !== "NONE") {
-//   tableName = tableName + "-" + process.env.ENV;
-// }
-
-// declare a new express app
 var app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -49,7 +43,7 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
-  env: plaid.environments.development,
+  env: plaid.environments.sandbox,
 });
 
 var PUBLIC_TOKEN = null;
@@ -209,135 +203,12 @@ app.get("/transactions", function (req, res) {
         }
       });
 
-      // var filteredAccounts = transactionsResponse["accounts"].filter(
-      //   (account) => {
-      //     var key = "credit" || "other";
-      //     return account.type === key || account.subtype.includes("card");
-      //   }
-      // );
-
-      // console.log("filteredAccounts", filteredAccounts);
-
-      // var filteredTransactions = transactionsResponse["transactions"].filter(
-      //   (transaction) =>
-      //     filteredAccounts.every((account) => {
-      //       var key = account.account_id;
-      //       return transaction.account_id === key;
-      //     })
-      // );
-
-      // console.log("filteredTransactions", filteredTransactions);
-
-      // Save relevant accounts to DB
-      // if (filteredAccounts.length > 0) {
-      //   filteredAccounts.forEach(async (account) => {
-      //     //console.log("account", account);
-      //     let ddbParams = {
-      //       TableName: tableName,
-      //       Item: {
-      //         // '__typename': {S: 'User'},
-      //         id: account.account_id.toString(),
-      //         userID: userId,
-      //         name: account.name.toString(),
-      //         balance: account.balances.current.toString(),
-      //       },
-      //     };
-
-      //     // Call DynamoDB
-      //     try {
-      //       const db_result = await ddb.put(ddbParams).promise();
-      //       // ddb.put(ddbParams, function (err, data) {
-      //       //   if (err) {
-      //       //     console.log("DB Error", err);
-      //       //   } else {
-      //       //     console.log("DB Success", data);
-      //       //   }
-      //       // });
-      //       console.log("Success account add: ", db_result);
-      //     } catch (err) {
-      //       console.log("Error", err);
-      //     }
-      //   });
-      // }
-
-      //Save relevant Transactions to DB
-      // const transactionPromise = [];
-      // if (filteredTransactions.length > 0) {
-      //   filteredTransactions.forEach(async (transaction) => {
-      //     //console.log("transaction", transaction);
-      //     let ddbParams = {
-      //       TableName: transactionTableName,
-      //       Item: {
-      //         // '__typename': {S: 'User'},
-      //         id: transaction.transaction_id.toString(),
-      //         userID: userId,
-      //         acoountId: transaction.account_id.toString(),
-      //         amount: transaction.amount.toString(),
-      //         date: transaction.date.toString(),
-      //         merchantName: transaction.merchant_name || "",
-      //         transactionName: transaction.name || "",
-      //         paymentChannel: transaction.payment_channel || "",
-      //         transactionType: transaction.transaction_type || "",
-      //       },
-      //     };
-
-      //     try {
-      //       //ddb.put(ddbParams).promise();
-      //       //console.log("TRY CALLED");
-      //       const db_result = await transactionDdb.put(ddbParams).promise();
-      //       transactionPromise.push(db_result);
-      //       // transactionDdb.put(ddbParams, function (err, data) {
-      //       //   if (err) {
-      //       //     console.log("DB Error", err);
-      //       //   } else {
-      //       //     console.log("DB Success", data);
-      //       //   }
-      //       // });
-      //       console.log("Success transaction add: ", db_result);
-      //     } catch (err) {
-      //       console.log("Error", err);
-      //     }
-      //   });
-      // }
-
       Promise.all(transactionPromise).then((values) => {
         console.log("values", values);
         res.json({ transactions: transactionsResponse });
       });
     }
   );
-});
-
-/*********************************
- * Subscription Service Extractor *
- * save services from transaction records
- ********************************/
-app.post("/extract/subscriptions", function (req, res) {
-  /*
-  1. Find transactions under "userID"
-  2. Group the transactions by transactionName
-  3. Check if the transactionName is in serviceNameList
-  4. Sort by date
-  5. Write to DB
-  6. count number of writes and pass res.json
-  */
-
-  const serviceNameList = [
-    "Netflix",
-    "Creative Cloud",
-    "Opal",
-    "ExpressVPN",
-    "Blinkist",
-    "Hulu",
-    "Disney",
-    "Notion",
-    "Notability",
-    "ESPN plus",
-    "Spotify",
-    "Superhuman",
-  ];
-
-  const testServiceNameList = ["KFC"];
 });
 
 app.listen(3000, function () {

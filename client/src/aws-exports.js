@@ -16,6 +16,11 @@ const awsmobile = {
             "name": "plaidhandler",
             "endpoint": "https://3wsvb7voz8.execute-api.us-east-2.amazonaws.com/dev",
             "region": "us-east-2"
+        },
+        {
+            "name": "transaction2service",
+            "endpoint": "https://jffcxbr3yi.execute-api.us-east-2.amazonaws.com/dev",
+            "region": "us-east-2"
         }
     ]
 };

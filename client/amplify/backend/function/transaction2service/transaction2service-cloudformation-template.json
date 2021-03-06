@@ -33,12 +33,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "plaidhandler",
+            "transaction2service",
             {
               "Fn::Join": [
                 "",
                 [
-                  "plaidhandler",
+                  "transaction2service",
                   "-",
                   {
                     "Ref": "env"
@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-sureplusamplify-dev-115817-deployment",
-          "S3Key": "amplify-builds/plaidhandler-6b634f64567a6f51572f-build.zip"
+          "S3Key": "amplify-builds/transaction2service-4f3634586f4b46687468-build.zip"
         }
       }
     },
@@ -79,12 +79,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sureplusamplifyLambdaRole5289be46",
+            "sureplusamplifyLambdaRole01843c64",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sureplusamplifyLambdaRole5289be46",
+                  "sureplusamplifyLambdaRole01843c64",
                   "-",
                   {
                     "Ref": "env"
