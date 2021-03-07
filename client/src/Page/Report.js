@@ -118,22 +118,21 @@ export function Report(props) {
   }
 
   async function testApi() {
-    API.put("plaidhandler", "/extract/subscriptions", {
-      body: {
-        userID: user.sub,
-      },
-    })
-      .then((result) => {
-        console.log("testData", result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const testData = await API.post(
+      "transaction2service",
+      "/extract/subscription",
+      {
+        body: {
+          token: "testToken",
+        },
+      }
+    ).then(async (response) => {
+      console.log("transaction2service", response);
+    });
   }
 
   useEffect(() => {
-    console.log("amplity good");
-    //testApi();
+    testApi();
     setUser(props.userData);
 
     if (user) {

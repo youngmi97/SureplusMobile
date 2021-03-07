@@ -49,20 +49,6 @@
                     "/PATCH"
                 ]
             }
-        },
-        {
-            "name": "/extract/subscriptions",
-            "lambdaFunction": "plaidhandler",
-            "privacy": {
-                "private": true,
-                "auth": [
-                    "/POST",
-                    "/GET",
-                    "/PUT",
-                    "/PATCH",
-                    "/DELETE"
-                ]
-            }
         }
     ],
     "resourceName": "plaidhandler",
@@ -88,5 +74,5 @@
             ]
         }
     ],
-    "uuid": "5cf6e232"
+    "uuid": "17f09f06"
 }

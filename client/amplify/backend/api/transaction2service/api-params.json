@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/extract/subscription",
+            "lambdaFunction": "transaction2service",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/extract/subscription"
+        }
+    ],
+    "resourceName": "transaction2service",
+    "apiName": "transaction2service",
+    "functionArns": [
+        {
+            "lambdaFunction": "transaction2service"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-sureplusamplify-dev-115817-authRole",
+        "unAuthRoleName": "amplify-sureplusamplify-dev-115817-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "transaction2service",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
