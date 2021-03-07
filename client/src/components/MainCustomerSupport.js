@@ -69,14 +69,14 @@ const useStyles = makeStyles((theme) => ({
 
   dialogPaper2: {
     margin: 0,
-    width: "70vw",
+    width: "80vw",
     height: "100vh",
     padding: 20,
     borderRadius: "15px 15px 15px 15px",
     backgroundColor: "#ECECEC",
   },
   dialogpaperScroll2: {
-    maxWidth: "70vw",
+    maxWidth: "80vw",
     maxHeight: "22vh",
   },
 
@@ -290,6 +290,7 @@ export default function Subscription(props) {
             >
               <InputBase
                 placeholder={"Write your message here"}
+                multiline
                 inputProps={{
                   style: {
                     textAlign: "left",
@@ -328,7 +329,8 @@ export default function Subscription(props) {
                 style={{
                   margin: 0,
                   padding: 0,
-                  color: "#666666",
+                  fontWeight: 500,
+                  opacity: 0.3,
 
                   fontWeight: 500,
                   fontSize: "17px",
@@ -421,7 +423,7 @@ export default function Subscription(props) {
               padding: 0,
               height: "5.99vh",
               borderRadius: "8px",
-              background: "#7610EB",
+              background: "#7F25D9",
               color: "white",
               textTransform: "none",
               width: "90%",
