@@ -33,18 +33,9 @@ var subscriptionDDB = new AWS.DynamoDB.DocumentClient();
  * save services from transaction records
  ********************************/
 app.post("/extract/subscription", function (req, res) {
-  /*
-  1. Find transactions under "userID" 
-  2. Group the transactions by transactionName
-  3. Check if the transactionName is in serviceNameList
-  4. Sort by date
-  5. Write to DB
-  6. count number of writes and pass res.json
-  */
-
   const serviceNameList = [
     "Netflix",
-    "Creative Cloud",
+    "Creative",
     "Opal",
     "ExpressVPN",
     "Blinkist",
@@ -56,46 +47,69 @@ app.post("/extract/subscription", function (req, res) {
     "Spotify",
     "Superhuman",
     "Comcast",
+    "Youtube",
+    "Stratechery",
+    "Lemonade Insurance",
+    "Godaddy",
+    "Amazon Kindle",
   ];
 
-  const testServiceNameList = ["KFC"];
+  let thresholdDate = moment().subtract(31, "days").format("YYYY-MM-DD");
+  let currentDate = moment().format("YYYY-MM-DD");
 
   var params = {
     TableName: "UserBankTransactions",
-    ProjectionExpression: "#user, transactionName",
-    FilterExpression: "#user = :userid",
-    ExpressionAttributeNames: {
-      "#user": "userID",
-    },
+    IndexName: "userID-merchantName-index",
+    KeyConditionExpression: "userID = :userid",
     ExpressionAttributeValues: {
-      ":userid": "abcc5b49-bca5-49fa-ac91-079269e9168d",
+      ":userid": req.body.userid,
     },
   };
 
-  transactionDDB.scan(params, onScan);
-
-  //recursive scan
-  function onScan(err, data) {
+  transactionDDB.query(params, function (err, data) {
     if (err) {
-      res.json({ fail: "scan fail!" });
+      console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+      res.json({ statuscode: 400, message: "Query Error", description: err });
     } else {
-      // print all the movies
-      console.log("Scan succeeded.");
-      data.Items.forEach(function (transaction) {
-        console.log("transaction", transaction);
+      var finalList = [];
+      console.log("Query succeeded.");
+      // res.json({ message: "Query Success", data: data });
+      data.Items.forEach(function (transactionItem) {
+        if (
+          transactionItem.merchantName !== "" &&
+          transactionItem.merchantName !== null
+        ) {
+          serviceNameList.forEach((name) => {
+            //check that the subscription service name is predefined
+            if (transactionItem.merchantName.includes(name)) {
+              //check that the date is within a month span
+              if (
+                transactionItem.date <= currentDate &&
+                transactionItem.date >= thresholdDate
+              ) {
+                /**
+                 * Problems with current method of extraction
+                 * 1. annual subscriptions
+                 * 2. multiple merchant name within past one month span (e.g. Lemonade Insurance)
+                 * 3.
+                 */
+                finalList.push(transactionItem);
+              }
+            }
+          });
+        }
       });
 
-      // continue scanning if we have more movies, because
-      // scan can retrieve a maximum of 1MB of data
-      if (typeof data.LastEvaluatedKey != "undefined") {
-        console.log("Scanning for more...");
-        params.ExclusiveStartKey = data.LastEvaluatedKey;
-        transactionDDB.scan(params, onScan);
-      } else {
-        res.json({ data: data });
-      }
+      //write to the subscription service db
+      //required fields: id, userID, transactionID, accountID, name, cost, period, firstAddedDate, lastDate, category, source="usercard"
+
+      res.json({
+        statuscode: 200,
+        message: "Query Success",
+        data: { list: finalList, count: finalList.length },
+      });
     }
-  }
+  });
 });
 
 // Export the app object. When executing the application local this does nothing. However,

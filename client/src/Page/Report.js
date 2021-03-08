@@ -123,7 +123,7 @@ export function Report(props) {
       "/extract/subscription",
       {
         body: {
-          token: "testToken",
+          userid: "abcc5b49-bca5-49fa-ac91-079269e9168d",
         },
       }
     ).then(async (response) => {

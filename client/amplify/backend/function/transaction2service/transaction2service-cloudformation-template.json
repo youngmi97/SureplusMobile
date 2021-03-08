@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-sureplusamplify-dev-115817-deployment",
-          "S3Key": "amplify-builds/transaction2service-4f3634586f4b46687468-build.zip"
+          "S3Key": "amplify-builds/transaction2service-756c664a2b4f32356e66-build.zip"
         }
       }
     },
