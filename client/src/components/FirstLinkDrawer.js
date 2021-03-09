@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Typography, Dialog } from "@material-ui/core";
 import Slide from "@material-ui/core/Slide";
-import { Link, useLocation } from "react-router-dom";
+import { API } from "aws-amplify";
 
 import PlaidLinkFirst from "./PlaidLinkFirst";
 import PlaidLinkSecond from "./PlaidLinkSecond";
@@ -74,6 +74,7 @@ function FirstLinkDrawer(props) {
   );
   // state = what is shown in the bottom drawer
   const [state, setState] = React.useState(0);
+  const [subscriptionCount, setCount] = React.useState(0);
 
   const handleClose = () => {
     setOpen(false);
@@ -83,7 +84,15 @@ function FirstLinkDrawer(props) {
 
   const loadingSucc = async () => {
     setState(1);
-    await _sleep(5000);
+    //change this to after the /extract/transactions has been called
+    await API.post("transaction2service", "/extract/subscription", {
+      body: {
+        userid: user.sub,
+      },
+    }).then(async (response) => {
+      console.log("transaction2service", response);
+      setCount(response.data.count);
+    });
     setState(2);
   };
 
@@ -239,7 +248,7 @@ function FirstLinkDrawer(props) {
                       alignItems: "center",
                     }}
                   >
-                    6 Subscriptions Found
+                    {subscriptionCount.toString() + "subscriptions found"}
                   </Typography>
                   <Button
                     onClick={() => setOpen(false)}

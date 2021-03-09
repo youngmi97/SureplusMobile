@@ -81,7 +81,7 @@ class PlaidLogin extends Component {
   }
 
   handleOnSuccess(public_token, metadata) {
-    this.props.setState();
+    //this.props.setState();
 
     console.log("currentUser", this.state.currentUser);
     if (
@@ -111,12 +111,9 @@ class PlaidLogin extends Component {
 
               console.log("Transactions Update Successful!");
 
-              // call an updater function that will update the services from recently extracted transactions
-              // type: PUT
-              // params: userID
-              // process: gql mutation createSubscriptionServices
-              // return: total # of subscriptions
+              //HERE!
               console.log("transactions", res.transactions);
+              this.props.setState();
             })
             .catch((error) => {
               console.log("transactions err", error);

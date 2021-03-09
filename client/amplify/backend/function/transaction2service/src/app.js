@@ -28,11 +28,14 @@ AWS.config.update({ region: region });
 var transactionDDB = new AWS.DynamoDB.DocumentClient();
 var subscriptionDDB = new AWS.DynamoDB.DocumentClient();
 
+const subscriptionTable = "SubscriptionServices-jzofihw23vdc5jdrwrs2rhgw5a-dev";
+
 /*********************************
  * Subscription Service Extractor *
  * save services from transaction records
  ********************************/
 app.post("/extract/subscription", function (req, res) {
+  // Move this content to DB
   const serviceNameList = [
     "Netflix",
     "Creative",
@@ -52,6 +55,11 @@ app.post("/extract/subscription", function (req, res) {
     "Lemonade Insurance",
     "Godaddy",
     "Amazon Kindle",
+    "Linkedin",
+    "Blue Apron",
+    "Kindle",
+    "Apple One",
+    "Apple",
   ];
 
   let thresholdDate = moment().subtract(31, "days").format("YYYY-MM-DD");
@@ -66,7 +74,7 @@ app.post("/extract/subscription", function (req, res) {
     },
   };
 
-  transactionDDB.query(params, function (err, data) {
+  transactionDDB.query(params, async function (err, data) {
     if (err) {
       console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
       res.json({ statuscode: 400, message: "Query Error", description: err });
@@ -79,7 +87,7 @@ app.post("/extract/subscription", function (req, res) {
           transactionItem.merchantName !== "" &&
           transactionItem.merchantName !== null
         ) {
-          serviceNameList.forEach((name) => {
+          serviceNameList.forEach(async (name) => {
             //check that the subscription service name is predefined
             if (transactionItem.merchantName.includes(name)) {
               //check that the date is within a month span
@@ -91,17 +99,56 @@ app.post("/extract/subscription", function (req, res) {
                  * Problems with current method of extraction
                  * 1. annual subscriptions
                  * 2. multiple merchant name within past one month span (e.g. Lemonade Insurance)
-                 * 3.
+                 * -> if multiple instance = not a subscription(?)
                  */
-                finalList.push(transactionItem);
+                if (
+                  transactionItem.amount.includes(".99") ||
+                  transactionItem.amount.includes(".95")
+                ) {
+                  finalList.push(transactionItem);
+
+                  //write to the subscription service db
+                  /**
+                   * Changes Needed
+                   * 1. full list of transactions under the merchantName --> sorted by Date to get (firstAddedDate and lastDate)
+                   * 2. accountID attribute should be included from the indexing in dynamoDB
+                   * 3. Need an archive to store (i) subscription service names (ii) service category
+                   */
+                  var subscriptionParams = {
+                    TableName: subscriptionTable,
+                    Item: {
+                      id: transactionItem.id,
+                      __typename: "SubscriptionServices",
+                      userID: transactionItem.userID,
+                      transactionID: transactionItem.id,
+                      accountID: transactionItem.accountId,
+                      name: transactionItem.merchantName,
+                      cost: transactionItem.amount,
+                      period: "monthly",
+                      firstAddedDate: transactionItem.date,
+                      lastDate: transactionItem.date,
+                      category: ["hello", "there"],
+                      source: "usercard",
+                      createdAt: new Date().toISOString(),
+                      updatedAt: new Date().toISOString(),
+                    },
+                  };
+
+                  try {
+                    const db_result = await subscriptionDDB
+                      .put(subscriptionParams)
+                      .promise();
+
+                    console.log("Success service add: ", db_result);
+                  } catch (err) {
+                    console.log("Error", err);
+                  }
+                }
               }
             }
           });
         }
       });
-
-      //write to the subscription service db
-      //required fields: id, userID, transactionID, accountID, name, cost, period, firstAddedDate, lastDate, category, source="usercard"
 
       res.json({
         statuscode: 200,

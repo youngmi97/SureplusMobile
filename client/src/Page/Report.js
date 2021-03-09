@@ -118,6 +118,7 @@ export function Report(props) {
   }
 
   async function testApi() {
+    // Sangho test data API
     const testData = await API.post(
       "transaction2service",
       "/extract/subscription",
@@ -129,10 +130,19 @@ export function Report(props) {
     ).then(async (response) => {
       console.log("transaction2service", response);
     });
+
+    // const testData = await API.get("plaidhandler", "/transactions", {
+    //   queryStringParameters: {
+    //     token: "access-development-0d3ce2c1-73f8-4fd1-8e49-774d4e107ad8",
+    //     userID: "abcc5b49-bca5-49fa-ac91-079269e9168d",
+    //   },
+    // }).then((res) => {
+    //   console.log("transactions", res.transactions);
+    // });
   }
 
   useEffect(() => {
-    testApi();
+    //testApi();
     setUser(props.userData);
 
     if (user) {
