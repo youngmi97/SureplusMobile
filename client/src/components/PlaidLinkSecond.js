@@ -171,7 +171,7 @@ class PlaidLogin extends Component {
     return (
       <PlaidLink
         clientName="React Plaid Setup"
-        env="development"
+        env="sandbox"
         product={["auth", "transactions"]}
         publicKey="d74564d1fca97dd00ec3f9f421eae9"
         onExit={this.handleOnExit}
