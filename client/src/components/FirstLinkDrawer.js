@@ -79,11 +79,14 @@ function FirstLinkDrawer(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const _sleep = (delay) =>
-    new Promise((resolve) => setTimeout(resolve, delay));
+
+  const loadTransactionsStart = () => {
+    setState(1);
+  };
 
   const loadingSucc = async () => {
-    setState(1);
+    console.log("loadingSucc called");
+    // setState(1);
     //change this to after the /extract/transactions has been called
     await API.post("transaction2service", "/extract/subscription", {
       body: {
@@ -142,7 +145,11 @@ function FirstLinkDrawer(props) {
                   >
                     Link your Bank to view your subscriptions!
                   </Typography>
-                  <PlaidLinkFirst userData={user} setState={loadingSucc} />
+                  <PlaidLinkFirst
+                    userData={user}
+                    setState={loadingSucc}
+                    startTransactionCrawl={loadTransactionsStart}
+                  />
                 </div>
               </div>
             </Dialog>
@@ -248,7 +255,7 @@ function FirstLinkDrawer(props) {
                       alignItems: "center",
                     }}
                   >
-                    {subscriptionCount.toString() + "subscriptions found"}
+                    {subscriptionCount.toString() + " subscriptions found"}
                   </Typography>
                   <Button
                     onClick={() => setOpen(false)}
@@ -281,6 +288,7 @@ function FirstLinkDrawer(props) {
                   <PlaidLinkSecond
                     userData={user}
                     setState={loadingSucc}
+                    startTransactionCrawl={loadTransactionsStart}
                   ></PlaidLinkSecond>
                 </div>
               </div>

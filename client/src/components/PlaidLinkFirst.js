@@ -82,6 +82,7 @@ class PlaidLogin extends Component {
 
   handleOnSuccess(public_token, metadata) {
     //this.props.setState();
+    this.props.startTransactionCrawl();
 
     console.log("currentUser", this.state.currentUser);
     if (
@@ -144,6 +145,7 @@ class PlaidLogin extends Component {
           // process: gql mutation createSubscriptionServices
           // return: total # of subscriptions
           console.log("transactions", res.transactions);
+          this.props.setState();
         })
         .catch((err) => {
           console.log("transaction err", err);

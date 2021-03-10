@@ -128,7 +128,7 @@ app.post("/extract/subscription", function (req, res) {
                       firstAddedDate: transactionItem.date,
                       lastDate: transactionItem.date,
                       category: ["hello", "there"],
-                      source: "usercard",
+                      source: "plaid",
                       createdAt: new Date().toISOString(),
                       updatedAt: new Date().toISOString(),
                     },
