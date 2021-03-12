@@ -79,12 +79,14 @@ class PlaidLogin extends Component {
 
   handleOnSuccess(public_token, metadata) {
     //this.props.setState();
+
+    //console.log("METADATA", metadata);
     this.props.startTransactionCrawl();
 
     console.log("currentUser", this.state.currentUser);
     if (
-      this.state.currentUser.plaidToken === "" ||
-      this.state.currentUser.plaidToken === null
+      this.state.currentUser.plaidToken === undefined ||
+      this.state.currentUser.plaidToken.length === 0
     ) {
       API.post("plaidhandler", "/auth/publictoken", {
         body: {
@@ -93,11 +95,17 @@ class PlaidLogin extends Component {
         },
       })
         .then(async (response) => {
+          console.log("PublicToken Response", response);
           API.graphql(
             graphqlOperation(updateUser, {
               input: {
                 id: this.props.userData.sub,
-                plaidToken: response.access_token,
+                plaidToken: [
+                  {
+                    bankName: response.institution,
+                    token: response.access_token,
+                  },
+                ],
               },
             })
           );
@@ -109,16 +117,9 @@ class PlaidLogin extends Component {
             },
           })
             .then((res) => {
-              this.setState({ transactions: res.transactions.transactions });
-              this.setState({ accounts: res.transactions.accounts });
-
               console.log("Transactions Update Successful!");
 
-              // call an updater function that will update the services from recently extracted transactions
-              // type: PUT
-              // params: userID
-              // process: gql mutation createSubscriptionServices
-              // return: total # of subscriptions
+              //HERE!
               console.log("transactions", res.transactions);
               this.props.setState();
             })
@@ -132,10 +133,11 @@ class PlaidLogin extends Component {
       console.log("handleOnSuccess NEW TOKEN");
     } else {
       //plaidToken alredy exists
+      //change this to fetch the value for the key of metadata.institution.name
 
       API.get("plaidhandler", "/transactions", {
         queryStringParameters: {
-          token: this.state.currentUser.plaidToken,
+          token: this.state.currentUser.plaidToken[0].token,
           userID: this.props.userData.sub,
         },
       })
@@ -145,11 +147,6 @@ class PlaidLogin extends Component {
 
           console.log("Transactions Update Successful!");
 
-          // call an updater function that will update the services from recently extracted transactions
-          // type: PUT
-          // params: userID
-          // process: gql mutation createSubscriptionServices
-          // return: total # of subscriptions
           console.log("transactions", res.transactions);
           this.props.setState();
         })
@@ -178,7 +175,7 @@ class PlaidLogin extends Component {
     return (
       <PlaidLink
         clientName="React Plaid Setup"
-        env="sandbox"
+        env="development"
         product={["auth", "transactions"]}
         publicKey="d74564d1fca97dd00ec3f9f421eae9"
         onExit={this.handleOnExit}
@@ -200,7 +197,7 @@ class PlaidLogin extends Component {
           <Button
             style={{
               position: "absolute",
-              bottom: 24,
+              bottom: 36,
               margin: 0,
               padding: 0,
               height: "48px",
@@ -208,7 +205,7 @@ class PlaidLogin extends Component {
               background: "#f7f7f7",
               color: "white",
               textTransform: "none",
-              width: "calc(100% - 48px)",
+              width: "calc(100% - 40px)",
             }}
           >
             <Typography
@@ -216,7 +213,6 @@ class PlaidLogin extends Component {
                 margin: 0,
                 padding: 0,
                 color: "Black",
-
                 fontWeight: 500,
                 fontSize: "17px",
               }}

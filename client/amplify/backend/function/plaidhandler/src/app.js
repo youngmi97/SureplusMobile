@@ -43,7 +43,7 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 const client = new plaid.Client({
   clientID: process.env.PLAID_CLIENT_ID,
   secret: process.env.PLAID_SECRET,
-  env: plaid.environments.sandbox,
+  env: plaid.environments.development,
 });
 
 var PUBLIC_TOKEN = null;
@@ -158,8 +158,8 @@ app.get("/transactions", async function (req, res) {
     });
 
     if (filteredAccounts.length > 0) {
-      filteredAccounts.forEach(async (account) => {
-        //console.log("account", account);
+      filteredAccounts.forEach((account) => {
+        console.log("account", account);
         let ddbParams = {
           TableName: tableName,
           Item: {
@@ -172,9 +172,16 @@ app.get("/transactions", async function (req, res) {
 
         // Call DynamoDB
         try {
-          const db_result = await ddb.put(ddbParams).promise();
+          //const db_result = await ddb.put(ddbParams).promise();
 
-          console.log("Success account add: ", db_result);
+          //console.log("Success account add: ", db_result);
+          ddb.put(ddbParams, function (err, data) {
+            if (err) {
+              console.log("FAIL account add:", err);
+            } else {
+              console.log("Success account add: ", data);
+            }
+          });
         } catch (err) {
           console.log("Error", err);
         }
@@ -183,7 +190,7 @@ app.get("/transactions", async function (req, res) {
 
     resolve(filteredAccounts);
   }).then(function (filteredAccounts) {
-    console.log("filteredAccounts", filteredAccounts);
+    //console.log("filteredAccounts", filteredAccounts);
     var filteredTransactions = transactions.filter((transaction) => {
       var selection = false;
       filteredAccounts.every((account) => {
@@ -195,10 +202,11 @@ app.get("/transactions", async function (req, res) {
       return selection;
     });
 
-    console.log("filteredTransactions", filteredTransactions);
+    //console.log("filteredTransactions", filteredTransactions);
 
     if (filteredTransactions.length > 0) {
       filteredTransactions.forEach(async (transaction) => {
+        console.log("transaction", transaction);
         let ddbParams = {
           TableName: transactionTableName,
           Item: {
@@ -207,7 +215,7 @@ app.get("/transactions", async function (req, res) {
             acoountId: transaction.account_id.toString(),
             amount: transaction.amount.toString(),
             date: transaction.date.toString(),
-            merchantName: transaction.merchant_name || "",
+            merchantName: transaction.merchant_name || "unavailable",
             transactionName: transaction.name || "",
             paymentChannel: transaction.payment_channel || "",
             transactionType: transaction.transaction_type || "",

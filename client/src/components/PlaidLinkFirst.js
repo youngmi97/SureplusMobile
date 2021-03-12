@@ -46,8 +46,6 @@ class PlaidLogin extends Component {
     //console.log("props", props.userData);
 
     this.state = {
-      transactions: [],
-      accounts: [],
       userData: props.userData,
       currentUser: {},
     };
@@ -68,16 +66,8 @@ class PlaidLogin extends Component {
     }).catch((error) => {
       console.log("ERR", error);
     });
-    //User data is not returned
-    /**
-     * TODO
-     * 1. make plaidToken initialization in DB to list (all Chase)
-     * 2. test plaidToken update with PlaidItem object
-     * 3. PlaidLink prompts should check whether the plaidToken list is
-     * (i) empty, (ii) single field or (iii) multiple
-     */
 
-    // Query for list of objects cannot be empty
+    // Query for list of objects cannot be empty!
     this.setState({ currentUser: linkData.data.getUser });
   }
 
@@ -95,6 +85,17 @@ class PlaidLogin extends Component {
 
   handleOnSuccess(public_token, metadata) {
     //this.props.setState();
+
+    /**
+     * TODO
+     * 1. make plaidToken initialization in DB to list (all Chase)
+     * 2. test plaidToken update with PlaidItem object
+     * 3. PlaidLink prompts should check whether the plaidToken list is
+     * (i) empty, (ii) single field or (iii) multiple
+     * 4. check what is in metadata -> metadata.institution.name DONE
+     * 5. check that metadata.institution.name is NOT already a key inside currentUser.plaidToken
+     */
+    console.log("METADATA", metadata);
     this.props.startTransactionCrawl();
 
     console.log("currentUser", this.state.currentUser);
@@ -131,9 +132,6 @@ class PlaidLogin extends Component {
             },
           })
             .then((res) => {
-              this.setState({ transactions: res.transactions.transactions });
-              this.setState({ accounts: res.transactions.accounts });
-
               console.log("Transactions Update Successful!");
 
               //HERE!
@@ -150,10 +148,11 @@ class PlaidLogin extends Component {
       console.log("handleOnSuccess NEW TOKEN");
     } else {
       //plaidToken alredy exists
+      //change this to fetch the value for the key of metadata.institution.name
 
       API.get("plaidhandler", "/transactions", {
         queryStringParameters: {
-          token: this.state.currentUser.plaidToken,
+          token: this.state.currentUser.plaidToken[0].token,
           userID: this.props.userData.sub,
         },
       })
@@ -195,7 +194,7 @@ class PlaidLogin extends Component {
     return (
       <PlaidLink
         clientName="React Plaid Setup"
-        env="sandbox"
+        env="development"
         product={["auth", "transactions"]}
         publicKey="d74564d1fca97dd00ec3f9f421eae9"
         onExit={this.handleOnExit}
