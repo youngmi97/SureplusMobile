@@ -60,6 +60,14 @@ app.post("/extract/subscription", function (req, res) {
     "Kindle",
     "Apple One",
     "Apple",
+    "Dollar Shave Club",
+    "Ipsy",
+    "Birchbox",
+    "JustFab",
+    "BarkBox",
+    "Instacart",
+    "Sephora Play",
+    "Harry's",
   ];
 
   let thresholdDate = moment().subtract(31, "days").format("YYYY-MM-DD");

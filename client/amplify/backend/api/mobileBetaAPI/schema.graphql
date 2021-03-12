@@ -34,13 +34,18 @@ type UserNotification
   title: String
 }
 
+type PlaidItem {
+  bankName: String
+  token: String
+}
+
 type User
   @model
   @key(name: "uld", fields: ["name", "createdAt"], queryField: "UserByName") {
   id: ID!
   name: String
   phone_number: String
-  plaidToken: String
+  plaidToken: [PlaidItem]
   firebaseToken: [String]
   createdAt: String
   type: String

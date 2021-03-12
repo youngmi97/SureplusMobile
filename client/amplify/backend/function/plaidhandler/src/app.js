@@ -86,11 +86,24 @@ app.post("/auth/publictoken", function (req, res) {
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
     console.log("ACCESS_TOKEN", ACCESS_TOKEN);
-    //res.header("Access-Control-Allow-Headers", "*");
 
-    res.json({
-      access_token: ACCESS_TOKEN,
-      item_id: ITEM_ID,
+    client.getItem(ACCESS_TOKEN, function (error, itemResponse) {
+      console.log("itemResponse", itemResponse);
+      console.log("inst", itemResponse.item.institution_id);
+      const INSTITUTION_ID = itemResponse.item.institution_id;
+      client.getInstitutionById(
+        INSTITUTION_ID,
+        ["US"],
+        function (error, instResponse) {
+          console.log("instResponse", instResponse);
+          let INSTITUTION_NAME = instResponse.institution.name;
+          res.json({
+            access_token: ACCESS_TOKEN,
+            item_id: ITEM_ID,
+            institution: INSTITUTION_NAME,
+          });
+        }
+      );
     });
   });
 });

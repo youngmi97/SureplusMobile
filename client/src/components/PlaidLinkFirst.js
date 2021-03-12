@@ -43,7 +43,7 @@ class PlaidLogin extends Component {
   constructor(props, context) {
     super(props, context);
 
-    console.log("props", props.userData);
+    //console.log("props", props.userData);
 
     this.state = {
       transactions: [],
@@ -59,13 +59,25 @@ class PlaidLogin extends Component {
   }
 
   async componentDidMount() {
+    console.log("userData", this.props.userData.sub);
     const linkData = await API.graphql({
       query: getUser,
       variables: {
         id: this.props.userData.sub,
       },
+    }).catch((error) => {
+      console.log("ERR", error);
     });
+    //User data is not returned
+    /**
+     * TODO
+     * 1. make plaidToken initialization in DB to list (all Chase)
+     * 2. test plaidToken update with PlaidItem object
+     * 3. PlaidLink prompts should check whether the plaidToken list is
+     * (i) empty, (ii) single field or (iii) multiple
+     */
 
+    // Query for list of objects cannot be empty
     this.setState({ currentUser: linkData.data.getUser });
   }
 
@@ -79,6 +91,7 @@ class PlaidLogin extends Component {
 
     return linkData.data.getUser;
   }
+  // have to check by seeing if bankName as KEY exists in the plaidToken List of objects
 
   handleOnSuccess(public_token, metadata) {
     //this.props.setState();
@@ -86,8 +99,8 @@ class PlaidLogin extends Component {
 
     console.log("currentUser", this.state.currentUser);
     if (
-      this.state.currentUser.plaidToken === "" ||
-      this.state.currentUser.plaidToken === null
+      this.state.currentUser.plaidToken === undefined ||
+      this.state.currentUser.plaidToken.length === 0
     ) {
       API.post("plaidhandler", "/auth/publictoken", {
         body: {
@@ -96,16 +109,27 @@ class PlaidLogin extends Component {
         },
       })
         .then(async (response) => {
+          console.log("PublicToken Response", response);
           API.graphql(
             graphqlOperation(updateUser, {
               input: {
                 id: this.props.userData.sub,
-                plaidToken: response.access_token,
+                plaidToken: [
+                  {
+                    bankName: response.institution,
+                    token: response.access_token,
+                  },
+                ],
               },
             })
           );
 
-          await API.get("plaidhandler", "/transactions", {})
+          await API.get("plaidhandler", "/transactions", {
+            queryStringParameters: {
+              token: response.access_token,
+              userID: this.props.userData.sub,
+            },
+          })
             .then((res) => {
               this.setState({ transactions: res.transactions.transactions });
               this.setState({ accounts: res.transactions.accounts });

@@ -46,7 +46,10 @@ export const getUser = /* GraphQL */ `
       id
       name
       phone_number
-      plaidToken
+      plaidToken {
+        bankName
+        token
+      }
       firebaseToken
       createdAt
       type
@@ -65,7 +68,10 @@ export const listUsers = /* GraphQL */ `
         id
         name
         phone_number
-        plaidToken
+        plaidToken {
+          bankName
+          token
+        }
         firebaseToken
         createdAt
         type
@@ -207,7 +213,10 @@ export const userByName = /* GraphQL */ `
         id
         name
         phone_number
-        plaidToken
+        plaidToken {
+          bankName
+          token
+        }
         firebaseToken
         createdAt
         type

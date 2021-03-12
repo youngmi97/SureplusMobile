@@ -102,6 +102,8 @@ export function Report(props) {
       },
     });
 
+    //console.log("subscrption", subscriptionData);
+
     setSubscriptions(subscriptionData.data.serviceByUser.items);
   }
 

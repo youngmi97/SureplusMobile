@@ -61,7 +61,10 @@ export const createUser = /* GraphQL */ `
       id
       name
       phone_number
-      plaidToken
+      plaidToken {
+        bankName
+        token
+      }
       firebaseToken
       createdAt
       type
@@ -78,7 +81,10 @@ export const updateUser = /* GraphQL */ `
       id
       name
       phone_number
-      plaidToken
+      plaidToken {
+        bankName
+        token
+      }
       firebaseToken
       createdAt
       type
@@ -95,7 +101,10 @@ export const deleteUser = /* GraphQL */ `
       id
       name
       phone_number
-      plaidToken
+      plaidToken {
+        bankName
+        token
+      }
       firebaseToken
       createdAt
       type

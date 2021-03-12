@@ -102,7 +102,12 @@ class PlaidLogin extends Component {
             })
           );
 
-          await API.get("plaidhandler", "/transactions", {})
+          await API.get("plaidhandler", "/transactions", {
+            queryStringParameters: {
+              token: response.access_token,
+              userID: this.props.userData.sub,
+            },
+          })
             .then((res) => {
               this.setState({ transactions: res.transactions.transactions });
               this.setState({ accounts: res.transactions.accounts });
