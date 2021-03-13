@@ -80,13 +80,31 @@ class PlaidLogin extends Component {
   handleOnSuccess(public_token, metadata) {
     //this.props.setState();
 
+    /**
+     * TODO
+     * 1. make plaidToken initialization in DB to list (all Chase)
+     * 2. test plaidToken update with PlaidItem object
+     */
     //console.log("METADATA", metadata);
     this.props.startTransactionCrawl();
 
-    console.log("currentUser", this.state.currentUser);
+    let plaidTokenMap = this.state.currentUser.plaidToken;
+    const registeredBanks = plaidTokenMap.map(function (record) {
+      return record.bankName;
+    });
+
+    let registeredIndex = -1;
+
+    if (registeredBanks.includes(metadata.institution.name)) {
+      registeredIndex = registeredBanks.indexOf(metadata.institution.name);
+    }
+
+    // CASE 1: No Bank Linked
+    // CASE 2: Adding A New Bank
     if (
-      this.state.currentUser.plaidToken === undefined ||
-      this.state.currentUser.plaidToken.length === 0
+      plaidTokenMap === undefined ||
+      plaidTokenMap.length === 0 ||
+      registeredIndex < 0
     ) {
       API.post("plaidhandler", "/auth/publictoken", {
         body: {
@@ -96,16 +114,17 @@ class PlaidLogin extends Component {
       })
         .then(async (response) => {
           console.log("PublicToken Response", response);
+
+          plaidTokenMap.push({
+            bankName: response.institution,
+            token: response.access_token,
+          });
+
           API.graphql(
             graphqlOperation(updateUser, {
               input: {
                 id: this.props.userData.sub,
-                plaidToken: [
-                  {
-                    bankName: response.institution,
-                    token: response.access_token,
-                  },
-                ],
+                plaidToken: plaidTokenMap,
               },
             })
           );
@@ -131,20 +150,17 @@ class PlaidLogin extends Component {
           console.log("auth err", err);
         });
       console.log("handleOnSuccess NEW TOKEN");
-    } else {
-      //plaidToken alredy exists
-      //change this to fetch the value for the key of metadata.institution.name
+    }
 
+    // CASE 3: Updating Existing Bank Link
+    else {
       API.get("plaidhandler", "/transactions", {
         queryStringParameters: {
-          token: this.state.currentUser.plaidToken[0].token,
+          token: plaidTokenMap[registeredIndex].token,
           userID: this.props.userData.sub,
         },
       })
         .then((res) => {
-          this.setState({ transactions: res.transactions.transactions });
-          this.setState({ accounts: res.transactions.accounts });
-
           console.log("Transactions Update Successful!");
 
           console.log("transactions", res.transactions);
