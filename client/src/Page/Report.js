@@ -119,7 +119,27 @@ export function Report(props) {
     return linkData;
   }
 
+  async function testApi() {
+    await API.get("plaidhandler", "/transactions", {
+      queryStringParameters: {
+        token: "access-development-0d3ce2c1-73f8-4fd1-8e49-774d4e107ad8",
+        userID: "abcc5b49-bca5-49fa-ac91-079269e9168d",
+      },
+    })
+      .then((res) => {
+        console.log("Transactions Update Successful!");
+
+        //HERE!
+        console.log("transactions", res.transactions);
+        //this.props.setState();
+      })
+      .catch((error) => {
+        console.log("transactions err", error);
+      });
+  }
+
   useEffect(() => {
+    //testApi();
     setUser(props.userData);
 
     if (user) {

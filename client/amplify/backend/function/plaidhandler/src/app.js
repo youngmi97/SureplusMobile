@@ -125,7 +125,12 @@ app.get("/transactions", async function (req, res) {
   //New Transaction Method
   const plaidResponse = await client
     .getTransactions(ACCESS_TOKEN, startDate, endDate, {})
-    .catch((err) => console.log("transaction err: ", err));
+    .catch((err) => {
+      console.log("transaction err: ", err);
+      res.json({ statuscode: 400, message: err });
+    });
+
+  console.log("plaidRespons keys", plaidResponse.keys);
 
   let accounts = plaidResponse.accounts;
   let transactions = plaidResponse.transactions;
@@ -204,15 +209,17 @@ app.get("/transactions", async function (req, res) {
 
     //console.log("filteredTransactions", filteredTransactions);
 
+    // switch between filteredTransactions  <--> transactions
+    // Q: why are some not detected in the filteredTransactions??
     if (filteredTransactions.length > 0) {
-      filteredTransactions.forEach(async (transaction) => {
-        console.log("transaction", transaction);
+      transactions.forEach(async (transaction) => {
+        //console.log("transaction", transaction);
         let ddbParams = {
           TableName: transactionTableName,
           Item: {
             id: transaction.transaction_id.toString(),
             userID: userId,
-            acoountId: transaction.account_id.toString(),
+            accountId: transaction.account_id.toString(),
             amount: transaction.amount.toString(),
             date: transaction.date.toString(),
             merchantName: transaction.merchant_name || "unavailable",
@@ -232,12 +239,15 @@ app.get("/transactions", async function (req, res) {
         }
       });
     }
+    console.log("NUMBER OF TRANSACTIONS: ", transactions.length);
+
+    res.json({ statuscode: 200, transactions: transactions });
   });
 
-  Promise.all(transactionPromise).then((values) => {
-    console.log("values", values);
-    res.json({ transactions: transactions });
-  });
+  // Promise.all(transactionPromise).then((values) => {
+  //   console.log("values", values);
+  //   res.json({ statuscode: 200, transactions: transactions });
+  // });
 });
 
 app.listen(3000, function () {
