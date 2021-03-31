@@ -14,6 +14,16 @@
     "categories": {
       "auth": {
         "sureplusamplify759f9350": {}
+      },
+      "function": {
+        "plaidhandler": {
+          "deploymentBucketName": "amplify-sureplusamplify-dev-115817-deployment",
+          "s3Key": "amplify-builds/plaidhandler-4c794d506d5077366c5a-build.zip"
+        },
+        "transaction2service": {
+          "deploymentBucketName": "amplify-sureplusamplify-dev-115817-deployment",
+          "s3Key": "amplify-builds/transaction2service-6157684e75514e524c61-build.zip"
+        }
       }
     }
   }

@@ -12,6 +12,7 @@ import PullToRefresh from "react-simple-pull-to-refresh";
 import { AuthContext } from "../context/auth";
 
 import { onCreateSubscriptionServices } from "../graphql/subscriptions";
+import { createSubscriptionServices } from "../graphql/mutations";
 
 import ToolBar from "../components/ToolBar";
 import Main from "../components/MainReport";
@@ -120,26 +121,33 @@ export function Report(props) {
   }
 
   async function testApi() {
-    await API.get("plaidhandler", "/transactions", {
-      queryStringParameters: {
-        token: "access-development-0d3ce2c1-73f8-4fd1-8e49-774d4e107ad8",
-        userID: "abcc5b49-bca5-49fa-ac91-079269e9168d",
-      },
-    })
-      .then((res) => {
-        console.log("Transactions Update Successful!");
+    // await API.get("plaidhandler", "/transactions", {
+    //   queryStringParameters: {
+    //     token: "access-development-3cefd57d-d040-48d0-9b24-788af39681b3",
+    //     userID: "9943a4d1-772f-44b1-b1ee-dc22ad42ad59",
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log("Transactions Update Successful!");
 
-        //HERE!
-        console.log("transactions", res.transactions);
-        //this.props.setState();
-      })
-      .catch((error) => {
-        console.log("transactions err", error);
-      });
+    //     //HERE!
+    //     console.log("transactions", res.transactions);
+    //     //this.props.setState();
+    //   })
+    //   .catch((error) => {
+    //     console.log("transactions err", error);
+    //   });
+    await API.post("transaction2service", "/extract/subscription", {
+      body: {
+        userid: "9943a4d1-772f-44b1-b1ee-dc22ad42ad59",
+      },
+    }).then(async (response) => {
+      console.log("transaction2service", response);
+    });
   }
 
   useEffect(() => {
-    //testApi();
+    testApi();
     setUser(props.userData);
 
     if (user) {

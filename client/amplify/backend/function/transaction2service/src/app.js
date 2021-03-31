@@ -90,79 +90,91 @@ app.post("/extract/subscription", function (req, res) {
       var finalList = [];
       console.log("Query succeeded.");
       // res.json({ message: "Query Success", data: data });
-      data.Items.forEach(function (transactionItem) {
+
+      data.Items.forEach(async function (transactionItem) {
         if (
           transactionItem.merchantName !== "" &&
           transactionItem.merchantName !== null
         ) {
-          serviceNameList.forEach(async (name) => {
-            //check that the subscription service name is predefined
-            if (transactionItem.merchantName.includes(name)) {
-              //check that the date is within a month span
-              if (
-                transactionItem.date <= currentDate &&
-                transactionItem.date >= thresholdDate
-              ) {
-                /**
-                 * Problems with current method of extraction
-                 * 1. annual subscriptions
-                 * 2. multiple merchant name within past one month span (e.g. Lemonade Insurance)
-                 * -> if multiple instance = not a subscription(?)
-                 */
-                if (
-                  transactionItem.amount.includes(".99") ||
-                  transactionItem.amount.includes(".95")
-                ) {
-                  finalList.push(transactionItem);
+          //serviceNameList.forEach(async (name) => {
+          //check that the subscription service name is predefined
+          //if (transactionItem.merchantName.includes(name)) {
+          //check that the date is within a month span
+          if (
+            transactionItem.date <= currentDate &&
+            transactionItem.date >= thresholdDate
+          ) {
+            /**
+             * Problems with current method of extraction
+             * 1. annual subscriptions
+             * 2. multiple merchant name within past one month span (e.g. Lemonade Insurance)
+             * -> if multiple instance = not a subscription(?)
+             */
+            if (
+              transactionItem.amount.includes(".99") ||
+              transactionItem.amount.includes(".95") ||
+              serviceNameList.some((name) =>
+                transactionItem.merchantName.includes(name)
+              )
+            ) {
+              finalList.push(transactionItem);
 
-                  //write to the subscription service db
-                  /**
-                   * Changes Needed
-                   * 1. full list of transactions under the merchantName --> sorted by Date to get (firstAddedDate and lastDate)
-                   * 2. accountID attribute should be included from the indexing in dynamoDB
-                   * 3. Need an archive to store (i) subscription service names (ii) service category
-                   */
-                  var subscriptionParams = {
-                    TableName: subscriptionTable,
-                    Item: {
-                      id: transactionItem.id,
-                      __typename: "SubscriptionServices",
-                      userID: transactionItem.userID,
-                      transactionID: transactionItem.id,
-                      accountID: transactionItem.accountId,
-                      name: transactionItem.merchantName,
-                      cost: transactionItem.amount,
-                      period: "monthly",
-                      firstAddedDate: transactionItem.date,
-                      lastDate: transactionItem.date,
-                      category: ["hello", "there"],
-                      source: "plaid",
-                      createdAt: new Date().toISOString(),
-                      updatedAt: new Date().toISOString(),
-                    },
-                  };
+              //write to the subscription service db
+              /**
+               * Changes Needed
+               * 1. full list of transactions under the merchantName --> sorted by Date to get (firstAddedDate and lastDate)
+               * 2. accountID attribute should be included from the indexing in dynamoDB
+               * 3. Need an archive to store (i) subscription service names (ii) service category
+               */
+              var subscriptionParams = {
+                TableName: subscriptionTable,
+                Item: {
+                  id: transactionItem.id,
+                  __typename: "SubscriptionServices",
+                  userID: transactionItem.userID,
+                  transactionID: transactionItem.id,
+                  accountID: transactionItem.accountId,
+                  name: transactionItem.merchantName,
+                  cost: transactionItem.amount,
+                  period: "monthly",
+                  firstAddedDate: transactionItem.date,
+                  lastDate: transactionItem.date,
+                  category: ["hello", "there"],
+                  source: "plaid",
+                  createdAt: new Date().toISOString(),
+                  updatedAt: new Date().toISOString(),
+                },
+              };
 
-                  try {
-                    const db_result = await subscriptionDDB
-                      .put(subscriptionParams)
-                      .promise();
+              try {
+                const db_result = await subscriptionDDB
+                  .put(subscriptionParams)
+                  .promise();
 
-                    console.log("Success service add: ", db_result);
-                  } catch (err) {
-                    console.log("Error", err);
-                  }
-                }
+                console.log("Success service add: ", db_result);
+              } catch (err) {
+                console.log("Error", err);
               }
             }
-          });
+          }
+          //}
+          //});
         }
       });
 
-      res.json({
-        statuscode: 200,
-        message: "Query Success",
-        data: { list: finalList, count: finalList.length },
-      });
+      setTimeout(function () {
+        return res.json({
+          statuscode: 200,
+          message: "Query Success",
+          data: { list: finalList, count: finalList.length },
+        });
+      }, 3000);
+
+      // return res.json({
+      //   statuscode: 200,
+      //   message: "Query Success",
+      //   data: { list: finalList, count: finalList.length },
+      // });
     }
   });
 });

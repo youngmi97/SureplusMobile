@@ -5,7 +5,9 @@ import { AuthContext } from "../context/auth";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Typography, Dialog } from "@material-ui/core";
 import Slide from "@material-ui/core/Slide";
-import { API } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
+import { serviceByUser } from "../graphql/queries";
+import { createSubscriptionServices } from "../graphql/mutations";
 
 import PlaidLinkFirst from "./PlaidLinkFirst";
 import PlaidLinkSecond from "./PlaidLinkSecond";
@@ -69,9 +71,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function FirstLinkDrawer(props) {
   const open = props.open;
   const setOpen = props.setOpen;
-  const { user, setUser, subscriptions, setSubscriptions } = useContext(
-    AuthContext
-  );
+  const { user, setSubscriptions } = useContext(AuthContext);
   // state = what is shown in the bottom drawer
   const [state, setState] = React.useState(0);
   const [subscriptionCount, setCount] = React.useState(0);
@@ -95,6 +95,38 @@ function FirstLinkDrawer(props) {
     }).then(async (response) => {
       console.log("transaction2service", response);
       setCount(response.data.count);
+
+      // response.data.list.forEach(async (serviceItem) => {
+      //   await API.graphql(
+      //     graphqlOperation(createSubscriptionServices, {
+      //       input: {
+      //         id: serviceItem.id,
+      //         userID: serviceItem.userID,
+      //         transactionID: serviceItem.id,
+      //         accountID: serviceItem.accountId,
+      //         name: serviceItem.merchantName,
+      //         cost: serviceItem.amount,
+      //         period: "monthly",
+      //         firstAddedDate: serviceItem.date,
+      //         lastDate: serviceItem.date,
+      //         category: ["hello", "there"],
+      //         source: "plaid",
+      //         createdAt: new Date().toISOString(),
+      //         //updatedAt: new Date().toISOString(),
+      //       },
+      //     })
+      //   );
+      // });
+
+      //set subscriptions
+      const subscriptionData = await API.graphql({
+        query: serviceByUser,
+        variables: {
+          userID: user.sub,
+        },
+      });
+
+      setSubscriptions(subscriptionData.data.serviceByUser.items);
     });
     setState(2);
   };

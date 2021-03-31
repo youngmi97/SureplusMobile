@@ -91,22 +91,51 @@ app.post("/auth/publictoken", function (req, res) {
       console.log("itemResponse", itemResponse);
       console.log("inst", itemResponse.item.institution_id);
       const INSTITUTION_ID = itemResponse.item.institution_id;
-      client.getInstitutionById(
-        INSTITUTION_ID,
-        ["US"],
-        function (error, instResponse) {
-          console.log("instResponse", instResponse);
-          let INSTITUTION_NAME = instResponse.institution.name;
-          res.json({
-            access_token: ACCESS_TOKEN,
-            item_id: ITEM_ID,
-            institution: INSTITUTION_NAME,
-          });
-        }
-      );
+      client.getInstitutionById(INSTITUTION_ID, ["US"], function (
+        error,
+        instResponse
+      ) {
+        console.log("instResponse", instResponse);
+        let INSTITUTION_NAME = instResponse.institution.name;
+        res.json({
+          access_token: ACCESS_TOKEN,
+          item_id: ITEM_ID,
+          institution: INSTITUTION_NAME,
+        });
+      });
     });
   });
 });
+
+async function saveTransactions(transactions) {
+  const transactionTableName = "UserBankTransactions";
+  transactions.forEach(async (transaction) => {
+    //console.log("transaction", transaction);
+    let ddbParams = {
+      TableName: transactionTableName,
+      Item: {
+        id: transaction.transaction_id.toString(),
+        userID: userId,
+        accountId: transaction.account_id.toString(),
+        amount: transaction.amount.toString(),
+        date: transaction.date.toString(),
+        merchantName: transaction.merchant_name || "unavailable",
+        transactionName: transaction.name || "",
+        paymentChannel: transaction.payment_channel || "",
+        transactionType: transaction.transaction_type || "",
+      },
+    };
+
+    try {
+      const db_result = await transactionDdb.put(ddbParams).promise();
+      //transactionPromise.push(db_result);
+
+      console.log("Success transaction add: ", db_result);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  });
+}
 
 app.get("/transactions", async function (req, res) {
   // Pull transactions for the last 30 days
@@ -151,10 +180,9 @@ app.get("/transactions", async function (req, res) {
   }
   //at this point we have the accounts and transactions lists that we need
   const tableName = "UserCards-jzofihw23vdc5jdrwrs2rhgw5a-dev";
-  const transactionTableName = "UserBankTransactions";
 
   //console.log("transactionsResponse", transactionsResponse);
-  const transactionPromise = [];
+  //const transactionPromise = [];
 
   new Promise(function (resolve, reject) {
     var filteredAccounts = accounts.filter((account) => {
@@ -194,7 +222,7 @@ app.get("/transactions", async function (req, res) {
     }
 
     resolve(filteredAccounts);
-  }).then(function (filteredAccounts) {
+  }).then(async function (filteredAccounts) {
     //console.log("filteredAccounts", filteredAccounts);
     var filteredTransactions = transactions.filter((transaction) => {
       var selection = false;
@@ -212,32 +240,7 @@ app.get("/transactions", async function (req, res) {
     // switch between filteredTransactions  <--> transactions
     // Q: why are some not detected in the filteredTransactions??
     if (filteredTransactions.length > 0) {
-      transactions.forEach(async (transaction) => {
-        //console.log("transaction", transaction);
-        let ddbParams = {
-          TableName: transactionTableName,
-          Item: {
-            id: transaction.transaction_id.toString(),
-            userID: userId,
-            accountId: transaction.account_id.toString(),
-            amount: transaction.amount.toString(),
-            date: transaction.date.toString(),
-            merchantName: transaction.merchant_name || "unavailable",
-            transactionName: transaction.name || "",
-            paymentChannel: transaction.payment_channel || "",
-            transactionType: transaction.transaction_type || "",
-          },
-        };
-
-        try {
-          const db_result = await transactionDdb.put(ddbParams).promise();
-          transactionPromise.push(db_result);
-
-          console.log("Success transaction add: ", db_result);
-        } catch (err) {
-          console.log("Error", err);
-        }
-      });
+      await saveTransactions(transactions);
     }
     console.log("NUMBER OF TRANSACTIONS: ", transactions.length);
 
