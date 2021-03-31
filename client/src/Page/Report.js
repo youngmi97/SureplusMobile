@@ -147,7 +147,7 @@ export function Report(props) {
   }
 
   useEffect(() => {
-    testApi();
+    //testApi();
     setUser(props.userData);
 
     if (user) {

@@ -4,6 +4,14 @@ import { Button, Typography, Box } from "@material-ui/core";
 import "../App.css";
 
 function ListCard2(props) {
+  //defaulting to Placeholder directory when image asset doesnt exist
+  var image = new Image();
+  var url_img = props.src;
+  image.src = url_img;
+  if (image.width == 0) {
+    url_img = "/Img/" + "Placeholder" + "/[32].svg";
+  }
+
   return (
     <div style={{ width: "100%", alignContent: "center" }}>
       <Button
@@ -58,7 +66,7 @@ function ListCard2(props) {
                 >
                   <img
                     alt="name"
-                    src={props.src}
+                    src={url_img}
                     style={{
                       width: "3.94vh",
                       height: "3.94vh",
