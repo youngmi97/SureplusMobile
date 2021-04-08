@@ -344,6 +344,14 @@ export default function Subscription(props) {
     checkedA: true,
   });
 
+  var image = new Image();
+  const serviceName = li.name.replace(/\s/g, "");
+  var url_img = "/SubscriptionCards/" + serviceName + ".svg";
+  image.src = url_img;
+  if (image.width == 0) {
+    url_img = "/SubscriptionCards/" + "Default.svg";
+  }
+
   return (
     <div>
       <div className={classes.Dialog}>
@@ -369,7 +377,7 @@ export default function Subscription(props) {
           >
             <img
               alt="name"
-              src={"/SubscriptionCards/" + li.name + ".svg"}
+              src={url_img}
               style={{
                 margin: 0,
                 padding: 0,
