@@ -79,6 +79,13 @@ function Subscribe(props) {
         }}
       >
         {props.list.map((array, indx) => {
+          var image = new Image();
+          var url_img = "/Img/" + array.name + "/[32].svg";
+
+          image.src = url_img;
+          if (image.width == 0) {
+            url_img = "/Img/" + "Placeholder" + "/[32].svg";
+          }
           return (
             <Grid
               item
@@ -102,7 +109,7 @@ function Subscribe(props) {
               >
                 <img
                   alt="name"
-                  src={"/Img/" + array.name + "/[32].svg"}
+                  src={url_img}
                   style={{
                     width: "7.8125vh",
                     height: "7.8125vh",

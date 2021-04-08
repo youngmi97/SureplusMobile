@@ -9,6 +9,7 @@ const AuthContext = createContext({
   loading: true,
   link: false,
   openbottom: false,
+  bankAccounts: [],
 });
 
 const localState = JSON.parse(localStorage.getItem("info"));
@@ -63,6 +64,11 @@ function authReducer(state, action) {
         ...state,
         openbottom: action.payload,
       };
+    case "SET_BANKACCOUNTS":
+      return {
+        ...state,
+        bankAccounts: action.payload,
+      };
 
     default:
       return state;
@@ -81,6 +87,7 @@ function AuthProvider(props) {
       backlink: null,
       link: false,
       openbottom: false,
+      bankAccounts: [],
     }
   );
 
@@ -104,6 +111,14 @@ function AuthProvider(props) {
     dispatch({
       type: "SET_AUTHSTATE",
       payload: authState,
+    });
+  }
+
+  function setBankAccounts(bankAccounts) {
+    console.log("Setting bank accounts");
+    dispatch({
+      type: "SET_BANKACCOUNTS",
+      payload: bankAccounts,
     });
   }
 
@@ -163,6 +178,8 @@ function AuthProvider(props) {
         setLink,
         openbottom: state.openbottom,
         setOpenbottom,
+        bankAccounts: state.bankAccounts,
+        setBankAccounts,
       }}
       {...props}
     />

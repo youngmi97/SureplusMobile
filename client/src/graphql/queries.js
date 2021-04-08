@@ -43,7 +43,6 @@ export const listUserNotifications = /* GraphQL */ `
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
-      id
       name
       phone_number
       plaidToken {
@@ -51,9 +50,6 @@ export const getUser = /* GraphQL */ `
         token
       }
       firebaseToken
-      createdAt
-      type
-      updatedAt
     }
   }
 `;
@@ -248,8 +244,6 @@ export const accountByUser = /* GraphQL */ `
         userID
         name
         balance
-        createdAt
-        updatedAt
       }
       nextToken
     }

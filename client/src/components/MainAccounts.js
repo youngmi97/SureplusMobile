@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "../context/auth";
 import {} from "@material-ui/core/styles";
-
+import { accountByUser, getUser } from "../graphql/queries";
+import { API } from "aws-amplify";
 import ListCard3 from "./ListCard8";
 
 import "../App.css";
 
 function Subscribe() {
+  const { user, bankAccounts } = useContext(AuthContext);
+  const [bankName, setBankName] = React.useState(
+    "/Img/" + "Placeholder" + "/[32].svg"
+  );
+
+  async function callUserInfo() {
+    const userInfo = await API.graphql({
+      query: getUser,
+      variables: {
+        id: user.sub,
+      },
+    });
+    //console.log("BankAccounts: ", bankAccountData);
+    // console.log("userInfo: ", userInfo);
+    var bankName = userInfo.data.getUser.plaidToken[0].bankName || "Chase";
+    bankName = bankName.replace(/\s/g, "");
+
+    var image = new Image();
+    const tmpBankAsset = "/Bank/" + bankName + ".svg";
+
+    image.src = tmpBankAsset;
+    if (image.width != 0) {
+      setBankName(tmpBankAsset);
+    }
+  }
+
+  useEffect(async () => {
+    await callUserInfo();
+  }, []);
+
   return (
     <div
       style={{
@@ -40,7 +72,7 @@ function Subscribe() {
             src="Recurring.svg"
           ></ListCard1> */}
 
-          <ListCard3
+          {/* <ListCard3
             r1="12px"
             r2="12px"
             r3="12px"
@@ -62,7 +94,25 @@ function Subscribe() {
             name="$200"
             plan="Wells Fargo"
             day={0}
-          ></ListCard3>
+          ></ListCard3> */}
+          {bankAccounts.map((element, index) => {
+            return (
+              <div>
+                <ListCard3
+                  r1="12px"
+                  r2="12px"
+                  r3="12px"
+                  r4="12px"
+                  month="Mar"
+                  src={bankName}
+                  name={"$" + element.balance}
+                  plan={element.name}
+                  day={1}
+                ></ListCard3>
+                <div style={{ height: 16 }}></div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

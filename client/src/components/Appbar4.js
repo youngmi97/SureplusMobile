@@ -61,11 +61,11 @@ function Appbar1(props) {
             right: "10vw",
           }}
         >
-          <img
+          {/* <img
             alt="name"
             src="Icons[32]/Type=Sort.svg"
             style={{ width: "4.16vh", height: "4.16vh" }}
-          ></img>
+          ></img> */}
         </Box>
         {/* <Box
           p={1}

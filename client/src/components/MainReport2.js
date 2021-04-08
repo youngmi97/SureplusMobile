@@ -2,13 +2,12 @@
 
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth";
-import { API, graphqlOperation } from "aws-amplify";
+import { API } from "aws-amplify";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, Box } from "@material-ui/core";
-import gql from "graphql-tag";
 
-import { accountByUser } from "../graphql/queries";
+import { accountByUser, getUser } from "../graphql/queries";
 import ListCard2 from "./ListCard7";
 import ListCard3 from "./ListCard8";
 import { Link } from "react-router-dom";
@@ -32,30 +31,63 @@ const useStyles = makeStyles((theme) => ({
 function Subscribe(props) {
   const classes = useStyles();
 
-  const [data1, setData1] = React.useState([]);
+  const [bankName, setBankName] = React.useState(
+    "/Img/" + "Placeholder" + "/[32].svg"
+  );
   const [num, setNum] = React.useState("");
 
-  const { user, setUser, subscriptions, setSubscriptions } = useContext(
-    AuthContext
-  );
+  const {
+    user,
+    setUser,
+    subscriptions,
+    setSubscriptions,
+    bankAccounts,
+    setBankAccounts,
+  } = useContext(AuthContext);
 
   const open = props.open;
   const setOpen = props.setOpen;
   async function callaccountByUser() {
-    const subscriptionData = await API.graphql({
+    const bankAccountData = await API.graphql({
       query: accountByUser,
       variables: {
         userID: user.sub,
       },
     });
-    setSubscriptions(subscriptionData.data.accountByUser.items);
-    setNum(subscriptionData.data.accountByUser.items.length);
-    console.log(subscriptions);
+    //console.log("BankAccounts: ", bankAccountData);
+
+    setBankAccounts(bankAccountData.data.accountByUser.items);
+    setNum(bankAccountData.data.accountByUser.items.length);
+    //console.log("BankAccounts: ", bankAccounts);
+    return bankAccountData;
   }
 
-  useEffect(() => {
+  async function callUserInfo() {
+    const userInfo = await API.graphql({
+      query: getUser,
+      variables: {
+        id: user.sub,
+      },
+    });
+    //console.log("BankAccounts: ", bankAccountData);
+    // console.log("userInfo: ", userInfo);
+    var bankName = userInfo.data.getUser.plaidToken[0].bankName || "Chase";
+    bankName = bankName.replace(/\s/g, "");
+
+    var image = new Image();
+    const tmpBankAsset = "/Bank/" + bankName + ".svg";
+
+    image.src = tmpBankAsset;
+    if (image.width != 0) {
+      setBankName(tmpBankAsset);
+    }
+  }
+
+  useEffect(async () => {
     console.log("user", user);
-    callaccountByUser();
+    const bankData = await callaccountByUser();
+    await callUserInfo();
+    console.log("Effect Accounts:", bankData);
   }, []);
 
   return (
@@ -68,7 +100,7 @@ function Subscribe(props) {
         paddingBottom: 20,
       }}
     >
-      {(() => {
+      {/* {(() => {
         if (props.empty) {
           return <div></div>;
         } else {
@@ -90,15 +122,6 @@ function Subscribe(props) {
                   padding: 0,
                 }}
               >
-                {/* <ListCard1
-              r1="12px"
-              r2="12px"
-              r3="0px"
-              r4="0px"
-              text="This Week"
-              second="$11.8"
-              src="Recurring.svg"
-            ></ListCard1> */}
                 <Typography className={classes.ListItemSize2}>
                   {"Physical Cards " + num}
                 </Typography>
@@ -132,7 +155,7 @@ function Subscribe(props) {
             </div>
           );
         }
-      })()}
+      })()} */}
 
       <div
         style={{
@@ -220,7 +243,22 @@ function Subscribe(props) {
                   <Typography className={classes.ListItemSize2}>
                     Linked Accounts
                   </Typography>
-                  <ListCard3
+                  {bankAccounts.map((element, index) => {
+                    return (
+                      <ListCard3
+                        r1="0px"
+                        r2="0px"
+                        r3="0px"
+                        r4="0px"
+                        month="Mar"
+                        src={bankName}
+                        name={"$" + element.balance}
+                        plan={element.name}
+                        day={1}
+                      ></ListCard3>
+                    );
+                  })}
+                  {/* <ListCard3
                     r1="0px"
                     r2="0px"
                     r3="0px"
@@ -241,7 +279,7 @@ function Subscribe(props) {
                     name="$200"
                     plan="Wells Fargo"
                     day={0}
-                  ></ListCard3>
+                  ></ListCard3> */}
                   <Button
                     component={Link}
                     to="/Accounts"

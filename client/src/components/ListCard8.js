@@ -5,12 +5,12 @@ import "../App.css";
 
 function ListCard2(props) {
   //defaulting to Placeholder directory when image asset doesnt exist
-  var image = new Image();
+  // var image = new Image();
   var url_img = props.src;
-  image.src = url_img;
-  if (image.width == 0) {
-    url_img = "/Img/" + "Placeholder" + "/[32].svg";
-  }
+  // image.src = url_img;
+  // if (image.width == 0) {
+  //   url_img = "/Img/" + "Placeholder" + "/[32].svg";
+  // }
   return (
     <div style={{ width: "100%", alignContent: "center" }}>
       <Button

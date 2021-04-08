@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Button, Typography, Box } from "@material-ui/core";
 import "../App.css";
@@ -7,6 +7,7 @@ function ListCard2(props) {
   //defaulting to Placeholder directory when image asset doesnt exist
   var image = new Image();
   var url_img = props.src;
+
   image.src = url_img;
   if (image.width == 0) {
     url_img = "/Img/" + "Placeholder" + "/[32].svg";
