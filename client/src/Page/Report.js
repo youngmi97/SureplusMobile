@@ -123,8 +123,8 @@ export function Report(props) {
   async function testApi() {
     await API.get("plaidhandler", "/transactions", {
       queryStringParameters: {
-        token: "access-development-8a42185d-aff0-4513-ba3d-e982f05479b8",
-        userID: "5896a1f3-0f5c-41c6-9bb5-c348a6f2da3f",
+        token: "access-development-3cefd57d-d040-48d0-9b24-788af39681b3",
+        userID: "9943a4d1-772f-44b1-b1ee-dc22ad42ad59",
       },
     })
       .then((res) => {
@@ -139,7 +139,7 @@ export function Report(props) {
       });
     await API.post("transaction2service", "/extract/subscription", {
       body: {
-        userid: "5896a1f3-0f5c-41c6-9bb5-c348a6f2da3f",
+        userid: "9943a4d1-772f-44b1-b1ee-dc22ad42ad59",
       },
     }).then(async (response) => {
       console.log("transaction2service", response);
@@ -147,7 +147,7 @@ export function Report(props) {
   }
 
   useEffect(() => {
-    //testApi();
+    testApi();
     setUser(props.userData);
 
     if (user) {

@@ -107,10 +107,40 @@ app.post("/auth/publictoken", function (req, res) {
   });
 });
 
+async function saveAccounts(accounts) {
+  const tableName = "UserCards-jzofihw23vdc5jdrwrs2rhgw5a-dev";
+  var filteredAccounts = accounts.filter((account) => {
+    var key = "credit" || "other";
+    return account.type === key || account.subtype.includes("card");
+  });
+
+  if (filteredAccounts.length > 0) {
+    filteredAccounts.forEach(async (account) => {
+      let ddbParams = {
+        TableName: tableName,
+        Item: {
+          id: account.account_id.toString(),
+          userID: userId,
+          name: account.name.toString(),
+          balance: account.balances.current.toString(),
+        },
+      };
+
+      try {
+        const db_result = await ddb.put(ddbParams).promise();
+        console.log("Success account add: ", db_result);
+      } catch (err) {
+        console.log("Error", err);
+      }
+    });
+  }
+
+  return filteredAccounts;
+}
+
 async function saveTransactions(transactions) {
   const transactionTableName = "UserBankTransactions";
   transactions.forEach(async (transaction) => {
-    //console.log("transaction", transaction);
     let ddbParams = {
       TableName: transactionTableName,
       Item: {
@@ -128,8 +158,6 @@ async function saveTransactions(transactions) {
 
     try {
       const db_result = await transactionDdb.put(ddbParams).promise();
-      //transactionPromise.push(db_result);
-
       console.log("Success transaction add: ", db_result);
     } catch (err) {
       console.log("Error", err);
@@ -159,8 +187,6 @@ app.get("/transactions", async function (req, res) {
       res.json({ statuscode: 400, message: err });
     });
 
-  console.log("plaidRespons keys", plaidResponse.keys);
-
   let accounts = plaidResponse.accounts;
   let transactions = plaidResponse.transactions;
   const total_transactions = plaidResponse.total_transactions;
@@ -179,51 +205,13 @@ app.get("/transactions", async function (req, res) {
     );
   }
   //at this point we have the accounts and transactions lists that we need
-  const tableName = "UserCards-jzofihw23vdc5jdrwrs2rhgw5a-dev";
 
-  //console.log("transactionsResponse", transactionsResponse);
-  //const transactionPromise = [];
-
-  new Promise(function (resolve, reject) {
-    var filteredAccounts = accounts.filter((account) => {
-      var key = "credit" || "other";
-      return account.type === key || account.subtype.includes("card");
-    });
-
-    if (filteredAccounts.length > 0) {
-      filteredAccounts.forEach((account) => {
-        console.log("account", account);
-        let ddbParams = {
-          TableName: tableName,
-          Item: {
-            id: account.account_id.toString(),
-            userID: userId,
-            name: account.name.toString(),
-            balance: account.balances.current.toString(),
-          },
-        };
-
-        // Call DynamoDB
-        try {
-          //const db_result = await ddb.put(ddbParams).promise();
-
-          //console.log("Success account add: ", db_result);
-          ddb.put(ddbParams, function (err, data) {
-            if (err) {
-              console.log("FAIL account add:", err);
-            } else {
-              console.log("Success account add: ", data);
-            }
-          });
-        } catch (err) {
-          console.log("Error", err);
-        }
-      });
-    }
-
+  new Promise(async function (resolve, reject) {
+    const filteredAccounts = await saveAccounts(accounts);
     resolve(filteredAccounts);
   }).then(async function (filteredAccounts) {
-    //console.log("filteredAccounts", filteredAccounts);
+    //remove account filter
+    console.log("filteredAccounts", filteredAccounts);
     var filteredTransactions = transactions.filter((transaction) => {
       var selection = false;
       filteredAccounts.every((account) => {
@@ -235,22 +223,14 @@ app.get("/transactions", async function (req, res) {
       return selection;
     });
 
-    //console.log("filteredTransactions", filteredTransactions);
-
-    // switch between filteredTransactions  <--> transactions
-    // Q: why are some not detected in the filteredTransactions??
     if (filteredTransactions.length > 0) {
-      await saveTransactions(transactions);
+      await saveTransactions(filteredTransactions);
     }
+    //await saveTransactions(transactions);
     console.log("NUMBER OF TRANSACTIONS: ", transactions.length);
 
     res.json({ statuscode: 200, transactions: transactions });
   });
-
-  // Promise.all(transactionPromise).then((values) => {
-  //   console.log("values", values);
-  //   res.json({ statuscode: 200, transactions: transactions });
-  // });
 });
 
 app.listen(3000, function () {

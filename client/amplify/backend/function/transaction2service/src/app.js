@@ -102,7 +102,8 @@ app.post("/extract/subscription", function (req, res) {
           //check that the date is within a month span
           if (
             transactionItem.date <= currentDate &&
-            transactionItem.date >= thresholdDate
+            transactionItem.date >= thresholdDate &&
+            transactionItem.paymentChannel == "online"
           ) {
             /**
              * Problems with current method of extraction
