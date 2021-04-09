@@ -34,6 +34,7 @@ function Subscribe(props) {
   const [bankName, setBankName] = React.useState(
     "/Img/" + "Placeholder" + "/[32].svg"
   );
+  const [bankData, setBankData] = React.useState([]);
   const [num, setNum] = React.useState("");
 
   const {
@@ -85,7 +86,8 @@ function Subscribe(props) {
 
   useEffect(async () => {
     console.log("user", user);
-    const bankData = await callaccountByUser();
+    const bankDataTmp = await callaccountByUser();
+    setBankData(bankDataTmp);
     await callUserInfo();
     console.log("Effect Accounts:", bankData);
   }, []);
