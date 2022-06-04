@@ -116,15 +116,15 @@ export function Report(props) {
       },
     });
 
-    check_empty(linkData.data.getUser.plaidToken);
+    check_empty(linkData.data.getUser.Token);
     return linkData;
   }
 
   async function testApi() {
     await API.get("plaidhandler", "/transactions", {
       queryStringParameters: {
-        token: "access-development-3cefd57d-d040-48d0-9b24-788af39681b3",
-        userID: "9943a4d1-772f-44b1-b1ee-dc22ad42ad59",
+        token: "",
+        userID: "",
       },
     })
       .then((res) => {
